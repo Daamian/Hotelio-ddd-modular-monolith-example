@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Bootstrapper", "src\Bootstrapper\Hotelio.Bootstrapper\Hotelio.Bootstrapper.csproj", "{630721FB-A01C-4412-B0F1-CD83A1D039D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bootstrapper", "Bootstrapper", "{F5032891-5513-4BDF-BC4E-0E87D78D0374}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{F1E450D8-CE9C-4C59-9277-E32EE5EFEF8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Booking", "Booking", "{B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Modules.Booking.Domain", "src\Modules\Booking\Hotelio.Modules.Booking.Domain\Hotelio.Modules.Booking.Domain.csproj", "{8910E19C-EC9F-4A1C-89A2-446E8D4E78CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Modules.Booking.Infrastructure", "src\Modules\Booking\Hotelio.Modules.Booking.Infrastructure\Hotelio.Modules.Booking.Infrastructure.csproj", "{73E648DA-4C46-4929-AE06-C31EDA7FA996}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E7F637DE-3A24-44E9-B2B1-035D061C27FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Shared", "src\Shared\Hotelio.Shared\Hotelio.Shared.csproj", "{FB3217C8-A749-4575-B7F3-286355126A43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Module.Booking.Shared", "src\Modules\Booking\Hotelio.Module.Booking.Shared\Hotelio.Module.Booking.Shared.csproj", "{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{630721FB-A01C-4412-B0F1-CD83A1D039D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{630721FB-A01C-4412-B0F1-CD83A1D039D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{630721FB-A01C-4412-B0F1-CD83A1D039D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{630721FB-A01C-4412-B0F1-CD83A1D039D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8910E19C-EC9F-4A1C-89A2-446E8D4E78CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8910E19C-EC9F-4A1C-89A2-446E8D4E78CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8910E19C-EC9F-4A1C-89A2-446E8D4E78CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8910E19C-EC9F-4A1C-89A2-446E8D4E78CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73E648DA-4C46-4929-AE06-C31EDA7FA996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73E648DA-4C46-4929-AE06-C31EDA7FA996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73E648DA-4C46-4929-AE06-C31EDA7FA996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E648DA-4C46-4929-AE06-C31EDA7FA996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB3217C8-A749-4575-B7F3-286355126A43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB3217C8-A749-4575-B7F3-286355126A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB3217C8-A749-4575-B7F3-286355126A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB3217C8-A749-4575-B7F3-286355126A43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{630721FB-A01C-4412-B0F1-CD83A1D039D2} = {F5032891-5513-4BDF-BC4E-0E87D78D0374}
+		{B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA} = {F1E450D8-CE9C-4C59-9277-E32EE5EFEF8C}
+		{8910E19C-EC9F-4A1C-89A2-446E8D4E78CA} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
+		{73E648DA-4C46-4929-AE06-C31EDA7FA996} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
+		{FB3217C8-A749-4575-B7F3-286355126A43} = {E7F637DE-3A24-44E9-B2B1-035D061C27FE}
+		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}
+	EndGlobalSection
+EndGlobal
