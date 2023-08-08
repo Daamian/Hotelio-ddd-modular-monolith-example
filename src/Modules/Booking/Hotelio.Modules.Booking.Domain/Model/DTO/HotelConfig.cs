@@ -1,11 +1,13 @@
 ﻿namespace Hotelio.Modules.Booking.Domain.Model.DTO;
 internal class HotelConfig
 {
-    public readonly List<int> amenities = new List<int>();
+    public readonly string Id;
+    public readonly List<string> amenities = new List<string>();
     public readonly List<RoomTypeConfig> roomTypes = new List<RoomTypeConfig>();
 
-    public HotelConfig(List<int> amenities, List<RoomTypeConfig> roomTypes)
+    public HotelConfig(string Id, List<string> amenities, List<RoomTypeConfig> roomTypes)
     {
+        this.Id = Id;
         this.amenities = amenities;
         this.roomTypes = roomTypes;
     }

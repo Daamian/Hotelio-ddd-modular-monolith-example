@@ -1,32 +1,55 @@
 ﻿using Hotelio.Modules.Booking.Domain.Model.DTO;
+using Hotelio.Shared.Exception;
 
 namespace Hotelio.Modules.Booking.Domain.Model;
 
 internal class Reservation
 {
-    private int HotelId;
+    private string Id;
+    private string HotelId;
     private int RoomType;
-    private List<int> Amenities;
     private int NumberOfGuests;
     private Status Status;
     private double PriceToPay;
     private double PricePayed;
     private PaymentType PaymentType;
     private DateRange DateRange;
+    private List<Amenity> Amenities;
 
-    public static Reservation Create()
+    private Reservation(string id, string hotelId, int roomType, int numberOfGuests, Status status, double priceToPay, double pricePayed, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
-        if (!IsNumberOfGuestCorrectToRoomType())
+        Id = id;
+        HotelId = hotelId;
+        RoomType = roomType;
+        NumberOfGuests = numberOfGuests;
+        Status = status;
+        PriceToPay = priceToPay;
+        PricePayed = pricePayed;
+        PaymentType = paymentType;
+        DateRange = dateRange;
+        Amenities = amenities;
+    }
+
+    public static Reservation Create(string id, HotelConfig hotel, int roomType, int numberOfGuests, double priceToPay, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
+    {
+        var roomTypeConfig = hotel.roomTypes.Find(r => r.RoomType == roomType);
+
+        if (null == roomTypeConfig)
         {
-            throw new Exception("Invalid room type");
+            throw new DomainException($"Invalid room type {roomType} for hotel {hotel.Id}");
+        }
+
+        if (!IsNumberOfGuestCorrectToRoomType(numberOfGuests, roomTypeConfig))
+        {
+            throw new DomainException($"Room type {roomTypeConfig.RoomType} has only {roomTypeConfig.MaxGuests} guests");
         }
         
-        if (!IsAmenitiesAvailableInHotel())
+        if (!IsAmenitiesAvailableInHotel(amenities, hotel))
         {
-            throw new Exception("Invalid amenities");
+            throw new DomainException($"Invalid amenities for hotel");
         }
 
-        throw new NotImplementedException();
+        return new Reservation(id, hotel.Id, roomType, numberOfGuests, Status.CREATED, priceToPay, 0, paymentType, dateRange, amenities);
     }
 
     public void Pay(double price)
@@ -49,14 +72,14 @@ internal class Reservation
         throw new NotImplementedException();
     }
 
-    public void AddAmenity(int amenity)
+    public void AddAmenity(string amenity)
     {
         if (!IsConfirmed())
         {
             throw new Exception("Invalid amenities");
         }
 
-        if (!IsAmenitiesAvailableInHotel())
+        /*if (!IsAmenitiesAvailableInHotel())
         {
             throw new Exception("Invalid amenities");
         }
@@ -64,7 +87,7 @@ internal class Reservation
         if (IsAmenityNotExists(amenity))
         {
             throw new Exception("Invalid amenities");
-        }
+        }*/
 
         throw new NotImplementedException();
     }
@@ -94,10 +117,10 @@ internal class Reservation
             throw new Exception();
         }
 
-        if (IsNumberOfGuestCorrectToRoomType())
+        /*if (IsNumberOfGuestCorrectToRoomType())
         {
             throw new Exception();
-        }
+        }*/
 
         if (numberOfGuests <= this.NumberOfGuests)
         {
@@ -164,19 +187,46 @@ internal class Reservation
         throw new NotImplementedException();
     }
 
+    public IDictionary<string, object> Snapshot()
+    {
+        return new Dictionary<string, object>
+        {
+            { "Id", this.Id },
+            { "HotelId", this.HotelId },
+            { "RoomType", this.RoomType },
+            { "NumberOfGuests", this.NumberOfGuests },
+            { "Status", this.Status },
+            { "PriceToPay", this.PriceToPay },
+            { "PricePayed", this.PricePayed },
+            { "PaymentType", this.PaymentType },
+            { "DateRange", this.DateRange },
+            { "Amenities", this.Amenities },
+        };
+    }
+
     private bool IsPending()
     {
         throw new NotImplementedException();
     }
 
-    private static bool IsAmenitiesAvailableInHotel()
+    private static bool IsAmenitiesAvailableInHotel(List<Amenity> amenities, HotelConfig hotel)
     {
-        throw new NotImplementedException();
+        foreach (var amenity in amenities) {
+            var amenityFound = hotel.amenities.Find(a => a == amenity.Id);
+            if (null == amenityFound) { return false; }
+        }
+
+        return true;
     }
 
-    private static bool IsNumberOfGuestCorrectToRoomType()
+    private static bool IsNumberOfGuestCorrectToRoomType(int numberOfGuests, RoomTypeConfig roomTypeConfig)
     {
-        throw new NotImplementedException();
+        if (numberOfGuests > roomTypeConfig.MaxGuests)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private bool IsActive()

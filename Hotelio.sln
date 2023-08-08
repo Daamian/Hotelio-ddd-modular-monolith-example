@@ -17,9 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Modules.Booking.Inf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E7F637DE-3A24-44E9-B2B1-035D061C27FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Shared", "src\Shared\Hotelio.Shared\Hotelio.Shared.csproj", "{FB3217C8-A749-4575-B7F3-286355126A43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Shared", "src\Shared\Hotelio.Shared\Hotelio.Shared.csproj", "{FB3217C8-A749-4575-B7F3-286355126A43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Module.Booking.Shared", "src\Modules\Booking\Hotelio.Module.Booking.Shared\Hotelio.Module.Booking.Shared.csproj", "{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Module.Booking.Shared", "src\Modules\Booking\Hotelio.Module.Booking.Shared\Hotelio.Module.Booking.Shared.csproj", "{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9674D4C5-FA88-4A11-95BA-40FB84B861C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Booking.Test.Unit", "src\Modules\Booking\Test\Hotelio.Modules.Booking.Test.Unit\Hotelio.Modules.Booking.Test.Unit.csproj", "{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,10 @@ Global
 		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +66,8 @@ Global
 		{73E648DA-4C46-4929-AE06-C31EDA7FA996} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
 		{FB3217C8-A749-4575-B7F3-286355126A43} = {E7F637DE-3A24-44E9-B2B1-035D061C27FE}
 		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
+		{9674D4C5-FA88-4A11-95BA-40FB84B861C5} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
+		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171} = {9674D4C5-FA88-4A11-95BA-40FB84B861C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}
