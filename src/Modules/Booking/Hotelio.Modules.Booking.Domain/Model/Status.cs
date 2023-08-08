@@ -2,5 +2,6 @@
 enum Status
 {
     CREATED = 0,
+    CONFIRMED = 1,
 }
 

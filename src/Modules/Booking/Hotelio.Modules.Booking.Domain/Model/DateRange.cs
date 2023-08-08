@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hotelio.Modules.Booking.Domain.Model;
+﻿namespace Hotelio.Modules.Booking.Domain.Model;
 
 internal class DateRange
 {
@@ -15,6 +9,13 @@ internal class DateRange
     {
         StartDate = startDate;
         EndDate = endDate;
+    }
+
+    public bool isGratherThan(DateRange dateRange)
+    {
+        if (this.StartDate <= dateRange.StartDate && this.EndDate >= dateRange.EndDate) { return true; }
+
+        return false;
     }
 }
 

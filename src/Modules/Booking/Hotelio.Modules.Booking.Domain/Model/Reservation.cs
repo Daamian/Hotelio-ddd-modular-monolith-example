@@ -54,97 +54,96 @@ internal class Reservation
 
     public void Pay(double price)
     {
-        if (!IsUnpaid() && IsActive())
+        if (IsPaid())
         {
-            throw new Exception("Invalid state");
+            throw new DomainException("Reservation is payed yet.");
         }
 
-        throw new NotImplementedException();
+        this.PricePayed += price;
     }
 
     public void Confirm()
     {
-        if (!IsPaidIfPaymentInAdvance())
+        if (this.PaymentType == PaymentType.IN_ADVANCE)
         {
-            throw new Exception("Invalid state");
+            throw new DomainException("Reservation must be paid to confirm");
         }
 
-        throw new NotImplementedException();
+        this.Status= Status.CONFIRMED;
     }
 
-    public void AddAmenity(string amenity)
+    public void AddAmenity(Amenity amenity, HotelConfig hotel)
     {
-        if (!IsConfirmed())
+        if (this.Status != Status.CONFIRMED)
         {
-            throw new Exception("Invalid amenities");
+            throw new DomainException("Cannot modify not confirmed reservation");
         }
 
-        /*if (!IsAmenitiesAvailableInHotel())
+        if (!IsAmenitiesAvailableInHotel(new List<Amenity> { amenity }, hotel ))
         {
-            throw new Exception("Invalid amenities");
+            throw new DomainException($"Amentiy {amenity.Id} not exist in hotel {hotel.Id}");
         }
 
         if (IsAmenityNotExists(amenity))
         {
             throw new Exception("Invalid amenities");
-        }*/
+        }
 
-        throw new NotImplementedException();
+        this.Amenities.Add(amenity);
     }
 
     public void ChangeRoomType(int roomType, HotelConfig hotelConfig)
     {
         //To consider isRoomAvailable() ???
-
-        if (!IsConfirmed())
+        if (this.Status != Status.CONFIRMED)
         {
-            throw new Exception("Invalid amenities");
+            throw new DomainException("Cannot modify not confirmed reservation");
         }
 
         //polityka ???
         if (!IsRoomTypHigherThanBefore(roomType, hotelConfig))
         {
-            throw new Exception("Invalid amenities");
+            throw new DomainException("Cannot change room type to lower");
         }
 
-        throw new NotImplementedException();
+        this.RoomType = roomType;
     }
 
     public void ChangeNumberOfGuests(int numberOfGuests, RoomTypeConfig roomTypeConfig)
     {
-        if (!IsConfirmed())
+        if (this.Status != Status.CONFIRMED)
         {
-            throw new Exception();
+            throw new DomainException("Cannot modify not confirmed reservation");
         }
 
-        /*if (IsNumberOfGuestCorrectToRoomType())
+        if (!IsNumberOfGuestCorrectToRoomType(numberOfGuests, roomTypeConfig))
         {
-            throw new Exception();
-        }*/
+            throw new DomainException("Invalid number of guest for room type");
+        }
 
         if (numberOfGuests <= this.NumberOfGuests)
         {
-            throw new Exception();
+            throw new DomainException("Cannot change number of guests to lower number");
         }
 
-        throw new NotImplementedException();
+        this.NumberOfGuests = numberOfGuests;
     }
 
-    public void Extend(DateTime startDate, DateTime endDate)
+    public void Extend(DateRange dateRange)
     {
         //isRoomAvailable() ???
 
-        if (!IsConfirmed())
+        if (this.Status != Status.CONFIRMED)
         {
-            throw new Exception();
+            throw new DomainException("Cannot modify not confirmed reservation");
         }
 
-        if (!IsDateRangeGratherThanCurrentRange(startDate, endDate))
+        if (!dateRange.isGratherThan(this.DateRange))
         {
-            throw new Exception();
+            throw new DomainException("Cannot change reservation to less than current");
         }
 
-        throw new NotImplementedException();
+        this.DateRange = dateRange;
     }
 
     public void ForwardToService()
@@ -244,9 +243,9 @@ internal class Reservation
         throw new NotImplementedException();
     }
 
-    private bool IsAmenityNotExists(int amenity)
+    private bool IsAmenityNotExists(Amenity amenity)
     {
-        throw new NotImplementedException();
+        return this.Amenities.Contains(amenity);
     }
 
     private bool IsConfirmed()
@@ -256,7 +255,7 @@ internal class Reservation
 
     private bool IsRoomTypHigherThanBefore(int roomType, HotelConfig hotelConfig)
     {
-        throw new NotImplementedException();
+        return true;
     }
 
     private bool IsDateRangeGratherThanCurrentRange(DateTime startDate, DateTime endDate)
@@ -276,7 +275,7 @@ internal class Reservation
 
     private bool IsPaid()
     {
-        throw new NotImplementedException();
+        return this.PricePayed == this.PriceToPay;
     }
 }
 
