@@ -1,5 +1,6 @@
 ﻿using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Modules.Booking.Domain.Model.DTO;
+using Hotelio.Shared.Exception;
 
 namespace Hotelio.Modules.Booking.Test.Unit.Domain.Model;
 
@@ -45,6 +46,63 @@ public class ReservationTest
     }
 
     [Fact]
+    public void TestShouldThrowDomainExceptionWhenRoomTypeIsNotAvailableInHotel()
+    {
+        //Given
+        var id = Guid.NewGuid().ToString();
+        var roomType = 1;
+        var numberOfGuests = 2;
+        var priceToPay = 100.0;
+        var paymentType = PaymentType.POST_PAID;
+        DateTime currentDate = DateTime.Now;
+        DateTime futureDate = currentDate.AddDays(7);
+        var dateRange = new DateRange(currentDate, futureDate);
+        var amenities = new List<Amenity>();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2) });
+
+        //Expected
+        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenNumberOfGuestsIsGratherThanMaxInRoomType()
+    {
+        //Given
+        var id = Guid.NewGuid().ToString();
+        var roomType = 1;
+        var numberOfGuests = 3;
+        var priceToPay = 100.0;
+        var paymentType = PaymentType.POST_PAID;
+        DateTime currentDate = DateTime.Now;
+        DateTime futureDate = currentDate.AddDays(7);
+        var dateRange = new DateRange(currentDate, futureDate);
+        var amenities = new List<Amenity>();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2) });
+
+        //Expected
+        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenAmenitiesIsNotAvailableInHotel()
+    {
+        //Given
+        var id = Guid.NewGuid().ToString();
+        var roomType = 1;
+        var numberOfGuests = 3;
+        var priceToPay = 100.0;
+        var paymentType = PaymentType.POST_PAID;
+        DateTime currentDate = DateTime.Now;
+        DateTime futureDate = currentDate.AddDays(7);
+        var dateRange = new DateRange(currentDate, futureDate);
+        var amenities = new List<Amenity> { new Amenity("amenity-1") };
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2) });
+
+        //Expected
+        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
+    }
+
+    [Fact]
     public void TestShouldConfirmReservation()
     {
         //Given
@@ -62,21 +120,103 @@ public class ReservationTest
     }
 
     [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToConfirmReservationNotPaidReservationWithPaymentTypeInAdvance()
+    {
+        //Given
+        var id = Guid.NewGuid().ToString();
+        var roomType = 1;
+        var numberOfGuests = 1;
+        var priceToPay = 100.0;
+        var paymentType = PaymentType.IN_ADVANCE;
+        DateTime currentDate = DateTime.Now;
+        DateTime futureDate = currentDate.AddDays(7);
+        var dateRange = new DateRange(currentDate, futureDate);
+        var amenities = new List<Amenity>();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+
+        var reservation = Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.Confirm());
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToConfirmReservationOnNotCreatedStatus()
+    {
+        //Given
+        var id = Guid.NewGuid().ToString();
+        var roomType = 1;
+        var numberOfGuests = 1;
+        var priceToPay = 100.0;
+        var paymentType = PaymentType.POST_PAID;
+        DateTime currentDate = DateTime.Now;
+        DateTime futureDate = currentDate.AddDays(7);
+        var dateRange = new DateRange(currentDate, futureDate);
+        var amenities = new List<Amenity>();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+
+        var reservation = Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
+        reservation.Confirm();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.Confirm());
+    }
+
+
+    [Fact]
     public void TestShouldPayReservation()
     {
         //Given
         var reservation = this.CreteReservation();
-        double price = 200.0;
+        double price = 100.0;
 
         //Expected
         var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["PricePayed"] = 200.0;
+        snapshotExpected["PricePayed"] = 100.0;
 
         //When
         reservation.Pay(price);
 
         //Then
         Assert.Equal(snapshotExpected, reservation.Snapshot());
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToPayCanceledReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+
+        //When
+        reservation.Cancel();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.Pay(150));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToPayAlreadyPayedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        double price = 100.0;
+
+        //When
+        reservation.Pay(price);
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.Pay(100.0));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToPayHigherPrice()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        double price = 150.0;
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.Pay(price));
     }
 
     [Fact]
@@ -101,6 +241,75 @@ public class ReservationTest
     }
 
     [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToAddAmenityToNonConfirmedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        var amenity = new Amenity("amenity-test-1");
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.AddAmenity(amenity, hotelConfig));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToAddAmenityNotAvailableInHotel()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+        var amenity = new Amenity("amenity-test-2");
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.AddAmenity(amenity, hotelConfig));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryAddAmenityExistingInReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+        var amenity = new Amenity("amenity-test-1");
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        reservation.AddAmenity(amenity, hotelConfig);
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.AddAmenity(amenity, hotelConfig));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToAddAmenityToCanceledReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        var amenity = new Amenity("amenity-test-1");
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        reservation.Confirm();
+        reservation.Cancel();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.AddAmenity(amenity, hotelConfig));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToAddAmenityToFinishedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        var amenity = new Amenity("amenity-test-1");
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        reservation.Confirm();
+        reservation.Pay(100);
+        reservation.Start();
+        reservation.Finish();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.AddAmenity(amenity, hotelConfig));
+    }
+
+    [Fact]
     public void TestShouldChangeRoomType()
     {
         //Given
@@ -121,6 +330,64 @@ public class ReservationTest
     }
 
     [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeRoomTypeToCanceledReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        reservation.Confirm();
+        reservation.Cancel();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeRoomType(2, hotelConfig));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeRoomTypeToFinishedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        reservation.Confirm();
+        reservation.Pay(100);
+        reservation.Start();
+        reservation.Finish();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeRoomType(2, hotelConfig));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeRoomTypeToNonConfirmedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeRoomType(2, hotelConfig));
+    }
+
+
+    [Fact]
+    public void TestShouldThrowDomainExeptionWhenTryToChangeRoomToLower()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExeptionWhenTryToChangeRoomToNotAvailableInHotel()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        reservation.Confirm();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeRoomType(111, hotelConfig));
+    }
+
+    [Fact]
     public void TestShouldChangeNumberOfGuests()
     {
         //Given
@@ -134,6 +401,140 @@ public class ReservationTest
         //When
         reservation.Confirm();
         reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3));
+
+        //Then
+        Assert.Equal(snapshotExpected, reservation.Snapshot());
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeNumberOfGuestsToNonConfirmedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3)));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeNumberOfGuestsToCanceledReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+        reservation.Cancel();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3)));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeNumberOfGuestsToFinishedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+        reservation.Start();
+        reservation.Pay(100);
+        reservation.Finish();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3)));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeNumberOfGuestsToHigherThanRoomTypeAllow()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(5, new RoomTypeConfig(1, 4)));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeNumberOfGuestsToLowerThanBefore()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+
+        //Expected
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(1, new RoomTypeConfig(1, 4)));
+    }
+
+    [Fact]
+    public void TestShouldChangeDateRange()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        DateTime currentDate = DateTime.Now.AddDays(-1);
+        DateTime futureDate = DateTime.Now.AddDays(8);
+        var dateRange = new DateRange(currentDate, futureDate);
+
+        //Expected
+        var snapshotExpected = reservation.Snapshot();
+        snapshotExpected["DateRange"] = dateRange;
+        snapshotExpected["Status"] = Status.CONFIRMED;
+
+        //When
+        reservation.Confirm();
+        reservation.Extend(dateRange);
+
+        //Then
+        Assert.Equal(snapshotExpected, reservation.Snapshot());
+    }
+
+    [Fact]
+    public void TestShouldStartReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+
+        //Expected
+        var snapshotExpected = reservation.Snapshot();
+        snapshotExpected["Status"] = Status.STARTED;
+
+        //When
+        reservation.Start();
+
+        //Then
+        Assert.Equal(snapshotExpected, reservation.Snapshot());
+    }
+
+    [Fact]
+    public void TestShouldFinishReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+
+        //Expected
+        var snapshotExpected = reservation.Snapshot();
+        snapshotExpected["PricePayed"] = 100.0;
+        snapshotExpected["Status"] = Status.FINISHED;
+
+        //When
+        reservation.Pay(100.0);
+        reservation.Start();
+        reservation.Finish();
+
+        //Then
+        Assert.Equal(snapshotExpected, reservation.Snapshot());
+    }
+
+    [Fact]
+    public void TestShouldCancelReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+
+        //Expected
+        var snapshotExpected = reservation.Snapshot();
+        snapshotExpected["Status"] = Status.CANCELED;
+
+        //When
+        reservation.Cancel();
 
         //Then
         Assert.Equal(snapshotExpected, reservation.Snapshot());

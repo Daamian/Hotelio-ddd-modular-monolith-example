@@ -15,6 +15,8 @@ internal class Reservation
     private PaymentType PaymentType;
     private DateRange DateRange;
     private List<Amenity> Amenities;
+    private readonly Status[] ActiveStatuses = { Status.CREATED, Status.CONFIRMED, Status.STARTED };
+    private readonly Status[] AcceptedStatuses = { Status.CONFIRMED, Status.STARTED };
 
     private Reservation(string id, string hotelId, int roomType, int numberOfGuests, Status status, double priceToPay, double pricePayed, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
@@ -54,9 +56,19 @@ internal class Reservation
 
     public void Pay(double price)
     {
+        if (price > (this.PriceToPay - this.PricePayed))
+        {
+            throw new DomainException("Cannot pay with higher price.");
+        }
+
         if (IsPaid())
         {
             throw new DomainException("Reservation is payed yet.");
+        }
+
+        if (!this.IsActive())
+        {
+            throw new DomainException("Cannot pay not active reservation");
         }
 
         this.PricePayed += price;
@@ -64,9 +76,14 @@ internal class Reservation
 
     public void Confirm()
     {
-        if (this.PaymentType == PaymentType.IN_ADVANCE)
+        if (!this.IsPaid() && this.PaymentType == PaymentType.IN_ADVANCE)
         {
             throw new DomainException("Reservation must be paid to confirm");
+        }
+
+        if (this.Status != Status.CREATED)
+        {
+            throw new DomainException("Cannot confirm reservation on this status");
         }
 
         this.Status= Status.CONFIRMED;
@@ -74,9 +91,9 @@ internal class Reservation
 
     public void AddAmenity(Amenity amenity, HotelConfig hotel)
     {
-        if (this.Status != Status.CONFIRMED)
+        if (!this.IsAccepted())
         {
-            throw new DomainException("Cannot modify not confirmed reservation");
+            throw new DomainException("Cannot modify not accepted reservation");
         }
 
         if (!IsAmenitiesAvailableInHotel(new List<Amenity> { amenity }, hotel ))
@@ -84,9 +101,9 @@ internal class Reservation
             throw new DomainException($"Amentiy {amenity.Id} not exist in hotel {hotel.Id}");
         }
 
-        if (IsAmenityNotExists(amenity))
+        if (IsAmenityExists(amenity))
         {
-            throw new Exception("Invalid amenities");
+            throw new DomainException("Invalid amenities");
         }
 
         this.Amenities.Add(amenity);
@@ -95,9 +112,16 @@ internal class Reservation
     public void ChangeRoomType(int roomType, HotelConfig hotelConfig)
     {
         //To consider isRoomAvailable() ???
-        if (this.Status != Status.CONFIRMED)
+        if (!IsAccepted())
         {
-            throw new DomainException("Cannot modify not confirmed reservation");
+            throw new DomainException("Cannot modify not accepted reservation");
+        }
+
+        var roomTypeConfig = hotelConfig.roomTypes.Find(r => r.RoomType == roomType);
+
+        if (null == roomTypeConfig)
+        {
+            throw new DomainException($"Invalid room type {roomType} for hotel {hotelConfig.Id}");
         }
 
         //polityka ???
@@ -111,9 +135,9 @@ internal class Reservation
 
     public void ChangeNumberOfGuests(int numberOfGuests, RoomTypeConfig roomTypeConfig)
     {
-        if (this.Status != Status.CONFIRMED)
+        if (!IsAccepted())
         {
-            throw new DomainException("Cannot modify not confirmed reservation");
+            throw new DomainException("Cannot modify not accepted reservation");
         }
 
         if (!IsNumberOfGuestCorrectToRoomType(numberOfGuests, roomTypeConfig))
@@ -149,41 +173,53 @@ internal class Reservation
     public void ForwardToService()
     {
         //TODO consider is nessecary
-        if (!IsStarted() || !IsActive())
-        {
-            throw new Exception();
-        }
 
         throw new NotImplementedException();
     }
 
     public void Start()
     {
-        if (!IsStarted() || !IsActive() || IsCurrentDateEqualToOrGratherThanStarDate())
+        if (this.Status == Status.STARTED)
         {
-            throw new Exception();
+            throw new DomainException("Reservation has already started.");
         }
 
-        throw new NotImplementedException();
+        if (!IsActive())
+        {
+            throw new DomainException("Cannot start not active reservation.");
+        }
+
+        this.Status = Status.STARTED;
     }
 
     public void Finish()
     {
-        if (!IsStarted() || !IsPaid()) { 
-            throw new Exception(); 
+        if (this.Status != Status.STARTED)
+        {
+            throw new DomainException("Cannot finish not started reservation.");
         }
 
-        throw new NotImplementedException();
+        if (!IsPaid())
+        {
+            throw new DomainException("Cannot finish not paid reservation.");
+        }
+
+        this.Status = Status.FINISHED;
     }
 
     public void Cancel()
     {
-        if (IsPending())
+        if (this.Status == Status.STARTED)
         {
-            throw new Exception("Invalid status");
+            throw new DomainException("Cannot cancel started reservation.");
         }
 
-        throw new NotImplementedException();
+        if (this.Status == Status.FINISHED)
+        {
+            throw new DomainException("Cannot cancel finished reservation.");
+        }
+
+        this.Status = Status.CANCELED;
     }
 
     public IDictionary<string, object> Snapshot()
@@ -201,11 +237,6 @@ internal class Reservation
             { "DateRange", this.DateRange },
             { "Amenities", this.Amenities },
         };
-    }
-
-    private bool IsPending()
-    {
-        throw new NotImplementedException();
     }
 
     private static bool IsAmenitiesAvailableInHotel(List<Amenity> amenities, HotelConfig hotel)
@@ -230,48 +261,33 @@ internal class Reservation
 
     private bool IsActive()
     {
-        throw new NotImplementedException();
+        if (this.ActiveStatuses.Contains(this.Status))
+        {
+            return true;
+        }
+
+        return false;
     }
 
-    private bool IsUnpaid()
+    private bool IsAccepted()
     {
-        throw new NotImplementedException();
+        if (this.AcceptedStatuses.Contains(this.Status))
+        {
+            return true;
+        }
+
+        return false;
     }
 
-    private bool IsPaidIfPaymentInAdvance()
-    {
-        throw new NotImplementedException();
-    }
-
-    private bool IsAmenityNotExists(Amenity amenity)
+    private bool IsAmenityExists(Amenity amenity)
     {
         return this.Amenities.Contains(amenity);
-    }
-
-    private bool IsConfirmed()
-    {
-        throw new NotImplementedException();
     }
 
     private bool IsRoomTypHigherThanBefore(int roomType, HotelConfig hotelConfig)
     {
         return true;
-    }
-
-    private bool IsDateRangeGratherThanCurrentRange(DateTime startDate, DateTime endDate)
-    {
-        throw new NotImplementedException();
-    }
-
-    private bool IsStarted()
-    {
-        throw new NotImplementedException();
-    }
-
-    private bool IsCurrentDateEqualToOrGratherThanStarDate()
-    {
-        throw new NotImplementedException();
-    }
+    } 
 
     private bool IsPaid()
     {
