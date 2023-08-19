@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Nowy folder\" />
+    <None Remove="Exception\" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Folder Include="Exception\" />
+  </ItemGroup>
 </Project>

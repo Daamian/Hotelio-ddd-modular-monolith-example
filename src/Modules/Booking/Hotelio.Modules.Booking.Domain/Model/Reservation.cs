@@ -1,5 +1,6 @@
 ﻿using Hotelio.Modules.Booking.Domain.Model.DTO;
 using Hotelio.Shared.Exception;
+using Hotelio.Modules.Booking.Domain.Exception;
 
 namespace Hotelio.Modules.Booking.Domain.Model;
 
@@ -157,14 +158,14 @@ internal class Reservation
     {
         //isRoomAvailable() ???
 
-        if (this.Status != Status.CONFIRMED)
+        if (!IsAccepted())
         {
-            throw new DomainException("Cannot modify not confirmed reservation");
+            throw new CannotModifyNotAcceptedReservationException("Cannot extend not accepted reservation");
         }
 
         if (!dateRange.isGratherThan(this.DateRange))
         {
-            throw new DomainException("Cannot change reservation to less than current");
+            throw new InvalidDateRangeToExtendReservationException("Cannot change reservation to less than current");
         }
 
         this.DateRange = dateRange;
@@ -181,12 +182,12 @@ internal class Reservation
     {
         if (this.Status == Status.STARTED)
         {
-            throw new DomainException("Reservation has already started.");
+            throw new ReservationAlreadyStartedException("Reservation has already started.");
         }
 
-        if (!IsActive())
+        if (this.Status != Status.CONFIRMED)
         {
-            throw new DomainException("Cannot start not active reservation.");
+            throw new CannotStartNonConfirmedReservationException("Cannot start non confirmed reservation.");
         }
 
         this.Status = Status.STARTED;
@@ -196,12 +197,12 @@ internal class Reservation
     {
         if (this.Status != Status.STARTED)
         {
-            throw new DomainException("Cannot finish not started reservation.");
+            throw new CannotFinishNotStartedReservationException("Cannot finish not started reservation.");
         }
 
         if (!IsPaid())
         {
-            throw new DomainException("Cannot finish not paid reservation.");
+            throw new NotPaidReservationException("Cannot finish not paid reservation.");
         }
 
         this.Status = Status.FINISHED;
@@ -211,12 +212,12 @@ internal class Reservation
     {
         if (this.Status == Status.STARTED)
         {
-            throw new DomainException("Cannot cancel started reservation.");
+            throw new CannotCancelStartedReservationException("Cannot cancel started reservation.");
         }
 
         if (this.Status == Status.FINISHED)
         {
-            throw new DomainException("Cannot cancel finished reservation.");
+            throw new CannotCancelFinishedReservationException("Cannot cancel finished reservation.");
         }
 
         this.Status = Status.CANCELED;

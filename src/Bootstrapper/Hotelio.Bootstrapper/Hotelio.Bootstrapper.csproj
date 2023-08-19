@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Hotelio' " />
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Booking\Hotelio.Module.Booking.Shared\Hotelio.Module.Booking.Shared.csproj" />
   </ItemGroup>

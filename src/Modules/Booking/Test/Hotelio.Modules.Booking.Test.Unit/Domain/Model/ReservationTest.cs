@@ -1,4 +1,5 @@
-﻿using Hotelio.Modules.Booking.Domain.Model;
+﻿using Hotelio.Modules.Booking.Domain.Exception;
+using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Modules.Booking.Domain.Model.DTO;
 using Hotelio.Shared.Exception;
 
@@ -314,7 +315,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(2, 2) });
 
         //Expected
         var snapshotExpected = reservation.Snapshot();
@@ -372,6 +373,7 @@ public class ReservationTest
     [Fact]
     public void TestShouldThrowDomainExeptionWhenTryToChangeRoomToLower()
     {
+        //TODO implement case
         Assert.True(true);
     }
 
@@ -487,6 +489,65 @@ public class ReservationTest
     }
 
     [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryToExtendNonConfirmedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        DateTime currentDate = DateTime.Now.AddDays(-1);
+        DateTime futureDate = DateTime.Now.AddDays(8);
+        var dateRange = new DateRange(currentDate, futureDate);
+        
+        //Expected
+        Assert.Throws<CannotModifyNotAcceptedReservationException>(() => reservation.Extend(dateRange));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryToExtendCanceledReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        DateTime currentDate = DateTime.Now.AddDays(-1);
+        DateTime futureDate = DateTime.Now.AddDays(8);
+        var dateRange = new DateRange(currentDate, futureDate);
+        reservation.Confirm();
+        reservation.Cancel();
+
+        //Expected
+        Assert.Throws<CannotModifyNotAcceptedReservationException>(() => reservation.Extend(dateRange));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryToExtendFinishedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        DateTime currentDate = DateTime.Now.AddDays(-1);
+        DateTime futureDate = DateTime.Now.AddDays(8);
+        var dateRange = new DateRange(currentDate, futureDate);
+        reservation.Confirm();
+        reservation.Start();
+        reservation.Pay(100);
+        reservation.Finish();
+
+        //Expected
+        Assert.Throws<CannotModifyNotAcceptedReservationException>(() => reservation.Extend(dateRange));
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryExtendToLowerDateRange()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        DateTime currentDate = DateTime.Now.AddDays(2);
+        DateTime futureDate = DateTime.Now.AddDays(5);
+        var dateRange = new DateRange(currentDate, futureDate);
+        reservation.Confirm();
+
+        //Expected
+        Assert.Throws<InvalidDateRangeToExtendReservationException>(() => reservation.Extend(dateRange));
+    }
+
+    [Fact]
     public void TestShouldStartReservation()
     {
         //Given
@@ -501,6 +562,27 @@ public class ReservationTest
 
         //Then
         Assert.Equal(snapshotExpected, reservation.Snapshot());
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryStartAlreadyStartedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Start();
+
+        //Expected
+        Assert.Throws<ReservationAlreadyStartedException>(() => reservation.Start());
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryStartNonConfirmedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+
+        //Expected
+        Assert.Throws<CannotStartNonConfirmedReservationException>(() => reservation.Start());
     }
 
     [Fact]
@@ -524,6 +606,28 @@ public class ReservationTest
     }
 
     [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryFinishNonStartedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+
+        //Expected
+        Assert.Throws<CannotFinishNotStartedReservationException>(() => reservation.Finish());
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryFinishNonPaidReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+        reservation.Start();
+
+        //Expected
+        Assert.Throws<NotPaidReservationException>(() => reservation.Finish());
+    }
+
+    [Fact]
     public void TestShouldCancelReservation()
     {
         //Given
@@ -538,6 +642,32 @@ public class ReservationTest
 
         //Then
         Assert.Equal(snapshotExpected, reservation.Snapshot());
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryCancelStartedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+        reservation.Start();
+
+        //Expected
+        Assert.Throws<CannotCancelStartedReservationException>(() => reservation.Cancel());
+    }
+
+    [Fact]
+    public void TestShouldThrowDomainExceptionWhenITryCancelFinishedReservation()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        reservation.Confirm();
+        reservation.Start();
+        reservation.Pay(100);
+        reservation.Finish();
+
+        //Expected
+        Assert.Throws<CannotCancelFinishedReservationException>(() => reservation.Cancel());
     }
 
     private Reservation CreteReservation()
