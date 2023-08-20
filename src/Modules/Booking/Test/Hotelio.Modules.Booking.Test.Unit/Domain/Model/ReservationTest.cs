@@ -22,7 +22,7 @@ public class ReservationTest
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
         var amenities = new List<Amenity>();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         //Expected
         var expected = new Dictionary<string, object>
@@ -59,7 +59,7 @@ public class ReservationTest
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
         var amenities = new List<Amenity>();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2, 1) });
 
         //Expected
         Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
@@ -78,7 +78,7 @@ public class ReservationTest
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
         var amenities = new List<Amenity>();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2, 1) });
 
         //Expected
         Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
@@ -97,7 +97,7 @@ public class ReservationTest
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
         var amenities = new List<Amenity> { new Amenity("amenity-1") };
-        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2, 1) });
 
         //Expected
         Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
@@ -133,7 +133,7 @@ public class ReservationTest
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
         var amenities = new List<Amenity>();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         var reservation = Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
 
@@ -154,7 +154,7 @@ public class ReservationTest
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
         var amenities = new List<Amenity>();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         var reservation = Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
         reservation.Confirm();
@@ -226,7 +226,7 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
         var amenity = new Amenity("amenity-test-1");
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1"}, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1"}, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         //Expected
         var snapshotExpected = reservation.Snapshot();
@@ -247,7 +247,7 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
         var amenity = new Amenity("amenity-test-1");
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         //Expected
         Assert.Throws<DomainException>(() => reservation.AddAmenity(amenity, hotelConfig));
@@ -260,7 +260,7 @@ public class ReservationTest
         var reservation = this.CreteReservation();
         reservation.Confirm();
         var amenity = new Amenity("amenity-test-2");
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         //Expected
         Assert.Throws<DomainException>(() => reservation.AddAmenity(amenity, hotelConfig));
@@ -273,7 +273,7 @@ public class ReservationTest
         var reservation = this.CreteReservation();
         reservation.Confirm();
         var amenity = new Amenity("amenity-test-1");
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
         reservation.AddAmenity(amenity, hotelConfig);
 
         //Expected
@@ -286,7 +286,7 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
         var amenity = new Amenity("amenity-test-1");
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
         reservation.Confirm();
         reservation.Cancel();
 
@@ -300,7 +300,7 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
         var amenity = new Amenity("amenity-test-1");
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
         reservation.Confirm();
         reservation.Pay(100);
         reservation.Start();
@@ -315,7 +315,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(2, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(2, 2, 1) });
 
         //Expected
         var snapshotExpected = reservation.Snapshot();
@@ -331,11 +331,23 @@ public class ReservationTest
     }
 
     [Fact]
+    public void TestShouldThrowDomainExceptionWhenTryToChangeRoomTypeToLowerLevel()
+    {
+        //Given
+        var reservation = this.CreteReservation();
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 2), new RoomTypeConfig(2, 1, 1) });
+        reservation.Confirm();
+
+        //Expected
+        Assert.Throws<ChangeToLowerRoomTypeNotAllowedException>(() => reservation.ChangeRoomType(2, hotelConfig));
+    }
+
+    [Fact]
     public void TestShouldThrowDomainExceptionWhenTryToChangeRoomTypeToCanceledReservation()
     {
         //Given
         var reservation = this.CreteReservation();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
         reservation.Confirm();
         reservation.Cancel();
 
@@ -348,7 +360,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
         reservation.Confirm();
         reservation.Pay(100);
         reservation.Start();
@@ -363,18 +375,10 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         //Expected
         Assert.Throws<DomainException>(() => reservation.ChangeRoomType(2, hotelConfig));
-    }
-
-
-    [Fact]
-    public void TestShouldThrowDomainExeptionWhenTryToChangeRoomToLower()
-    {
-        //TODO implement case
-        Assert.True(true);
     }
 
     [Fact]
@@ -382,7 +386,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
         reservation.Confirm();
 
         //Expected
@@ -402,7 +406,7 @@ public class ReservationTest
 
         //When
         reservation.Confirm();
-        reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3));
+        reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3, 1));
 
         //Then
         Assert.Equal(snapshotExpected, reservation.Snapshot());
@@ -415,7 +419,7 @@ public class ReservationTest
         var reservation = this.CreteReservation();
 
         //Expected
-        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3)));
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3, 1)));
     }
 
     [Fact]
@@ -427,7 +431,7 @@ public class ReservationTest
         reservation.Cancel();
 
         //Expected
-        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3)));
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3, 1)));
     }
 
     [Fact]
@@ -441,7 +445,7 @@ public class ReservationTest
         reservation.Finish();
 
         //Expected
-        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3)));
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3, 1)));
     }
 
     [Fact]
@@ -452,7 +456,7 @@ public class ReservationTest
         reservation.Confirm();
 
         //Expected
-        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(5, new RoomTypeConfig(1, 4)));
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(5, new RoomTypeConfig(1, 4, 1)));
     }
 
     [Fact]
@@ -463,7 +467,7 @@ public class ReservationTest
         reservation.Confirm();
 
         //Expected
-        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(1, new RoomTypeConfig(1, 4)));
+        Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(1, new RoomTypeConfig(1, 4, 1)));
     }
 
     [Fact]
@@ -681,7 +685,7 @@ public class ReservationTest
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
         var amenities = new List<Amenity>();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         return Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
     }

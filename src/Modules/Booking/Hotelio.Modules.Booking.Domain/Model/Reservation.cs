@@ -112,7 +112,6 @@ internal class Reservation
 
     public void ChangeRoomType(int roomType, HotelConfig hotelConfig)
     {
-        //To consider isRoomAvailable() ???
         if (!IsAccepted())
         {
             throw new DomainException("Cannot modify not accepted reservation");
@@ -125,10 +124,9 @@ internal class Reservation
             throw new DomainException($"Invalid room type {roomType} for hotel {hotelConfig.Id}");
         }
 
-        //polityka ???
         if (!IsRoomTypHigherThanBefore(roomType, hotelConfig))
         {
-            throw new DomainException("Cannot change room type to lower");
+            throw new ChangeToLowerRoomTypeNotAllowedException($"Room type {roomType} has lowest level than current");
         }
 
         this.RoomType = roomType;
@@ -156,8 +154,6 @@ internal class Reservation
 
     public void Extend(DateRange dateRange)
     {
-        //isRoomAvailable() ???
-
         if (!IsAccepted())
         {
             throw new CannotModifyNotAcceptedReservationException("Cannot extend not accepted reservation");
@@ -169,13 +165,6 @@ internal class Reservation
         }
 
         this.DateRange = dateRange;
-    }
-
-    public void ForwardToService()
-    {
-        //TODO consider is nessecary
-
-        throw new NotImplementedException();
     }
 
     public void Start()
@@ -287,6 +276,16 @@ internal class Reservation
 
     private bool IsRoomTypHigherThanBefore(int roomType, HotelConfig hotelConfig)
     {
+        var roomTypes = hotelConfig.roomTypes;
+        var newRoomType = roomTypes.Find(r => r.RoomType == roomType);
+
+        var currentRoomType = roomTypes.Find(r => r.RoomType == this.RoomType);
+
+        if (null == newRoomType || null == currentRoomType || newRoomType.Level < currentRoomType.Level)
+        {
+            return false;
+        }
+
         return true;
     } 
 
