@@ -4,15 +4,34 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Command\" />
     <None Remove="Command\Handlers\" />
+    <None Remove="Client\" />
+    <None Remove="Client\DTO\" />
+    <None Remove="Exception\" />
+    <None Remove="Client\Exception\" />
+    <None Remove="Query\" />
+    <None Remove="Query\DTO\" />
+    <None Remove="Query\Handler\" />
+    <None Remove="ReadModel\" />
+    <None Remove="ReadModel\VO\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Command\" />
     <Folder Include="Command\Handlers\" />
+    <Folder Include="Client\" />
+    <Folder Include="Client\DTO\" />
+    <Folder Include="Exception\" />
+    <Folder Include="Client\Exception\" />
+    <Folder Include="Query\" />
+    <Folder Include="Query\DTO\" />
+    <Folder Include="Query\Handler\" />
+    <Folder Include="ReadModel\" />
+    <Folder Include="ReadModel\VO\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hotelio.Module.Booking.Shared\Hotelio.Module.Booking.Shared.csproj">
@@ -21,5 +40,12 @@
     <ProjectReference Include="..\Hotelio.Modules.Booking.Domain\Hotelio.Modules.Booking.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Properties\launchSettings.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 </Project>

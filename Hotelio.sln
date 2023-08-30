@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Booking.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Module.Booking.Application", "src\Modules\Booking\Hotelio.Module.Booking.Application\Hotelio.Module.Booking.Application.csproj", "{72864D32-3FC5-49BE-BA36-F1BD336962FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Module.Booking.Api", "src\Modules\Booking\Hotelio.Module.Booking.Api\Hotelio.Module.Booking.Api.csproj", "{779B176C-B06E-4958-B78E-EA2140C2D448}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{72864D32-3FC5-49BE-BA36-F1BD336962FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72864D32-3FC5-49BE-BA36-F1BD336962FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72864D32-3FC5-49BE-BA36-F1BD336962FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{779B176C-B06E-4958-B78E-EA2140C2D448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{779B176C-B06E-4958-B78E-EA2140C2D448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{779B176C-B06E-4958-B78E-EA2140C2D448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{779B176C-B06E-4958-B78E-EA2140C2D448}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{9674D4C5-FA88-4A11-95BA-40FB84B861C5} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
 		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171} = {9674D4C5-FA88-4A11-95BA-40FB84B861C5}
 		{72864D32-3FC5-49BE-BA36-F1BD336962FD} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
+		{779B176C-B06E-4958-B78E-EA2140C2D448} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}

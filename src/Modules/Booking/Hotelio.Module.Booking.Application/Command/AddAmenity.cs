@@ -2,5 +2,5 @@
 
 namespace Hotelio.Modules.Booking.Domain.Model
 {
-    internal record AddAmenity(string ReservationId, string Amenity, HotelConfig Hotel) : ICommand;
+    internal record AddAmenity(string ReservationId, string Amenity) : ICommand;
 }

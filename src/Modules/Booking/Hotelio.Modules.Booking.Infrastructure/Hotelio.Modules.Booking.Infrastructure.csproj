@@ -4,4 +4,18 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hotelio.Modules.Booking.Domain\Hotelio.Modules.Booking.Domain.csproj" />
+    <ProjectReference Include="..\Hotelio.Module.Booking.Application\Hotelio.Module.Booking.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Repository\" />
+    <None Remove="Storage\" />
+    <None Remove="ReadModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repository\" />
+    <Folder Include="Storage\" />
+    <Folder Include="ReadModel\" />
+  </ItemGroup>
 </Project>

@@ -7,15 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Commands\" />
-    <None Remove="Queries\" />
+    <None Remove="Controllers\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Queries\" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hotelio.Module.Booking.Application\Hotelio.Module.Booking.Application.csproj" />
   </ItemGroup>
 </Project>

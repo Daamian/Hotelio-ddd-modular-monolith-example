@@ -4,7 +4,7 @@ using Hotelio.Shared.Commands;
 
 namespace Hotelio.Module.Booking.Application.Command;
 
-internal record CreateReservation(
+public record CreateReservation(
     string Id,
     string HotelId,
     int RoomType,

@@ -2,5 +2,5 @@
 
 namespace Hotelio.Modules.Booking.Domain.Model
 {
-    internal record ChangeNumberOfGuests(string ReservationId, int NumberOfGuests, RoomTypeConfig RoomTypeConfig) : ICommand;
+    internal record ChangeNumberOfGuests(string ReservationId, int NumberOfGuests) : ICommand;
 }
