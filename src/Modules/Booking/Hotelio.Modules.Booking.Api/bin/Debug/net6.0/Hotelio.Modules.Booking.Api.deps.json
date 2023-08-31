@@ -1,0 +1,77 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Hotelio.Modules.Booking.Api/1.0.0": {
+        "dependencies": {
+          "Hotelio.Modules.Booking.Application": "1.0.0"
+        },
+        "runtime": {
+          "Hotelio.Modules.Booking.Api.dll": {}
+        }
+      },
+      "Hotelio.Modules.Booking.Application/1.0.0": {
+        "dependencies": {
+          "Hotelio.Modules.Booking.Domain": "1.0.0",
+          "Hotelio.Modules.Booking.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Hotelio.Modules.Booking.Application.dll": {}
+        }
+      },
+      "Hotelio.Modules.Booking.Domain/1.0.0": {
+        "dependencies": {
+          "Hotelio.Modules.Booking.Shared": "1.0.0",
+          "Hotelio.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Hotelio.Modules.Booking.Domain.dll": {}
+        }
+      },
+      "Hotelio.Modules.Booking.Shared/1.0.0": {
+        "dependencies": {
+          "Hotelio.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Hotelio.Modules.Booking.Shared.dll": {}
+        }
+      },
+      "Hotelio.Shared/1.0.0": {
+        "runtime": {
+          "Hotelio.Shared.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Hotelio.Modules.Booking.Api/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Hotelio.Modules.Booking.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Hotelio.Modules.Booking.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Hotelio.Modules.Booking.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Hotelio.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

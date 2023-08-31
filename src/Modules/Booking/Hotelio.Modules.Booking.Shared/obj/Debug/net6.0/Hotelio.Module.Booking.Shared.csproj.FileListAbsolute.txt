@@ -1,0 +1,15 @@
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/bin/Debug/net6.0/Hotelio.Module.Booking.Shared.deps.json
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/bin/Debug/net6.0/Hotelio.Module.Booking.Shared.dll
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/bin/Debug/net6.0/Hotelio.Module.Booking.Shared.pdb
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/bin/Debug/net6.0/Hotelio.Shared.dll
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/bin/Debug/net6.0/Hotelio.Shared.pdb
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/Hotelio.Module.Booking.Shared.csproj.AssemblyReference.cache
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/Hotelio.Module.Booking.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/Hotelio.Module.Booking.Shared.AssemblyInfoInputs.cache
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/Hotelio.Module.Booking.Shared.AssemblyInfo.cs
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/Hotelio.Module.Booking.Shared.csproj.CoreCompileInputs.cache
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/Hotelio.Module.Booking.Shared.csproj.CopyComplete
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/Hotelio.Module.Booking.Shared.dll
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/refint/Hotelio.Module.Booking.Shared.dll
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/Hotelio.Module.Booking.Shared.pdb
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Shared/obj/Debug/net6.0/ref/Hotelio.Module.Booking.Shared.dll

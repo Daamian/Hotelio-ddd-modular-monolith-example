@@ -19,15 +19,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E7F637
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Shared", "src\Shared\Hotelio.Shared\Hotelio.Shared.csproj", "{FB3217C8-A749-4575-B7F3-286355126A43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Module.Booking.Shared", "src\Modules\Booking\Hotelio.Module.Booking.Shared\Hotelio.Module.Booking.Shared.csproj", "{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelio.Modules.Booking.Shared", "src\Modules\Booking\Hotelio.Modules.Booking.Shared\Hotelio.Modules.Booking.Shared.csproj", "{EC1E0C06-6C10-4B2A-9157-B199F2AEC532}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9674D4C5-FA88-4A11-95BA-40FB84B861C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Booking.Test.Unit", "src\Modules\Booking\Test\Hotelio.Modules.Booking.Test.Unit\Hotelio.Modules.Booking.Test.Unit.csproj", "{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Module.Booking.Application", "src\Modules\Booking\Hotelio.Module.Booking.Application\Hotelio.Module.Booking.Application.csproj", "{72864D32-3FC5-49BE-BA36-F1BD336962FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Booking.Api", "src\Modules\Booking\Hotelio.Modules.Booking.Api\Hotelio.Modules.Booking.Api.csproj", "{779B176C-B06E-4958-B78E-EA2140C2D448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Module.Booking.Api", "src\Modules\Booking\Hotelio.Module.Booking.Api\Hotelio.Module.Booking.Api.csproj", "{779B176C-B06E-4958-B78E-EA2140C2D448}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Hotelio.Modules.Booking.Application", "src\Modules\Booking\Hotelio.Modules.Booking.Application\Hotelio.Modules.Booking.Application.csproj", "{D9A8B042-3D7B-4F96-8A1D-0D938ECF635B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,14 +59,14 @@ Global
 		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72864D32-3FC5-49BE-BA36-F1BD336962FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72864D32-3FC5-49BE-BA36-F1BD336962FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72864D32-3FC5-49BE-BA36-F1BD336962FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72864D32-3FC5-49BE-BA36-F1BD336962FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{779B176C-B06E-4958-B78E-EA2140C2D448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{779B176C-B06E-4958-B78E-EA2140C2D448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{779B176C-B06E-4958-B78E-EA2140C2D448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{779B176C-B06E-4958-B78E-EA2140C2D448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A8B042-3D7B-4F96-8A1D-0D938ECF635B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A8B042-3D7B-4F96-8A1D-0D938ECF635B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A8B042-3D7B-4F96-8A1D-0D938ECF635B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A8B042-3D7B-4F96-8A1D-0D938ECF635B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,8 +80,8 @@ Global
 		{EC1E0C06-6C10-4B2A-9157-B199F2AEC532} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
 		{9674D4C5-FA88-4A11-95BA-40FB84B861C5} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
 		{F9338BE8-B6D4-496E-AF2C-1F9F8F2C6171} = {9674D4C5-FA88-4A11-95BA-40FB84B861C5}
-		{72864D32-3FC5-49BE-BA36-F1BD336962FD} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
 		{779B176C-B06E-4958-B78E-EA2140C2D448} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
+		{D9A8B042-3D7B-4F96-8A1D-0D938ECF635B} = {B3ED4A7B-2D6F-4C87-8932-99FE4372E7DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}

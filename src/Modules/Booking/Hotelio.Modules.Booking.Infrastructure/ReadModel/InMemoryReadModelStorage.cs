@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Hotelio.Module.Booking.Application.ReadModel;
+using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Infrastructure.Storage;
-using Hotelio.Module.Booking.Application.ReadModel.VO;
+using Hotelio.Modules.Booking.Application.ReadModel.VO;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +10,6 @@ namespace Hotelio.Modules.Booking.Infrastructure.ReadModel;
 
 internal sealed class InMemoryReadModelStorage : IReadModelStorage
 {
-
     public async Task<Reservation> FindAsync(Guid reservationId)
     {
         var reservation = InMemoryStorage.reservations.Find(

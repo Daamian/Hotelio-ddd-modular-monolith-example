@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Hotelio.Modules.Booking.Shared/1.0.0": {
+        "dependencies": {
+          "Hotelio.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Hotelio.Modules.Booking.Shared.dll": {}
+        }
+      },
+      "Hotelio.Shared/1.0.0": {
+        "runtime": {
+          "Hotelio.Shared.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Hotelio.Modules.Booking.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Hotelio.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

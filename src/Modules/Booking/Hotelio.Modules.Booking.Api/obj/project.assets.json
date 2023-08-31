@@ -1,0 +1,152 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "Hotelio.Modules.Booking.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Hotelio.Modules.Booking.Domain": "1.0.0",
+          "Hotelio.Modules.Booking.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Hotelio.Modules.Booking.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Hotelio.Modules.Booking.Application.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Hotelio.Modules.Booking.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Hotelio.Modules.Booking.Shared": "1.0.0",
+          "Hotelio.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Hotelio.Modules.Booking.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Hotelio.Modules.Booking.Domain.dll": {}
+        }
+      },
+      "Hotelio.Modules.Booking.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Hotelio.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Hotelio.Modules.Booking.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Hotelio.Modules.Booking.Shared.dll": {}
+        }
+      },
+      "Hotelio.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Hotelio.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Hotelio.Shared.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      }
+    }
+  },
+  "libraries": {
+    "Hotelio.Modules.Booking.Application/1.0.0": {
+      "type": "project",
+      "path": "../Hotelio.Modules.Booking.Application/Hotelio.Modules.Booking.Application.csproj",
+      "msbuildProject": "../Hotelio.Modules.Booking.Application/Hotelio.Modules.Booking.Application.csproj"
+    },
+    "Hotelio.Modules.Booking.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Hotelio.Modules.Booking.Domain/Hotelio.Modules.Booking.Domain.csproj",
+      "msbuildProject": "../Hotelio.Modules.Booking.Domain/Hotelio.Modules.Booking.Domain.csproj"
+    },
+    "Hotelio.Modules.Booking.Shared/1.0.0": {
+      "type": "project",
+      "path": "../Hotelio.Modules.Booking.Shared/Hotelio.Modules.Booking.Shared.csproj",
+      "msbuildProject": "../Hotelio.Modules.Booking.Shared/Hotelio.Modules.Booking.Shared.csproj"
+    },
+    "Hotelio.Shared/1.0.0": {
+      "type": "project",
+      "path": "../../../Shared/Hotelio.Shared/Hotelio.Shared.csproj",
+      "msbuildProject": "../../../Shared/Hotelio.Shared/Hotelio.Shared.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "Hotelio.Modules.Booking.Application >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/damian/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/Hotelio.Modules.Booking.Api.csproj",
+      "projectName": "Hotelio.Modules.Booking.Api",
+      "projectPath": "/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/Hotelio.Modules.Booking.Api.csproj",
+      "packagesPath": "/Users/damian/.nuget/packages/",
+      "outputPath": "/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/damian/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "/usr/local/share/dotnet/library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Application/Hotelio.Modules.Booking.Application.csproj": {
+              "projectPath": "/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Application/Hotelio.Modules.Booking.Application.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

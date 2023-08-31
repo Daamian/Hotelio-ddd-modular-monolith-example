@@ -1,4 +1,4 @@
-using Hotelio.Module.Booking.Shared;
+using Hotelio.Modules.Booking.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
