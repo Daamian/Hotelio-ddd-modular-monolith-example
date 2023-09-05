@@ -2,9 +2,6 @@
 using System.Runtime.CompilerServices;
 using Hotelio.Modules.Booking.Application.ReadModel.VO;
 
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Hotelio.Modules.Booking.Api")]
 namespace Hotelio.Modules.Booking.Application.ReadModel;
 
 internal class Reservation

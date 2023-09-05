@@ -5,9 +5,12 @@
 namespace Hotelio.Modules.Booking.Application;
 
 using System;
-public class Extensions
+public static class Extensions
 {
-    
+    public static IServiceCollection AddBookingApplication(IServiceCollection services)
+    {
+        return services;
+    }
 }
 
 

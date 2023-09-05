@@ -35,9 +35,6 @@
     <Folder Include="ReadModel\VO\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hotelio.Modules.Booking.Shared\Hotelio.Modules.Booking.Shared.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
     <ProjectReference Include="..\Hotelio.Modules.Booking.Domain\Hotelio.Modules.Booking.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

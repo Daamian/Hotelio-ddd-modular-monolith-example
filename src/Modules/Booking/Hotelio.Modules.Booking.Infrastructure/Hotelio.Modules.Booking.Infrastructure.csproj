@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hotelio.Modules.Booking.Domain\Hotelio.Modules.Booking.Domain.csproj" />
     <ProjectReference Include="..\Hotelio.Modules.Booking.Application\Hotelio.Modules.Booking.Application.csproj" />
   </ItemGroup>
   <ItemGroup>

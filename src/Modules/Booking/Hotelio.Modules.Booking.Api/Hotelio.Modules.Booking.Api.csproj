@@ -13,6 +13,7 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hotelio.Modules.Booking.Application\Hotelio.Modules.Booking.Application.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Hotelio.Shared\Hotelio.Shared.csproj" />
+    <ProjectReference Include="..\Hotelio.Modules.Booking.Infrastructure\Hotelio.Modules.Booking.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

@@ -8,8 +8,16 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Hotelio' " />
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\Booking\Hotelio.Modules.Booking.Shared\Hotelio.Modules.Booking.Shared.csproj">
+    <ProjectReference Include="..\..\Modules\Booking\Hotelio.Modules.Booking.Api\Hotelio.Modules.Booking.Api.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Controllers\" />
+    <None Remove="AuthorizationFilter\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="AuthorizationFilter\" />
   </ItemGroup>
 </Project>

@@ -9,11 +9,12 @@ using Hotelio.Shared.Queries;
 using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Application.Query;
 using Hotelio.Modules.Booking.Application.Command;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hotelio.Modules.Booking.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/reservation")]
 internal class ReservationController : ControllerBase
 {
     private readonly ICommandBus commandBus;
@@ -32,7 +33,7 @@ internal class ReservationController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet]
+    [HttpGet("{id:guid}")]
     public async Task<ActionResult<Reservation>> Get(Guid id)
     {
         var reservation = await this.queryBus.QueryAsync(new GetReservation(id));
@@ -43,5 +44,11 @@ internal class ReservationController : ControllerBase
         }
 
         return Ok(reservation);
+    }
+
+    [HttpGet]
+    public ActionResult<string> Get()
+    {
+        return Ok("Hello reservation");
     }
 }
