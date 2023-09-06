@@ -4,10 +4,10 @@ namespace Hotelio.Modules.Booking.Application.ReadModel.VO;
 
 internal class Hotel
 {
-    public Guid Id { set; get; }
-    public String Name { set; get; } = "";
+    public string Id { set; get; }
+    public string Name { set; get; } = "";
 
-    public Hotel(Guid Id, String Name)
+    public Hotel(string Id, string Name)
     {
         this.Id = Id;
         this.Name = Name;

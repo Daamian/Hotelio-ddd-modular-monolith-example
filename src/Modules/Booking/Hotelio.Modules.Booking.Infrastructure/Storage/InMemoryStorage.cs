@@ -6,7 +6,7 @@ namespace Hotelio.Modules.Booking.Infrastructure.Storage;
 
 internal static class InMemoryStorage
 {
-    public static List<Reservation> reservations { set; get; }
+    public static List<Reservation> reservations { set; get; } = new List<Reservation>();
 }
 
 

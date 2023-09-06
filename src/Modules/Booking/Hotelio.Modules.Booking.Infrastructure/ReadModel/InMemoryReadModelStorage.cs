@@ -22,16 +22,16 @@ internal sealed class InMemoryReadModelStorage : IReadModelStorage
 
         return new Reservation(
             new Guid((string)snapshot["Id"]),
-            new Hotel(new Guid((string)snapshot["HotelId"]), "Hotel name"),
+            new Hotel((string)snapshot["HotelId"], "Hotel name"),
             new RoomType((int) snapshot["RoomType"], "Room type name"),
             (int)snapshot["NumberOfGuests"],
-            (string)snapshot["Status"],
+            snapshot["Status"].ToString(),
             (double)snapshot["PriceToPay"],
             (double)snapshot["PricePayed"],
-            (string)snapshot["PaymentType"],
+            (string)snapshot["PaymentType"].ToString(),
             dateRange.StartDate,
             dateRange.EndDate,
-            amenities.Select(a => new Amenity(new Guid(a.Id), "Amenity name")).ToList()
+            amenities.Select(a => new Amenity(a.Id, "Amenity name")).ToList()
         );
     }
 }

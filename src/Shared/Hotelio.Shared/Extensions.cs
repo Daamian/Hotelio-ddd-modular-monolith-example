@@ -31,6 +31,10 @@ public static class Extensions
             .WithScopedLifetime());
         
         services.AddSingleton<IQueryBus, QueryBus>();
+        services.Scan(s => s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
+            .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
 
         return services;
     }
