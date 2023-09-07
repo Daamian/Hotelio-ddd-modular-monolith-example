@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Hotelio.Modules.Booking.Application")]
 [assembly: InternalsVisibleTo("Hotelio.Modules.Booking.Infrastructure")]
