@@ -2,7 +2,7 @@
 
 enum PaymentType
 {
-   IN_ADVANCE,
-   POST_PAID
+   InAdvance,
+   PostPaid
 }
 

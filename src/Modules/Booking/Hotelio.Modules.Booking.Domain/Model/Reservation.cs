@@ -6,38 +6,38 @@ namespace Hotelio.Modules.Booking.Domain.Model;
 
 internal class Reservation
 {
-    private string Id;
-    private string HotelId;
-    private string OwnerId;
-    private int RoomType;
-    private int NumberOfGuests;
-    private Status Status;
-    private double PriceToPay;
-    private double PricePayed;
-    private PaymentType PaymentType;
-    private DateRange DateRange;
-    private List<Amenity> Amenities;
-    private readonly Status[] ActiveStatuses = { Status.CREATED, Status.CONFIRMED, Status.STARTED };
-    private readonly Status[] AcceptedStatuses = { Status.CONFIRMED, Status.STARTED };
+    private string _id;
+    private string _hotelId;
+    private string _ownerId;
+    private int _roomType;
+    private int _numberOfGuests;
+    private Status _status;
+    private double _priceToPay;
+    private double _pricePayed;
+    private PaymentType _paymentType;
+    private DateRange _dateRange;
+    private List<Amenity> _amenities;
+    private readonly Status[] _activeStatuses = { Status.Created, Status.Confirmed, Status.Started };
+    private readonly Status[] _acceptedStatuses = { Status.Confirmed, Status.Started };
 
     private Reservation(string id, string hotelId, string ownerId, int roomType, int numberOfGuests, Status status, double priceToPay, double pricePayed, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
-        Id = id;
-        HotelId = hotelId;
-        OwnerId = ownerId;
-        RoomType = roomType;
-        NumberOfGuests = numberOfGuests;
-        Status = status;
-        PriceToPay = priceToPay;
-        PricePayed = pricePayed;
-        PaymentType = paymentType;
-        DateRange = dateRange;
-        Amenities = amenities;
+        _id = id;
+        _hotelId = hotelId;
+        _ownerId = ownerId;
+        _roomType = roomType;
+        _numberOfGuests = numberOfGuests;
+        _status = status;
+        _priceToPay = priceToPay;
+        _pricePayed = pricePayed;
+        _paymentType = paymentType;
+        _dateRange = dateRange;
+        _amenities = amenities;
     }
 
     public static Reservation Create(string id, HotelConfig hotel, string ownerId, int roomType, int numberOfGuests, double priceToPay, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
-        var roomTypeConfig = hotel.roomTypes.Find(r => r.RoomType == roomType);
+        var roomTypeConfig = hotel.RoomTypes.Find(r => r.RoomType == roomType);
 
         if (null == roomTypeConfig)
         {
@@ -54,12 +54,12 @@ internal class Reservation
             throw new DomainException($"Invalid amenities for hotel");
         }
 
-        return new Reservation(id, hotel.Id,  ownerId, roomType, numberOfGuests, Status.CREATED, priceToPay, 0, paymentType, dateRange, amenities);
+        return new Reservation(id, hotel.Id,  ownerId, roomType, numberOfGuests, Status.Created, priceToPay, 0, paymentType, dateRange, amenities);
     }
 
     public void Pay(double price)
     {
-        if (price > (this.PriceToPay - this.PricePayed))
+        if (price > (this._priceToPay - this._pricePayed))
         {
             throw new DomainException("Cannot pay with higher price.");
         }
@@ -74,22 +74,22 @@ internal class Reservation
             throw new DomainException("Cannot pay not active reservation");
         }
 
-        this.PricePayed += price;
+        this._pricePayed += price;
     }
 
     public void Confirm()
     {
-        if (!this.IsPaid() && this.PaymentType == PaymentType.IN_ADVANCE)
+        if (!this.IsPaid() && this._paymentType == PaymentType.InAdvance)
         {
             throw new DomainException("Reservation must be paid to confirm");
         }
 
-        if (this.Status != Status.CREATED)
+        if (this._status != Status.Created)
         {
             throw new DomainException("Cannot confirm reservation on this status");
         }
 
-        this.Status= Status.CONFIRMED;
+        this._status= Status.Confirmed;
     }
 
     public void AddAmenity(Amenity amenity, HotelConfig hotel)
@@ -109,7 +109,7 @@ internal class Reservation
             throw new DomainException("Invalid amenities");
         }
 
-        this.Amenities.Add(amenity);
+        this._amenities.Add(amenity);
     }
 
     public void ChangeRoomType(int roomType, HotelConfig hotelConfig)
@@ -119,7 +119,7 @@ internal class Reservation
             throw new DomainException("Cannot modify not accepted reservation");
         }
 
-        var roomTypeConfig = hotelConfig.roomTypes.Find(r => r.RoomType == roomType);
+        var roomTypeConfig = hotelConfig.RoomTypes.Find(r => r.RoomType == roomType);
 
         if (null == roomTypeConfig)
         {
@@ -131,7 +131,7 @@ internal class Reservation
             throw new ChangeToLowerRoomTypeNotAllowedException($"Room type {roomType} has lowest level than current");
         }
 
-        this.RoomType = roomType;
+        this._roomType = roomType;
     }
 
     public void ChangeNumberOfGuests(int numberOfGuests, RoomTypeConfig roomTypeConfig)
@@ -146,12 +146,12 @@ internal class Reservation
             throw new DomainException("Invalid number of guest for room type");
         }
 
-        if (numberOfGuests <= this.NumberOfGuests)
+        if (numberOfGuests <= this._numberOfGuests)
         {
             throw new DomainException("Cannot change number of guests to lower number");
         }
 
-        this.NumberOfGuests = numberOfGuests;
+        this._numberOfGuests = numberOfGuests;
     }
 
     public void Extend(DateRange dateRange)
@@ -161,32 +161,32 @@ internal class Reservation
             throw new CannotModifyNotAcceptedReservationException("Cannot extend not accepted reservation");
         }
 
-        if (!dateRange.isGratherThan(this.DateRange))
+        if (!dateRange.IsGratherThan(this._dateRange))
         {
             throw new InvalidDateRangeToExtendReservationException("Cannot change reservation to less than current");
         }
 
-        this.DateRange = dateRange;
+        this._dateRange = dateRange;
     }
 
     public void Start()
     {
-        if (this.Status == Status.STARTED)
+        if (this._status == Status.Started)
         {
             throw new ReservationAlreadyStartedException("Reservation has already started.");
         }
 
-        if (this.Status != Status.CONFIRMED)
+        if (this._status != Status.Confirmed)
         {
             throw new CannotStartNonConfirmedReservationException("Cannot start non confirmed reservation.");
         }
 
-        this.Status = Status.STARTED;
+        this._status = Status.Started;
     }
 
     public void Finish()
     {
-        if (this.Status != Status.STARTED)
+        if (this._status != Status.Started)
         {
             throw new CannotFinishNotStartedReservationException("Cannot finish not started reservation.");
         }
@@ -196,46 +196,46 @@ internal class Reservation
             throw new NotPaidReservationException("Cannot finish not paid reservation.");
         }
 
-        this.Status = Status.FINISHED;
+        this._status = Status.Finished;
     }
 
     public void Cancel()
     {
-        if (this.Status == Status.STARTED)
+        if (this._status == Status.Started)
         {
             throw new CannotCancelStartedReservationException("Cannot cancel started reservation.");
         }
 
-        if (this.Status == Status.FINISHED)
+        if (this._status == Status.Finished)
         {
             throw new CannotCancelFinishedReservationException("Cannot cancel finished reservation.");
         }
 
-        this.Status = Status.CANCELED;
+        this._status = Status.Canceled;
     }
 
     public IDictionary<string, object> Snapshot()
     {
         return new Dictionary<string, object>
         {
-            { "Id", this.Id },
-            { "HotelId", this.HotelId },
-            { "OwnerId", this.OwnerId},
-            { "RoomType", this.RoomType },
-            { "NumberOfGuests", this.NumberOfGuests },
-            { "Status", this.Status },
-            { "PriceToPay", this.PriceToPay },
-            { "PricePayed", this.PricePayed },
-            { "PaymentType", this.PaymentType },
-            { "DateRange", this.DateRange },
-            { "Amenities", this.Amenities },
+            { "Id", this._id },
+            { "HotelId", this._hotelId },
+            { "OwnerId", this._ownerId},
+            { "RoomType", this._roomType },
+            { "NumberOfGuests", this._numberOfGuests },
+            { "Status", this._status },
+            { "PriceToPay", this._priceToPay },
+            { "PricePayed", this._pricePayed },
+            { "PaymentType", this._paymentType },
+            { "DateRange", this._dateRange },
+            { "Amenities", this._amenities },
         };
     }
 
     private static bool IsAmenitiesAvailableInHotel(List<Amenity> amenities, HotelConfig hotel)
     {
         foreach (var amenity in amenities) {
-            var amenityFound = hotel.amenities.Find(a => a == amenity.Id);
+            var amenityFound = hotel.Amenities.Find(a => a == amenity.Id);
             if (null == amenityFound) { return false; }
         }
 
@@ -254,7 +254,7 @@ internal class Reservation
 
     private bool IsActive()
     {
-        if (this.ActiveStatuses.Contains(this.Status))
+        if (this._activeStatuses.Contains(this._status))
         {
             return true;
         }
@@ -264,7 +264,7 @@ internal class Reservation
 
     private bool IsAccepted()
     {
-        if (this.AcceptedStatuses.Contains(this.Status))
+        if (this._acceptedStatuses.Contains(this._status))
         {
             return true;
         }
@@ -274,15 +274,15 @@ internal class Reservation
 
     private bool IsAmenityExists(Amenity amenity)
     {
-        return this.Amenities.Contains(amenity);
+        return this._amenities.Contains(amenity);
     }
 
     private bool IsRoomTypHigherThanBefore(int roomType, HotelConfig hotelConfig)
     {
-        var roomTypes = hotelConfig.roomTypes;
+        var roomTypes = hotelConfig.RoomTypes;
         var newRoomType = roomTypes.Find(r => r.RoomType == roomType);
 
-        var currentRoomType = roomTypes.Find(r => r.RoomType == this.RoomType);
+        var currentRoomType = roomTypes.Find(r => r.RoomType == this._roomType);
 
         if (null == newRoomType || null == currentRoomType || newRoomType.Level < currentRoomType.Level)
         {
@@ -294,7 +294,7 @@ internal class Reservation
 
     private bool IsPaid()
     {
-        return this.PricePayed == this.PriceToPay;
+        return this._pricePayed == this._priceToPay;
     }
 }
 

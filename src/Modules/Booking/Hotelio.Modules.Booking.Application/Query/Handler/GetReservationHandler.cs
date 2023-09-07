@@ -6,16 +6,21 @@ namespace Hotelio.Modules.Booking.Application.Query.Handler;
 
 internal class GetReservationHandler : IQueryHandler<GetReservation, Reservation>
 {
-    private readonly IReadModelStorage storage;
+    private readonly IReadModelStorage _storage;
 
     public GetReservationHandler(IReadModelStorage storage)
     {
-        this.storage = storage;
+        this._storage = storage;
     }
 
     public async Task<Reservation> HandleAsync(GetReservation query)
     {
-        var reservation = await this.storage.FindAsync(query.ReservationId);
+        var reservation = await this._storage.FindAsync(query.ReservationId);
+
+        if (reservation is null)
+        {
+            return null;
+        }
 
         return reservation;
     }

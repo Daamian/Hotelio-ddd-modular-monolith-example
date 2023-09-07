@@ -7,10 +7,10 @@ internal class RoomType
     public int Id { set; get; }
     public String Name { set; get; } = "";
 
-    public RoomType(int Id, String Name)
+    public RoomType(int id, String name)
     {
-        this.Id = Id;
-        this.Name = Name;
+        this.Id = id;
+        this.Name = name;
     }
 }
 

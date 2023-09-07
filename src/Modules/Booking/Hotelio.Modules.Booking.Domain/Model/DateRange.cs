@@ -11,7 +11,7 @@ internal class DateRange
         EndDate = endDate;
     }
 
-    public bool isGratherThan(DateRange dateRange)
+    public bool IsGratherThan(DateRange dateRange)
     {
         if (this.StartDate <= dateRange.StartDate && this.EndDate >= dateRange.EndDate) { return true; }
 

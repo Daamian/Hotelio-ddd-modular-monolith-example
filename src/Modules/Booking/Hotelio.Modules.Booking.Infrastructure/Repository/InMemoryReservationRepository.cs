@@ -11,7 +11,7 @@ internal class InMemoryReservationRepository : IReservationRepository
 {
     public async Task AddAsync(Reservation reservation)
     {
-        InMemoryStorage.reservations.Add(reservation);
+        InMemoryStorage.Reservations.Add(reservation);
     }
 }
 

@@ -15,10 +15,10 @@ public class ReservationTest
         var roomType = 1;
         var owner = "Owner-1";
         var numberOfGuests = 2;
-        var status = Status.CREATED;
+        var status = Status.Created;
         var priceToPay = 100.0;
         var pricePayed = 0.0;
-        var paymentType = PaymentType.POST_PAID;
+        var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
@@ -57,7 +57,7 @@ public class ReservationTest
         var owner = "Owner-1";
         var numberOfGuests = 2;
         var priceToPay = 100.0;
-        var paymentType = PaymentType.POST_PAID;
+        var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
@@ -77,7 +77,7 @@ public class ReservationTest
         var owner = "Owner-1";
         var numberOfGuests = 3;
         var priceToPay = 100.0;
-        var paymentType = PaymentType.POST_PAID;
+        var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
@@ -97,7 +97,7 @@ public class ReservationTest
         var owner = "Owner-1";
         var numberOfGuests = 3;
         var priceToPay = 100.0;
-        var paymentType = PaymentType.POST_PAID;
+        var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
@@ -116,7 +116,7 @@ public class ReservationTest
 
         //Expected
         var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["Status"] = Status.CONFIRMED;
+        snapshotExpected["Status"] = Status.Confirmed;
 
         //When
         reservation.Confirm();
@@ -134,7 +134,7 @@ public class ReservationTest
         var owner = "Owner-1";
         var numberOfGuests = 1;
         var priceToPay = 100.0;
-        var paymentType = PaymentType.IN_ADVANCE;
+        var paymentType = PaymentType.InAdvance;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
@@ -156,7 +156,7 @@ public class ReservationTest
         var owner = "Owner-1";
         var numberOfGuests = 1;
         var priceToPay = 100.0;
-        var paymentType = PaymentType.POST_PAID;
+        var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);
@@ -238,7 +238,7 @@ public class ReservationTest
         //Expected
         var snapshotExpected = reservation.Snapshot();
         snapshotExpected["Amenities"] = new List<Amenity> { amenity };
-        snapshotExpected["Status"] = Status.CONFIRMED;
+        snapshotExpected["Status"] = Status.Confirmed;
 
         //When
         reservation.Confirm();
@@ -327,7 +327,7 @@ public class ReservationTest
         //Expected
         var snapshotExpected = reservation.Snapshot();
         snapshotExpected["RoomType"] = 2;
-        snapshotExpected["Status"] = Status.CONFIRMED;
+        snapshotExpected["Status"] = Status.Confirmed;
 
         //When
         reservation.Confirm();
@@ -409,7 +409,7 @@ public class ReservationTest
         //Expected
         var snapshotExpected = reservation.Snapshot();
         snapshotExpected["NumberOfGuests"] = 3;
-        snapshotExpected["Status"] = Status.CONFIRMED;
+        snapshotExpected["Status"] = Status.Confirmed;
 
         //When
         reservation.Confirm();
@@ -489,7 +489,7 @@ public class ReservationTest
         //Expected
         var snapshotExpected = reservation.Snapshot();
         snapshotExpected["DateRange"] = dateRange;
-        snapshotExpected["Status"] = Status.CONFIRMED;
+        snapshotExpected["Status"] = Status.Confirmed;
 
         //When
         reservation.Confirm();
@@ -566,7 +566,7 @@ public class ReservationTest
 
         //Expected
         var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["Status"] = Status.STARTED;
+        snapshotExpected["Status"] = Status.Started;
 
         //When
         reservation.Confirm();
@@ -607,7 +607,7 @@ public class ReservationTest
         //Expected
         var snapshotExpected = reservation.Snapshot();
         snapshotExpected["PricePayed"] = 100.0;
-        snapshotExpected["Status"] = Status.FINISHED;
+        snapshotExpected["Status"] = Status.Finished;
 
         //When
         reservation.Confirm();
@@ -649,7 +649,7 @@ public class ReservationTest
 
         //Expected
         var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["Status"] = Status.CANCELED;
+        snapshotExpected["Status"] = Status.Canceled;
 
         //When
         reservation.Cancel();
@@ -691,7 +691,7 @@ public class ReservationTest
         var owner = "Owner-1";
         var numberOfGuests = 2;
         var priceToPay = 100.0;
-        var paymentType = PaymentType.POST_PAID;
+        var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
         var dateRange = new DateRange(currentDate, futureDate);

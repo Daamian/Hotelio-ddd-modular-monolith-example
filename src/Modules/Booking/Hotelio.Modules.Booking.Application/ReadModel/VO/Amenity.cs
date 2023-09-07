@@ -7,10 +7,10 @@ internal class Amenity
     public string Id { set; get; }
     public string Name { set; get; }
 
-    public Amenity(string Id, string Name)
+    public Amenity(string id, string name)
     {
-        this.Id = Id;
-        this.Name = Name;
+        this.Id = id;
+        this.Name = name;
     }
 }
 

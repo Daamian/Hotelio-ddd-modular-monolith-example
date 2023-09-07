@@ -12,7 +12,7 @@ internal sealed class InMemoryReadModelStorage : IReadModelStorage
 {
     public async Task<Reservation> FindAsync(Guid reservationId)
     {
-        var reservation = InMemoryStorage.reservations.Find(
+        var reservation = InMemoryStorage.Reservations.Find(
             r => (string) r.Snapshot()["Id"] == reservationId.ToString()
         );
 

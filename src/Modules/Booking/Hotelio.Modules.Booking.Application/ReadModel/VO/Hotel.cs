@@ -7,10 +7,10 @@ internal class Hotel
     public string Id { set; get; }
     public string Name { set; get; } = "";
 
-    public Hotel(string Id, string Name)
+    public Hotel(string id, string name)
     {
-        this.Id = Id;
-        this.Name = Name;
+        this.Id = id;
+        this.Name = name;
     }
 }
 
