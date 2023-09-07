@@ -8,6 +8,7 @@ internal class Reservation
 {
     private string Id;
     private string HotelId;
+    private string OwnerId;
     private int RoomType;
     private int NumberOfGuests;
     private Status Status;
@@ -19,10 +20,11 @@ internal class Reservation
     private readonly Status[] ActiveStatuses = { Status.CREATED, Status.CONFIRMED, Status.STARTED };
     private readonly Status[] AcceptedStatuses = { Status.CONFIRMED, Status.STARTED };
 
-    private Reservation(string id, string hotelId, int roomType, int numberOfGuests, Status status, double priceToPay, double pricePayed, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
+    private Reservation(string id, string hotelId, string ownerId, int roomType, int numberOfGuests, Status status, double priceToPay, double pricePayed, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
         Id = id;
         HotelId = hotelId;
+        OwnerId = ownerId;
         RoomType = roomType;
         NumberOfGuests = numberOfGuests;
         Status = status;
@@ -33,7 +35,7 @@ internal class Reservation
         Amenities = amenities;
     }
 
-    public static Reservation Create(string id, HotelConfig hotel, int roomType, int numberOfGuests, double priceToPay, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
+    public static Reservation Create(string id, HotelConfig hotel, string ownerId, int roomType, int numberOfGuests, double priceToPay, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
         var roomTypeConfig = hotel.roomTypes.Find(r => r.RoomType == roomType);
 
@@ -52,7 +54,7 @@ internal class Reservation
             throw new DomainException($"Invalid amenities for hotel");
         }
 
-        return new Reservation(id, hotel.Id, roomType, numberOfGuests, Status.CREATED, priceToPay, 0, paymentType, dateRange, amenities);
+        return new Reservation(id, hotel.Id,  ownerId, roomType, numberOfGuests, Status.CREATED, priceToPay, 0, paymentType, dateRange, amenities);
     }
 
     public void Pay(double price)
@@ -218,6 +220,7 @@ internal class Reservation
         {
             { "Id", this.Id },
             { "HotelId", this.HotelId },
+            { "OwnerId", this.OwnerId},
             { "RoomType", this.RoomType },
             { "NumberOfGuests", this.NumberOfGuests },
             { "Status", this.Status },

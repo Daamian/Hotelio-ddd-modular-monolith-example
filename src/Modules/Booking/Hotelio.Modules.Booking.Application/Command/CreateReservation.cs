@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 public record CreateReservation(
     [Required] string Id,
     [Required] string HotelId,
+    [Required] string OwnerId,
     [Range(1, int.MaxValue, ErrorMessage = "RoomType must be a positive integer.")]
     int RoomType,
     [Range(1, int.MaxValue, ErrorMessage = "NumberOfGuests must be a positive integer.")]

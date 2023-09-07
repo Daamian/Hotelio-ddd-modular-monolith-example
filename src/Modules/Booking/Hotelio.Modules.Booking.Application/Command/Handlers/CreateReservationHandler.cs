@@ -30,6 +30,7 @@ internal sealed class CreateReservationHandler : ICommandHandler<CreateReservati
                 hotel.Amenities.Select(a => a.Id).ToList(),
                 hotel.RoomTypes.Select(r => new RoomTypeConfig(r.Id, r.MaxGuests, r.Level)).ToList()
             ),
+            command.OwnerId,
             command.RoomType,
             command.NumberOfGuests,
             command.PriceToPay,

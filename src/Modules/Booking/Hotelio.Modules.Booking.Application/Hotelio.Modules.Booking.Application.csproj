@@ -32,7 +32,6 @@
     <Folder Include="Query\DTO\" />
     <Folder Include="Query\Handler\" />
     <Folder Include="ReadModel\" />
-    <Folder Include="ReadModel\VO\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hotelio.Modules.Booking.Domain\Hotelio.Modules.Booking.Domain.csproj">

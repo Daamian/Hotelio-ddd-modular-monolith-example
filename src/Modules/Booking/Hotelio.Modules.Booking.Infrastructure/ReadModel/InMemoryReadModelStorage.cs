@@ -23,6 +23,7 @@ internal sealed class InMemoryReadModelStorage : IReadModelStorage
         return new Reservation(
             new Guid((string)snapshot["Id"]),
             new Hotel((string)snapshot["HotelId"], "Hotel name"),
+            new Owner((string) snapshot["OwnerId"], "Damian", "Kusek"),
             new RoomType((int) snapshot["RoomType"], "Room type name"),
             (int)snapshot["NumberOfGuests"],
             snapshot["Status"].ToString(),

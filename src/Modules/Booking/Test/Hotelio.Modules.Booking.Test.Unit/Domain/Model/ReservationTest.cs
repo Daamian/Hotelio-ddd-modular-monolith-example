@@ -13,6 +13,7 @@ public class ReservationTest
         //Given
         var id = Guid.NewGuid().ToString();
         var roomType = 1;
+        var owner = "Owner-1";
         var numberOfGuests = 2;
         var status = Status.CREATED;
         var priceToPay = 100.0;
@@ -29,6 +30,7 @@ public class ReservationTest
         {
             { "Id", id },
             { "HotelId", "hotel-1" },
+            { "OwnerId", "Owner-1"},
             { "RoomType", roomType },
             { "NumberOfGuests", numberOfGuests },
             { "Status", status },
@@ -40,7 +42,7 @@ public class ReservationTest
         };
 
         //When
-        var reservation = Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
+        var reservation = Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
 
         //Then
         Assert.Equal(expected, reservation.Snapshot());
@@ -52,6 +54,7 @@ public class ReservationTest
         //Given
         var id = Guid.NewGuid().ToString();
         var roomType = 1;
+        var owner = "Owner-1";
         var numberOfGuests = 2;
         var priceToPay = 100.0;
         var paymentType = PaymentType.POST_PAID;
@@ -62,7 +65,7 @@ public class ReservationTest
         var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2, 1) });
 
         //Expected
-        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
+        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
     }
 
     [Fact]
@@ -71,6 +74,7 @@ public class ReservationTest
         //Given
         var id = Guid.NewGuid().ToString();
         var roomType = 1;
+        var owner = "Owner-1";
         var numberOfGuests = 3;
         var priceToPay = 100.0;
         var paymentType = PaymentType.POST_PAID;
@@ -81,7 +85,7 @@ public class ReservationTest
         var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2, 1) });
 
         //Expected
-        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
+        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
     }
 
     [Fact]
@@ -90,6 +94,7 @@ public class ReservationTest
         //Given
         var id = Guid.NewGuid().ToString();
         var roomType = 1;
+        var owner = "Owner-1";
         var numberOfGuests = 3;
         var priceToPay = 100.0;
         var paymentType = PaymentType.POST_PAID;
@@ -100,7 +105,7 @@ public class ReservationTest
         var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(33, 2, 1) });
 
         //Expected
-        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
+        Assert.Throws<DomainException>(() => Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities));
     }
 
     [Fact]
@@ -126,6 +131,7 @@ public class ReservationTest
         //Given
         var id = Guid.NewGuid().ToString();
         var roomType = 1;
+        var owner = "Owner-1";
         var numberOfGuests = 1;
         var priceToPay = 100.0;
         var paymentType = PaymentType.IN_ADVANCE;
@@ -135,7 +141,7 @@ public class ReservationTest
         var amenities = new List<Amenity>();
         var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
-        var reservation = Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
+        var reservation = Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
 
         //Expected
         Assert.Throws<DomainException>(() => reservation.Confirm());
@@ -147,6 +153,7 @@ public class ReservationTest
         //Given
         var id = Guid.NewGuid().ToString();
         var roomType = 1;
+        var owner = "Owner-1";
         var numberOfGuests = 1;
         var priceToPay = 100.0;
         var paymentType = PaymentType.POST_PAID;
@@ -156,7 +163,7 @@ public class ReservationTest
         var amenities = new List<Amenity>();
         var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
-        var reservation = Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
+        var reservation = Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
         reservation.Confirm();
 
         //Expected
@@ -315,7 +322,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(2, 2, 1) });
+        var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1), new RoomTypeConfig(2, 2, 2) });
 
         //Expected
         var snapshotExpected = reservation.Snapshot();
@@ -562,6 +569,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.STARTED;
 
         //When
+        reservation.Confirm();
         reservation.Start();
 
         //Then
@@ -573,6 +581,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
+        reservation.Confirm();
         reservation.Start();
 
         //Expected
@@ -601,6 +610,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.FINISHED;
 
         //When
+        reservation.Confirm();
         reservation.Pay(100.0);
         reservation.Start();
         reservation.Finish();
@@ -678,6 +688,7 @@ public class ReservationTest
     {
         var id = Guid.NewGuid().ToString();
         var roomType = 1;
+        var owner = "Owner-1";
         var numberOfGuests = 2;
         var priceToPay = 100.0;
         var paymentType = PaymentType.POST_PAID;
@@ -687,7 +698,7 @@ public class ReservationTest
         var amenities = new List<Amenity>();
         var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
-        return Reservation.Create(id, hotelConfig, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
+        return Reservation.Create(id, hotelConfig,  owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
     }
 }
 
