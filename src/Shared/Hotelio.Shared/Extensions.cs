@@ -2,6 +2,7 @@
 using Hotelio.Shared.Api;
 using Hotelio.Shared.Commands;
 using Hotelio.Shared.Queries;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ public static class Extensions
                      });
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        services.AddSingleton<ICommandBus, CommandBus>();
+        services.AddSingleton<ICommandBus, MassTransitCommandBus>();
         services.Scan(s => s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
             .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>)))
             .AsImplementedInterfaces()

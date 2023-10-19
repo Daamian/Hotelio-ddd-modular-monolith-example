@@ -24,7 +24,6 @@
   <ItemGroup>
     <Folder Include="Command\" />
     <Folder Include="Command\Handlers\" />
-    <Folder Include="Client\" />
     <Folder Include="Client\DTO\" />
     <Folder Include="Exception\" />
     <Folder Include="Client\Exception\" />

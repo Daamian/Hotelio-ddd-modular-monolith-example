@@ -5,10 +5,11 @@ using Hotelio.Modules.Booking.Domain.Repository;
 using Hotelio.Modules.Booking.Application.Client;
 using Hotelio.Modules.Booking.Domain.Model.DTO;
 using Hotelio.Modules.Booking.Application.Command;
+using MassTransit;
 
 namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
-internal sealed class CreateReservationHandler : ICommandHandler<CreateReservation>
+internal sealed class CreateReservationHandler : IConsumer<CreateReservation>
 {
     private readonly IReservationRepository _reservationRepository;
     private readonly IHotelApiClient _hotelApiClient;
@@ -19,8 +20,9 @@ internal sealed class CreateReservationHandler : ICommandHandler<CreateReservati
         _hotelApiClient = hotelApiClient;
     }
 
-    public async Task HandleAsync(CreateReservation command)
+    public async Task Consume(ConsumeContext<CreateReservation> context)
     {
+        var command = context.Message;
         var hotel = await this._hotelApiClient.GetAsync(command.HotelId);
 
         var reservation = Reservation.Create(

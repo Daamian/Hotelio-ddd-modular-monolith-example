@@ -1,4 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
+using Hotelio.Modules.Booking.Application.Command.Handlers;
+using MassTransit;
 
 [assembly: InternalsVisibleTo("Hotelio.Modules.Booking.Infrastructure")]
 [assembly: InternalsVisibleTo("Hotelio.Modules.Booking.Api")]
