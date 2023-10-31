@@ -17,10 +17,9 @@ public static class Extensions
         services.AddScoped<IReservationRepository, InMemoryReservationRepository>();
         services.AddScoped<IHotelApiClient, HotelApiClient>();
         services.AddScoped<IReadModelStorage, InMemoryReadModelStorage>();
-        services.AddMassTransit(x =>
-        {
-            x.AddConsumer<CreateReservationHandler>();
-            x.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+        
+        services.AddMediatR(cfg => {
+            cfg.RegisterServicesFromAssemblyContaining<CreateReservationHandler>();
         });
         
         return services;

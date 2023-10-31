@@ -25,17 +25,8 @@ public static class Extensions
                      });
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        services.AddSingleton<ICommandBus, MassTransitCommandBus>();
-        services.Scan(s => s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
-            .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
-        
-        services.AddSingleton<IQueryBus, QueryBus>();
-        services.Scan(s => s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
-            .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
+        services.AddScoped<ICommandBus, MediatRCommandBus>();
+        services.AddScoped<IQueryBus, MediatRQueryBus>();
 
         return services;
     }

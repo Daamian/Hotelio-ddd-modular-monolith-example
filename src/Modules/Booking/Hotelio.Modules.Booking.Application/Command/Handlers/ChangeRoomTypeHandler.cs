@@ -5,7 +5,7 @@ using Hotelio.Shared.Commands;
 
 namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
-internal sealed class ChangeRoomTypeHandler : ICommandHandler<ChangeRoomType>
+internal sealed class ChangeRoomTypeHandler
 {
     public async Task HandleAsync(ChangeRoomType command)
     {

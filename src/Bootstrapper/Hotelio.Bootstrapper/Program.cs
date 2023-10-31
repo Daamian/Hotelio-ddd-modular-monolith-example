@@ -1,13 +1,12 @@
 using Hotelio.Bootstrapper.AuthorizationFilter;
 using Hotelio.Modules.Booking.Api;
-using Hotelio.Modules.Booking.Infrastructure;
-using Hotelio.Modules.Booking.Shared;
 using Hotelio.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddBookingModule()
-.AddSharedFramework(builder.Configuration);
+builder.Services
+    .AddBookingModule()
+    .AddSharedFramework(builder.Configuration);
 
 builder.Services.AddControllersWithViews(options =>
 {

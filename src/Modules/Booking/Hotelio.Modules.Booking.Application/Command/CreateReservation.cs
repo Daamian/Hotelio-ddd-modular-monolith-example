@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 using Hotelio.Shared.Commands;
+using MediatR;
 
 namespace Hotelio.Modules.Booking.Application.Command;
 

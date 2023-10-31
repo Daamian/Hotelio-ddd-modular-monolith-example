@@ -5,7 +5,7 @@ using Hotelio.Shared.Commands;
 
 namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
-internal sealed class FinishReservationHandler : ICommandHandler<FinishReservation>
+internal sealed class FinishReservationHandler
 {
     public async Task HandleAsync(FinishReservation command)
     {

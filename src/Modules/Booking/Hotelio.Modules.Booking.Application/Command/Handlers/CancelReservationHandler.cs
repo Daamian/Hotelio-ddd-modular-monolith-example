@@ -5,7 +5,7 @@ using Hotelio.Shared.Commands;
 
 namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
-internal sealed class CancelReservationHandler : ICommandHandler<CancelReservation>
+internal sealed class CancelReservationHandler
 {
     public async Task HandleAsync(CancelReservation command)
     {

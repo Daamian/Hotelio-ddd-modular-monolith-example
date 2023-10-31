@@ -5,7 +5,7 @@ using Hotelio.Shared.Commands;
 
 namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
-internal sealed class AddAmenityToReservationHandler : ICommandHandler<AddAmenity>
+internal sealed class AddAmenityToReservationHandler
 {
     public async Task HandleAsync(AddAmenity command)
     {

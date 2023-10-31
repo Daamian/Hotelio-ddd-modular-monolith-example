@@ -1,8 +1,6 @@
 ﻿using System;
 using Hotelio.Bootstrapper.AuthorizationFilter;
 using Hotelio.Modules.Booking.Api;
-using Hotelio.Modules.Booking.Infrastructure;
-using Hotelio.Modules.Booking.Shared;
 using Hotelio.Shared;
 
 namespace Hotelio.Bootstrapper;

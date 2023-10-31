@@ -1,6 +1,8 @@
-﻿namespace Hotelio.Shared.Commands;
+﻿using MediatR;
 
-public interface ICommand
+namespace Hotelio.Shared.Commands;
+
+public interface ICommand : IRequest
 {
 }
 

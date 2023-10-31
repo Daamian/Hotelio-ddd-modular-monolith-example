@@ -1,10 +1,11 @@
 ﻿using System;
 using Hotelio.Shared.Queries;
 using Hotelio.Modules.Booking.Application.ReadModel;
+using MediatR;
 
 namespace Hotelio.Modules.Booking.Application.Query.Handler;
 
-internal class GetReservationHandler : IQueryHandler<GetReservation, Reservation>
+internal class GetReservationHandler : IRequestHandler<GetReservation, Reservation>
 {
     private readonly IReadModelStorage _storage;
 
@@ -13,8 +14,9 @@ internal class GetReservationHandler : IQueryHandler<GetReservation, Reservation
         this._storage = storage;
     }
 
-    public async Task<Reservation> HandleAsync(GetReservation query)
+    public async Task<Reservation> Handle(GetReservation request, CancellationToken cancellationToken)
     {
+        var query = request;
         var reservation = await this._storage.FindAsync(query.ReservationId);
 
         if (reservation is null)

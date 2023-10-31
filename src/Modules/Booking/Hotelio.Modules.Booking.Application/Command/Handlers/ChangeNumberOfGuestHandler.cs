@@ -5,7 +5,7 @@ using Hotelio.Shared.Commands;
 
 namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
-internal sealed class ChangeNumberOfGuestsHandler : ICommandHandler<ChangeNumberOfGuests>
+internal sealed class ChangeNumberOfGuestsHandler
 {
     public async Task HandleAsync(ChangeNumberOfGuests command)
     {

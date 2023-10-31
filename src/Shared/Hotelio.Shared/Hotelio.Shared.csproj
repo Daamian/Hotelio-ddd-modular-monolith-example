@@ -16,11 +16,11 @@
     <None Remove="Api\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Queries\" />
     <Folder Include="Api\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MassTransit" Version="8.1.1" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Scrutor" Version="4.2.2" />
   </ItemGroup>
 </Project>
