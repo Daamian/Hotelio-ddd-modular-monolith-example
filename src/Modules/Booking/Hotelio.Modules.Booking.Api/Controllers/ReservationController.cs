@@ -14,13 +14,11 @@ internal class ReservationController : ControllerBase
 {
     private readonly ICommandBus _commandBus;
     private readonly IQueryBus _queryBus;
-    private readonly IMediator _mediator;
 
-    public ReservationController(ICommandBus commandBus, IQueryBus queryBus, IMediator _mediator)
+    public ReservationController(ICommandBus commandBus, IQueryBus queryBus)
     {
         this._commandBus = commandBus;
         this._queryBus = queryBus;
-        this._mediator = _mediator;
     }
 
     [HttpPost]

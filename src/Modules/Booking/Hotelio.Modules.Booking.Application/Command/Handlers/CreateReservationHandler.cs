@@ -21,9 +21,8 @@ internal sealed class CreateReservationHandler : IRequestHandler<CreateReservati
         _hotelApiClient = hotelApiClient;
     }
 
-    public async Task Handle(CreateReservation request, CancellationToken cancellationToken)
+    public async Task Handle(CreateReservation command, CancellationToken cancellationToken)
     {
-        var command = request;
         var hotel = await this._hotelApiClient.GetAsync(command.HotelId);
 
         var reservation = Reservation.Create(
