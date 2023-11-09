@@ -1,11 +1,8 @@
-﻿using System;
-using Hotelio.Shared.Commands;
+﻿
 using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Modules.Booking.Domain.Repository;
 using Hotelio.Modules.Booking.Application.Client;
 using Hotelio.Modules.Booking.Domain.Model.DTO;
-using Hotelio.Modules.Booking.Application.Command;
-using MassTransit;
 using MediatR;
 
 namespace Hotelio.Modules.Booking.Application.Command.Handlers;

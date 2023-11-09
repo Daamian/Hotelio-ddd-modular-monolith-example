@@ -1,4 +1,5 @@
 ﻿using System;
+using Hotelio.AntiCorruptionLayer.Api;
 using Hotelio.Bootstrapper.AuthorizationFilter;
 using Hotelio.Modules.Booking.Api;
 using Hotelio.Shared;
@@ -17,6 +18,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddBookingModule();
+        services.AddAntiCorruptionLayer();
         services.AddSharedFramework(_configuration);
 
         services.AddControllersWithViews(options =>
@@ -29,6 +31,7 @@ public class Startup
     {
         app.UseSharedFramework();
         app.UseBookingModule();
+        app.UseAntiCorruptionLayer();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();

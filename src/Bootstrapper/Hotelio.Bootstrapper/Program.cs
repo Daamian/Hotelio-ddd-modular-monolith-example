@@ -1,3 +1,4 @@
+using Hotelio.AntiCorruptionLayer.Api;
 using Hotelio.Bootstrapper.AuthorizationFilter;
 using Hotelio.Modules.Booking.Api;
 using Hotelio.Shared;
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddBookingModule()
+    .AddAntiCorruptionLayer()
     .AddSharedFramework(builder.Configuration);
 
 builder.Services.AddControllersWithViews(options =>
@@ -16,6 +18,7 @@ builder.Services.AddControllersWithViews(options =>
 var app = builder.Build();
 
 app.UseSharedFramework();
+app.UseAntiCorruptionLayer();
 app.UseBookingModule();
 app.UseEndpoints(endpoints =>
 {

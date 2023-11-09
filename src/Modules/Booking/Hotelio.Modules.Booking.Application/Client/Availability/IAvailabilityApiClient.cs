@@ -1,7 +1,7 @@
 namespace Hotelio.Modules.Booking.Application.Client.Availability;
 
-internal interface IAvailabilityApiClient
+public interface IAvailabilityApiClient
 {
-    Task Book(string reservationId, DateTime startDate, DateTime endDate);
-    Task UnBook(string reservationId, DateTime startDate, DateTime endDate);
+    Task Book(string roomId, string reservationId, DateTime startDate, DateTime endDate);
+    Task UnBook(string roomId, string reservationId, DateTime startDate, DateTime endDate);
 }

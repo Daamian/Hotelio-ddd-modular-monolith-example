@@ -16,6 +16,11 @@ internal sealed class InMemoryReadModelStorage : IReadModelStorage
             r => (string) r.Snapshot()["Id"] == reservationId.ToString()
         );
 
+        if (null == reservation)
+        {
+            return null;
+        }
+
         var snapshot = reservation.Snapshot();
         var dateRange = (Domain.Model.DateRange) snapshot["DateRange"];
         List<Domain.Model.Amenity> amenities = (List<Domain.Model.Amenity>)snapshot["Amenities"];

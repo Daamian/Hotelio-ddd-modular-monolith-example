@@ -23,6 +23,12 @@ internal class HotelApiClient : IHotelApiClient
 
         return hotel;
     }
+
+
+    public async Task<string> GetFirstAvailableRoom(string roomType, DateTime startDate, DateTime endDate)
+    {
+        return "room-1";
+    }
 }
 
 

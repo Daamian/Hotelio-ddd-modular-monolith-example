@@ -10,6 +10,7 @@ internal class Reservation
     public Hotel Hotel { set; get; }
     public Owner Owner { set; get; }
     public RoomType RoomType { set; get; }
+    public string? RoomId { set; get; }
     public int NumberOfGuests { set; get; }
     public String Status { set; get; }
     public double PriceToPay { set; get; }
@@ -19,7 +20,7 @@ internal class Reservation
     public DateTime EndDate { set; get; }
     public List<Amenity> Amenities { set; get; }
 
-    public Reservation(Guid id, Hotel hotel, Owner owner, RoomType roomType, int numberOfGuests, string status, double priceToPay, double pricePayed, string paymentType, DateTime startDate, DateTime endDate, List<Amenity> amenities)
+    public Reservation(Guid id, Hotel hotel, Owner owner, RoomType roomType, int numberOfGuests, string status, double priceToPay, double pricePayed, string paymentType, DateTime startDate, DateTime endDate, List<Amenity> amenities, string? roomId = null)
     {
         Id = id;
         Hotel = hotel;
@@ -33,6 +34,8 @@ internal class Reservation
         StartDate = startDate;
         EndDate = endDate;
         Amenities = amenities;
+        RoomId = roomId;
+
     }
 }
 

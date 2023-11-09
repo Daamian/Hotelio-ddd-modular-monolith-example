@@ -22,7 +22,6 @@
     <None Remove="ReadModel\VO\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Command\" />
     <Folder Include="Command\Handlers\" />
     <Folder Include="Client\DTO\" />
     <Folder Include="Exception\" />
