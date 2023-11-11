@@ -1,10 +1,13 @@
-﻿using Hotelio.Modules.Booking.Domain.Model.DTO;
+﻿using Hotelio.Modules.Booking.Domain.Event;
+using Hotelio.Modules.Booking.Domain.Model.DTO;
 using Hotelio.Shared.Exception;
 using Hotelio.Modules.Booking.Domain.Exception;
+using Hotelio.Shared.Domain;
+using MassTransit;
 
 namespace Hotelio.Modules.Booking.Domain.Model;
 
-internal class Reservation
+internal class Reservation: Aggregate
 {
     private string _id;
     private string _hotelId;
@@ -54,7 +57,11 @@ internal class Reservation
             throw new DomainException($"Invalid amenities for hotel");
         }
 
-        return new Reservation(id, hotel.Id,  ownerId, roomType, numberOfGuests, Status.Created, priceToPay, 0, paymentType, dateRange, amenities);
+        var reservation = new Reservation(id, hotel.Id,  ownerId, roomType, numberOfGuests, Status.Created, priceToPay, 0, paymentType, dateRange, amenities);
+        
+        reservation.Events.Add(new ReservationCreated(id));
+        
+        return reservation;
     }
 
     public void Pay(double price)

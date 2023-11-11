@@ -10,7 +10,8 @@ namespace Hotelio.Modules.Booking.Infrastructure.ReadModel;
 
 internal sealed class InMemoryReadModelStorage : IReadModelStorage
 {
-    public async Task<Reservation> FindAsync(Guid reservationId)
+    #nullable enable
+    public async Task<Reservation>? FindAsync(Guid reservationId)
     {
         var reservation = InMemoryStorage.Reservations.Find(
             r => (string) r.Snapshot()["Id"] == reservationId.ToString()

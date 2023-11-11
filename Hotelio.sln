@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AntiCorruptionLayer", "Anti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.AntiCorruptionLayer.Api", "src\Modules\AntiCorruptionLayer\Hotelio.AntiCorruptionLayer.Api\Hotelio.AntiCorruptionLayer.Api.csproj", "{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Availability.Application", "src\Modules\Availability\Hotelio.Modules.Availability.Application\Hotelio.Modules.Availability.Application.csproj", "{4044DB4F-257C-43D3-9DC7-264E917AD00C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4044DB4F-257C-43D3-9DC7-264E917AD00C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4044DB4F-257C-43D3-9DC7-264E917AD00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4044DB4F-257C-43D3-9DC7-264E917AD00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4044DB4F-257C-43D3-9DC7-264E917AD00C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{E9EEE758-19BB-4867-A97E-F69959A9EFCE} = {8314C153-EE55-495B-8F94-83CD44B42EDF}
 		{7ABD6489-81AF-429D-850D-E47E12F2CD40} = {F1E450D8-CE9C-4C59-9277-E32EE5EFEF8C}
 		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514} = {7ABD6489-81AF-429D-850D-E47E12F2CD40}
+		{4044DB4F-257C-43D3-9DC7-264E917AD00C} = {0AA41D1B-4ECE-4CC6-90E0-241EC1CE175F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}

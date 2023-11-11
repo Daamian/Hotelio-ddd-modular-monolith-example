@@ -1,6 +1,7 @@
 ﻿using System;
 using Hotelio.Shared.Api;
 using Hotelio.Shared.Commands;
+using Hotelio.Shared.Event;
 using Hotelio.Shared.Queries;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +28,7 @@ public static class Extensions
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddScoped<ICommandBus, MediatRCommandBus>();
         services.AddScoped<IQueryBus, MediatRQueryBus>();
+        services.AddScoped<IEventBus, MediatREventBus>();
 
         return services;
     }

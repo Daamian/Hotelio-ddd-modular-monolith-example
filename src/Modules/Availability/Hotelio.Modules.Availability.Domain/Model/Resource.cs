@@ -5,6 +5,7 @@ namespace Hotelio.Modules.Availability.Domain.Model;
 internal class Resource
 {
     private Guid _id;
+    private string _groupId;
     private HashSet<Book> _books = new HashSet<Book>();
     private bool _isActive;
 

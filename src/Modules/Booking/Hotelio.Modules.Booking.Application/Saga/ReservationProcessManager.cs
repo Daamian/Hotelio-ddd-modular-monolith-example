@@ -6,6 +6,7 @@ using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Domain.Event;
 using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Shared.Commands;
+using MediatR;
 using Reservation = Hotelio.Modules.Booking.Domain.Model.Reservation;
 
 namespace Hotelio.Modules.Booking.Application.Saga;
@@ -14,13 +15,18 @@ using Hotelio.Modules.Booking.Domain.Event;
 
 /**
  * TODO:
- * 1. Implementation of available service to book and unbook resource and dispatch events (ResourceBooked | ResourceBookRejected)
- * 2. Implementation ConfirmReservation command
+ * 1. Implementation of available service to book and unbook resource and dispatch events (RoomBooked | RoomTypeBookRejected) -> done
+ * 2. Implementation ConfirmReservation command -> in progress
  * 3. Implementation RejectReservation command
- * 4. Implementation dispatch ReservationCreated event on bus
+ * 4. Implementation dispatch ReservationCreated event on bus -> done
  * 5. Register Process manager as event handler
+ * 6. Fix null warnings
  */
-internal class ReservationProcessManager
+internal class ReservationProcessManager: 
+    INotificationHandler<ReservationCreated>, 
+    INotificationHandler<ReservationCanceled>,
+    INotificationHandler<RoomBooked>,
+    INotificationHandler<RoomTypeBookRejected>
 {
     private readonly IReadModelStorage _readModel;
     private readonly IAvailabilityApiClient _availabilityApi;
@@ -35,9 +41,9 @@ internal class ReservationProcessManager
         _hotelApiClient = hotelApiClient;
     }
 
-    public async void HandleReservationCreated(ReservationCreated domainEvent)
+    public async Task Handle(ReservationCreated domainEvent, CancellationToken cancelationToken)
     {
-        var reservation = await _readModel.FindAsync(new Guid(domainEvent.id));
+        var reservation = await _readModel.FindAsync(new Guid(domainEvent.Id));
         
         if (null == reservation) {
             return;
@@ -45,28 +51,16 @@ internal class ReservationProcessManager
 
         if (reservation.PaymentType == PaymentType.PostPaid.ToString())
         {
-            var roomId = await _hotelApiClient.GetFirstAvailableRoom(
-                reservation.RoomType.ToString(), 
+            await this._availabilityApi.Book(
+                reservation.Hotel.Id, 
+                reservation.RoomType.ToString(),
+                reservation.Id.ToString(), 
                 reservation.StartDate, 
-                reservation.EndDate
-                );
-            
-            await this._availabilityApi.Book(roomId, reservation.Id.ToString(), reservation.StartDate, reservation.EndDate);
+                reservation.EndDate);
         }
     }
-
-    public async void HandleResourceBooked(ResourceBooked e)
-    {
-        //TODO consider what if confirmation is not possible
-        await this._commandBus.DispatchAsync(new ConfirmReservation(e.RoomId, e.ReservationId));
-    }
-
-    public async void HandleResourceBookRejected(ResourceBookRejected e)
-    {
-        await this._commandBus.DispatchAsync(new RejectReservation(e.ReservationId));
-    }
-
-    public async void HandleReservationCanceled(ReservationCanceled domainEvent)
+    
+    public async Task Handle(ReservationCanceled domainEvent, CancellationToken cancelationToken)
     {
         //TODO consider what if unbook is not possible
         var reservation = await _readModel.FindAsync(new Guid(domainEvent.ReservationId));
@@ -76,5 +70,16 @@ internal class ReservationProcessManager
         }
 
         await this._availabilityApi.UnBook(reservation.RoomId, domainEvent.ReservationId, reservation.StartDate, reservation.EndDate);
+    }
+
+    public async Task Handle(RoomBooked e, CancellationToken cancelationToken)
+    {
+        //TODO consider what if confirmation is not possible
+        await this._commandBus.DispatchAsync(new ConfirmReservation(e.RoomId, e.ReservationId));
+    }
+
+    public async Task Handle(RoomTypeBookRejected e, CancellationToken cancelationToken)
+    {
+        await this._commandBus.DispatchAsync(new RejectReservation(e.ReservationId));
     }
 }
