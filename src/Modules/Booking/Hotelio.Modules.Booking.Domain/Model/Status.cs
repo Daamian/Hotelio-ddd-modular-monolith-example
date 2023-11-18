@@ -2,6 +2,7 @@
 enum Status
 {
     Created,
+    Rejected,
     Confirmed,
     Started,
     Finished,

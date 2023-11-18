@@ -97,6 +97,7 @@ internal class Reservation: Aggregate
         }
 
         this._status= Status.Confirmed;
+        this.Events.Add(new ReservationConfirmed(this._id));
     }
 
     public void AddAmenity(Amenity amenity, HotelConfig hotel)
@@ -189,6 +190,12 @@ internal class Reservation: Aggregate
         }
 
         this._status = Status.Started;
+    }
+
+    public void Reject()
+    {
+        this._status = Status.Rejected;
+        this.Events.Add(new ReservationRejected(this._id));
     }
 
     public void Finish()

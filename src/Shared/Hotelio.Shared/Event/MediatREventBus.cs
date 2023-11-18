@@ -4,9 +4,9 @@ using MediatR;
 
 public class MediatREventBus: IEventBus
 {
-    private Mediator _mediator;
+    private IMediator _mediator;
 
-    public MediatREventBus(Mediator mediator)
+    public MediatREventBus(IMediator mediator)
     {
         _mediator = mediator;
     }

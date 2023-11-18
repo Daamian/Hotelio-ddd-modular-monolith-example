@@ -1,24 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hotelio.Modules.Booking.Domain.Model;
-using Hotelio.Modules.Booking.Domain.Repository;
-using Hotelio.Shared.Commands;
-using Hotelio.Shared.Exception;
 using MediatR;
+using Hotelio.Modules.Booking.Domain.Repository;
+using Hotelio.Shared.Exception;
 
 namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
-
-internal sealed class ConfirmReservationHandler: IRequestHandler<ConfirmReservation>
+internal sealed class RejectReservationHandler : IRequestHandler<RejectReservation>
 {
     private readonly IReservationRepository _reservationRepository;
 
-    public ConfirmReservationHandler(IReservationRepository reservationRepository)
+    public RejectReservationHandler(IReservationRepository reservationRepository)
     {
         _reservationRepository = reservationRepository;
     }
-
-    public async Task Handle(ConfirmReservation command, CancellationToken cancellationToken)
+    
+    public async Task Handle(RejectReservation command, CancellationToken cancellationToken)
     {
         var reservation = this._reservationRepository.Find(command.ReservationId);
 
@@ -27,9 +22,9 @@ internal sealed class ConfirmReservationHandler: IRequestHandler<ConfirmReservat
             throw new CommandFailedException($"Not found reservation with id {command.ReservationId}");
         }
         
-        reservation.Confirm();
-        await this._reservationRepository.UpdateAsync(reservation);
+        reservation.Reject();
+        
+        await Task.CompletedTask;
     }
+
 }
-
-

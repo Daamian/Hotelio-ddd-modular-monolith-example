@@ -3,11 +3,9 @@ using Hotelio.Modules.Booking.Application.Client.Availability;
 using Hotelio.Modules.Booking.Application.Command;
 using Hotelio.Modules.Booking.Application.Event.External;
 using Hotelio.Modules.Booking.Application.ReadModel;
-using Hotelio.Modules.Booking.Domain.Event;
 using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Shared.Commands;
 using MediatR;
-using Reservation = Hotelio.Modules.Booking.Domain.Model.Reservation;
 
 namespace Hotelio.Modules.Booking.Application.Saga;
 
@@ -16,10 +14,10 @@ using Hotelio.Modules.Booking.Domain.Event;
 /**
  * TODO:
  * 1. Implementation of available service to book and unbook resource and dispatch events (RoomBooked | RoomTypeBookRejected) -> done
- * 2. Implementation ConfirmReservation command -> in progress
- * 3. Implementation RejectReservation command
+ * 2. Implementation ConfirmReservation command -> done
+ * 3. Implementation RejectReservation command -> done
  * 4. Implementation dispatch ReservationCreated event on bus -> done
- * 5. Register Process manager as event handler
+ * 5. Register Process manager as event handler -> done
  * 6. Fix null warnings
  */
 internal class ReservationProcessManager: 

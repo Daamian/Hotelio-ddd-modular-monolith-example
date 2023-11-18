@@ -6,6 +6,10 @@ namespace Hotelio.Modules.Booking.Domain.Repository;
 internal interface IReservationRepository
 {
     Task AddAsync(Reservation reservation);
+    
+    Reservation? Find(string id);
+
+    Task UpdateAsync(Reservation reservation);
 }
 
 

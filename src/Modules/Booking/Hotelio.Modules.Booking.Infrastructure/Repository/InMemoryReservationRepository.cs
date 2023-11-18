@@ -1,4 +1,7 @@
-﻿using Hotelio.Shared.Event;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Hotelio.Shared.Event;
 
 namespace Hotelio.Modules.Booking.Infrastructure.Repository;
 
@@ -19,11 +22,38 @@ internal class InMemoryReservationRepository : IReservationRepository
     public async Task AddAsync(Reservation reservation)
     {
         InMemoryStorage.Reservations.Add(reservation);
-        
-        foreach (var domainEvent in reservation.Events)
+        this.publishEvents(reservation);
+    }
+
+    private void publishEvents(Reservation reservation)
+    {
+        var events = reservation.Events.ToList();
+        foreach (var domainEvent in events)
         {
             this._eventBus.publish(domainEvent);
         }
+        
+        reservation.Events.Clear();
+    }
+
+    #nullable enable
+    public Reservation? Find(string id)
+    {
+        return InMemoryStorage.Reservations.Find(r => (string) r.Snapshot()["Id"] == id);
+    }
+
+    public async Task UpdateAsync(Reservation reservation)
+    {
+        var index = InMemoryStorage.Reservations
+            .FindIndex(r => r.Snapshot()["Id"] == reservation.Snapshot()["Id"]);
+
+        if (index == -1)
+        {
+            throw new Exception($"Reservation with id {reservation.Snapshot()["Id"]} doesn't exists");
+        }
+
+        InMemoryStorage.Reservations[index] = reservation;
+        this.publishEvents(reservation);
     }
 }
 
