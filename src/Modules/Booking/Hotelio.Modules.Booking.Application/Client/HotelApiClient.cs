@@ -9,7 +9,6 @@ internal class HotelApiClient : IHotelApiClient
     {
         new Hotel("Hotel-1", new List<Amenity>() { new Amenity("amenity-1"), new Amenity("amenity-2") }, new List<RoomType> { new RoomType(1, 2, 1), new RoomType(2, 2, 2) }),
         new Hotel("Hotel-2", new List<Amenity>() { new Amenity("amenity-21"), new Amenity("amenity-22") }, new List<RoomType> { new RoomType(1, 2, 1), new RoomType(2, 2, 2) })
-
     };
 
     public async Task<Hotel> GetAsync(string id)

@@ -5,5 +5,5 @@ namespace Hotelio.Shared.Event;
 
 public interface IEventBus
 {
-    public void publish(IEvent eventItem);
+    public Task publish(IEvent eventItem);
 }

@@ -12,7 +12,7 @@ public class ResourceTest
         Guid resourceId = Guid.NewGuid();
 
         // Act
-        var resource = Resource.Create(resourceId);
+        var resource = Resource.Create(resourceId, "Hotel-1", 1);
         var snapshot = resource.Snapshot();
 
         // Assert
@@ -26,7 +26,7 @@ public class ResourceTest
     public void TestShouldBookResourceInDateRange()
     {
         // Arrange
-        Resource resource = Resource.Create(Guid.NewGuid());
+        Resource resource = Resource.Create(Guid.NewGuid(), "Hotel-1", 1);
         string ownerId = "User1";
         DateTime startDate = DateTime.Now;
         DateTime endDate = startDate.AddHours(2);
@@ -43,7 +43,7 @@ public class ResourceTest
     public void TestShouldThrowDomainExceptionWhenITryToOverlapBookResource()
     {
         // Arrange
-        Resource resource = Resource.Create(Guid.NewGuid());
+        Resource resource = Resource.Create(Guid.NewGuid(),"Hotel-1", 1);
         string ownerId = "User1";
         DateTime startDate = DateTime.Now;
         DateTime endDate = startDate.AddHours(2);
@@ -59,7 +59,7 @@ public class ResourceTest
     public void TestShouldUnBookResource()
     {
         // Arrange
-        Resource resource = Resource.Create(Guid.NewGuid());
+        Resource resource = Resource.Create(Guid.NewGuid(),"Hotel-1", 1);
         string ownerId = "User1";
         DateTime startDate = DateTime.Now;
         DateTime endDate = startDate.AddHours(2);
@@ -78,7 +78,7 @@ public class ResourceTest
     public void TestShouldThrowDomainExceptionWhenITryUnBookNonExistBook()
     {
         // Arrange
-        Resource resource = Resource.Create(Guid.NewGuid());
+        Resource resource = Resource.Create(Guid.NewGuid(),"Hotel-1", 1);
         string ownerId = "User1";
         DateTime startDate = DateTime.Now;
         DateTime endDate = startDate.AddHours(2);

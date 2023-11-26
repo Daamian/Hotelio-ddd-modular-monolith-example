@@ -11,8 +11,8 @@ public class MediatREventBus: IEventBus
         _mediator = mediator;
     }
 
-    public void publish(IEvent eventItem)
+    public async Task publish(IEvent eventItem)
     {
-        this._mediator.Publish(eventItem);
+        await this._mediator.Publish(eventItem);
     }
 }

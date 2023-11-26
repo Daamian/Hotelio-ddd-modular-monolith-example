@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Hotelio.Shared\Hotelio.Shared.csproj" />
+      <ProjectReference Include="..\..\Availability\Hotelio.Modules.Availability.Api\Hotelio.Modules.Availability.Api.csproj" />
       <ProjectReference Include="..\..\Booking\Hotelio.Modules.Booking.Application\Hotelio.Modules.Booking.Application.csproj" />
     </ItemGroup>
 

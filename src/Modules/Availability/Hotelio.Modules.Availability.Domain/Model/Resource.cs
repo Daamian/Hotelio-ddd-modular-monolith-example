@@ -1,23 +1,28 @@
+using Hotelio.Modules.Availability.Domain.Event;
 using Hotelio.Modules.Availability.Domain.Exception;
+using Hotelio.Shared.Domain;
 
 namespace Hotelio.Modules.Availability.Domain.Model;
 
-internal class Resource
+internal class Resource: Aggregate
 {
     private Guid _id;
     private string _groupId;
+    private int _type;
     private HashSet<Book> _books = new HashSet<Book>();
     private bool _isActive;
 
-    private Resource(Guid id, bool active = true)
+    private Resource(Guid id, string groupId, int type, bool active = true)
     {
         this._id = id;
+        this._groupId = groupId;
+        this._type = type;
         this._isActive = active;
     }
     
-    public static Resource Create(Guid id, bool active = true)
+    public static Resource Create(Guid id, string groupId, int type, bool active = true)
     {
-        return new Resource(id, active);
+        return new Resource(id, groupId, type, active);
     }
     
     public void Book(string ownerId, DateTime startDate, DateTime endDate)
@@ -32,7 +37,9 @@ internal class Resource
             throw new ResourceIsNotActiveException("Resource is not active");
         }
 
-        this._books.Add(new Book(ownerId, startDate, endDate));
+        var book = new Book(new Guid(), ownerId, startDate, endDate);
+        this._books.Add(book);
+        this.Events.Add(new ResourceBooked(this._id.ToString(), book.BookId.ToString(), book.OwnerId, book.StartDate, book.EndDate));
     }
 
     public void UnBook(string ownerId, DateTime startDate, DateTime endDate)
@@ -62,6 +69,8 @@ internal class Resource
         {
             { "Id", this._id },
             { "IsActive", this._isActive },
+            { "GroupId", this._groupId },
+            { "Type", this._type },
             { "Books", this._books }
         };
     }

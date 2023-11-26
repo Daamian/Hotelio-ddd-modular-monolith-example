@@ -11,15 +11,6 @@ namespace Hotelio.Modules.Booking.Application.Saga;
 
 using Hotelio.Modules.Booking.Domain.Event;
 
-/**
- * TODO:
- * 1. Implementation of available service to book and unbook resource and dispatch events (RoomBooked | RoomTypeBookRejected) -> done
- * 2. Implementation ConfirmReservation command -> done
- * 3. Implementation RejectReservation command -> done
- * 4. Implementation dispatch ReservationCreated event on bus -> done
- * 5. Register Process manager as event handler -> done
- * 6. Fix null warnings
- */
 internal class ReservationProcessManager: 
     INotificationHandler<ReservationCreated>, 
     INotificationHandler<ReservationCanceled>,
@@ -29,14 +20,12 @@ internal class ReservationProcessManager:
     private readonly IReadModelStorage _readModel;
     private readonly IAvailabilityApiClient _availabilityApi;
     private readonly ICommandBus _commandBus;
-    private readonly IHotelApiClient _hotelApiClient;
 
-    public ReservationProcessManager(IReadModelStorage readModel, IAvailabilityApiClient availabilityApi, ICommandBus commandBus, IHotelApiClient hotelApiClient)
+    public ReservationProcessManager(IReadModelStorage readModel, IAvailabilityApiClient availabilityApi, ICommandBus commandBus)
     {
         _readModel = readModel;
         _availabilityApi = availabilityApi;
         _commandBus = commandBus;
-        _hotelApiClient = hotelApiClient;
     }
 
     public async Task Handle(ReservationCreated domainEvent, CancellationToken cancelationToken)
@@ -51,10 +40,12 @@ internal class ReservationProcessManager:
         {
             await this._availabilityApi.Book(
                 reservation.Hotel.Id, 
-                reservation.RoomType.ToString(),
+                reservation.RoomType.Id,
                 reservation.Id.ToString(), 
                 reservation.StartDate, 
                 reservation.EndDate);
+        } else {
+            //TODO: temp book
         }
     }
     
