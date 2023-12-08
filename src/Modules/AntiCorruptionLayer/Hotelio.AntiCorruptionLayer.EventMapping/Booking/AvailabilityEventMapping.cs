@@ -16,6 +16,6 @@ internal class AvailabilityEventMapping : INotificationHandler<ResourceBooked>
 
     public async Task Handle(ResourceBooked domainEvent, CancellationToken cancellationToken)
     {
-        await this._eventBus.publish(new RoomBooked(domainEvent.Id, domainEvent.OwnerId));
+        await this._eventBus.publish(new RoomBooked(domainEvent.Id, domainEvent.OwnerId, domainEvent.BookId));
     }
 }

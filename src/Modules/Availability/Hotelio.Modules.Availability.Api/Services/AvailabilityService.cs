@@ -1,15 +1,16 @@
+using Hotelio.Modules.Availability.Application.Command;
 using BookCommand = Hotelio.Modules.Availability.Application.Command.Book;
 using Hotelio.Modules.Availability.Application.ReadModel;
 using Hotelio.Shared.Commands;
 
 namespace Hotelio.Modules.Availability.Api.Services;
 
-public class AvailabilityService: IAvailabilityService
+internal class AvailabilityService: IAvailabilityService
 {
     private readonly IResourceStorage _resourceStorage;
     private readonly ICommandBus _commandBus;
 
-    internal AvailabilityService(IResourceStorage resourceStorage, ICommandBus commandBus)
+    public AvailabilityService(IResourceStorage resourceStorage, ICommandBus commandBus)
     {
         _resourceStorage = resourceStorage;
         _commandBus = commandBus;
@@ -26,5 +27,10 @@ public class AvailabilityService: IAvailabilityService
         }
 
         await this._commandBus.DispatchAsync(new BookCommand(resource.Id, ownerId, starDate, endDate));
+    }
+
+    public async Task UnBookAsync(string resourceId, string ownerId)
+    {
+        await this._commandBus.DispatchAsync(new UnBook(resourceId, ownerId));
     }
 }

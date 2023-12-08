@@ -27,7 +27,7 @@ internal sealed class ConfirmReservationHandler: IRequestHandler<ConfirmReservat
             throw new CommandFailedException($"Not found reservation with id {command.ReservationId}");
         }
         
-        reservation.Confirm();
+        reservation.Confirm(command.RoomId);
         await this._reservationRepository.UpdateAsync(reservation);
     }
 }

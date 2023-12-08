@@ -13,6 +13,7 @@ internal class Reservation: Aggregate
     private string _hotelId;
     private string _ownerId;
     private int _roomType;
+    private string? _roomId = null;
     private int _numberOfGuests;
     private Status _status;
     private double _priceToPay;
@@ -84,7 +85,7 @@ internal class Reservation: Aggregate
         this._pricePayed += price;
     }
 
-    public void Confirm()
+    public void Confirm(string roomId)
     {
         if (!this.IsPaid() && this._paymentType == PaymentType.InAdvance)
         {
@@ -97,6 +98,7 @@ internal class Reservation: Aggregate
         }
 
         this._status= Status.Confirmed;
+        this._roomId = roomId;
         this.Events.Add(new ReservationConfirmed(this._id));
     }
 
@@ -228,9 +230,9 @@ internal class Reservation: Aggregate
         this._status = Status.Canceled;
     }
 
-    public IDictionary<string, object> Snapshot()
+    public IDictionary<string, object?> Snapshot()
     {
-        return new Dictionary<string, object>
+        return new Dictionary<string, object?>
         {
             { "Id", this._id },
             { "HotelId", this._hotelId },
@@ -243,6 +245,7 @@ internal class Reservation: Aggregate
             { "PaymentType", this._paymentType },
             { "DateRange", this._dateRange },
             { "Amenities", this._amenities },
+            { "RoomId", this._roomId}
         };
     }
 

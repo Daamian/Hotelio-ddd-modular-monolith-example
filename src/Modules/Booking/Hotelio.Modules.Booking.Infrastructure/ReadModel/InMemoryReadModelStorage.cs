@@ -38,7 +38,8 @@ internal sealed class InMemoryReadModelStorage : IReadModelStorage
             (string)snapshot["PaymentType"].ToString(),
             dateRange.StartDate,
             dateRange.EndDate,
-            amenities.Select(a => new Amenity(a.Id, "Amenity name")).ToList()
+            amenities.Select(a => new Amenity(a.Id, "Amenity name")).ToList(),
+            (string?) snapshot["RoomId"]
         );
     }
 }

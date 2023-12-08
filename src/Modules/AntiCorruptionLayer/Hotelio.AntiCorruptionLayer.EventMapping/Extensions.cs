@@ -1,3 +1,4 @@
+using Hotelio.AntiCorruptionLayer.EventMapping.Booking;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,6 +8,11 @@ public static class Extensions
 {
     public static IServiceCollection AddAntiCorruptionLayerEventMapping(this IServiceCollection services)
     {
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining<AvailabilityEventMapping>();
+        });
+        
         return services;
     }
 

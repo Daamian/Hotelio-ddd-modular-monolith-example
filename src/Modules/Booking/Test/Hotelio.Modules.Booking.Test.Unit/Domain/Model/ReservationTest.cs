@@ -119,7 +119,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.Confirmed;
 
         //When
-        reservation.Confirm();
+        reservation.Confirm("roomId");
 
         //Then
         Assert.Equal(snapshotExpected, reservation.Snapshot());
@@ -144,7 +144,7 @@ public class ReservationTest
         var reservation = Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
 
         //Expected
-        Assert.Throws<DomainException>(() => reservation.Confirm());
+        Assert.Throws<DomainException>(() => reservation.Confirm("roomId"));
     }
 
     [Fact]
@@ -164,10 +164,10 @@ public class ReservationTest
         var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         var reservation = Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
-        reservation.Confirm();
+        reservation.Confirm("roomId");
 
         //Expected
-        Assert.Throws<DomainException>(() => reservation.Confirm());
+        Assert.Throws<DomainException>(() => reservation.Confirm("roomId"));
     }
 
 
@@ -241,7 +241,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.Confirmed;
 
         //When
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.AddAmenity(amenity, hotelConfig);
 
         //Then
@@ -265,7 +265,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         var amenity = new Amenity("amenity-test-2");
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
@@ -278,7 +278,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         var amenity = new Amenity("amenity-test-1");
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
         reservation.AddAmenity(amenity, hotelConfig);
@@ -294,7 +294,7 @@ public class ReservationTest
         var reservation = this.CreteReservation();
         var amenity = new Amenity("amenity-test-1");
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Cancel();
 
         //Expected
@@ -308,7 +308,7 @@ public class ReservationTest
         var reservation = this.CreteReservation();
         var amenity = new Amenity("amenity-test-1");
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Pay(100);
         reservation.Start();
         reservation.Finish();
@@ -330,7 +330,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.Confirmed;
 
         //When
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.ChangeRoomType(2, hotelConfig);
 
         //Then
@@ -343,7 +343,7 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 2), new RoomTypeConfig(2, 1, 1) });
-        reservation.Confirm();
+        reservation.Confirm("roomId");
 
         //Expected
         Assert.Throws<ChangeToLowerRoomTypeNotAllowedException>(() => reservation.ChangeRoomType(2, hotelConfig));
@@ -355,7 +355,7 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Cancel();
 
         //Expected
@@ -368,7 +368,7 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Pay(100);
         reservation.Start();
         reservation.Finish();
@@ -394,7 +394,7 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
-        reservation.Confirm();
+        reservation.Confirm("roomId");
 
         //Expected
         Assert.Throws<DomainException>(() => reservation.ChangeRoomType(111, hotelConfig));
@@ -412,7 +412,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.Confirmed;
 
         //When
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3, 1));
 
         //Then
@@ -434,7 +434,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Cancel();
 
         //Expected
@@ -446,7 +446,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Start();
         reservation.Pay(100);
         reservation.Finish();
@@ -460,7 +460,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
 
         //Expected
         Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(5, new RoomTypeConfig(1, 4, 1)));
@@ -471,7 +471,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
 
         //Expected
         Assert.Throws<DomainException>(() => reservation.ChangeNumberOfGuests(1, new RoomTypeConfig(1, 4, 1)));
@@ -492,7 +492,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.Confirmed;
 
         //When
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Extend(dateRange);
 
         //Then
@@ -520,7 +520,7 @@ public class ReservationTest
         DateTime currentDate = DateTime.Now.AddDays(-1);
         DateTime futureDate = DateTime.Now.AddDays(8);
         var dateRange = new DateRange(currentDate, futureDate);
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Cancel();
 
         //Expected
@@ -535,7 +535,7 @@ public class ReservationTest
         DateTime currentDate = DateTime.Now.AddDays(-1);
         DateTime futureDate = DateTime.Now.AddDays(8);
         var dateRange = new DateRange(currentDate, futureDate);
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Start();
         reservation.Pay(100);
         reservation.Finish();
@@ -552,7 +552,7 @@ public class ReservationTest
         DateTime currentDate = DateTime.Now.AddDays(2);
         DateTime futureDate = DateTime.Now.AddDays(5);
         var dateRange = new DateRange(currentDate, futureDate);
-        reservation.Confirm();
+        reservation.Confirm("roomId");
 
         //Expected
         Assert.Throws<InvalidDateRangeToExtendReservationException>(() => reservation.Extend(dateRange));
@@ -569,7 +569,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.Started;
 
         //When
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Start();
 
         //Then
@@ -581,7 +581,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Start();
 
         //Expected
@@ -610,7 +610,7 @@ public class ReservationTest
         snapshotExpected["Status"] = Status.Finished;
 
         //When
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Pay(100.0);
         reservation.Start();
         reservation.Finish();
@@ -634,7 +634,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Start();
 
         //Expected
@@ -663,7 +663,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Start();
 
         //Expected
@@ -675,7 +675,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        reservation.Confirm();
+        reservation.Confirm("roomId");
         reservation.Start();
         reservation.Pay(100);
         reservation.Finish();

@@ -8,4 +8,6 @@ public interface IAvailabilityService
         string ownerId, 
         DateTime starDate, 
         DateTime endDate);
+
+    public Task UnBookAsync(string resourceId, string ownerId);
 }

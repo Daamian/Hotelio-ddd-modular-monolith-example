@@ -1,12 +1,6 @@
 ﻿namespace Hotelio.Modules.Booking.Domain.Model;
 
-internal class Amenity
-{
-    public readonly string Id;
+internal record Amenity(string Id);
 
-    public Amenity (string id)
-    {
-        Id = id;
-    }
-}
+
 

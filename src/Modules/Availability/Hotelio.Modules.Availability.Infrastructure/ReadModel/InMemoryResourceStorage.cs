@@ -8,13 +8,19 @@ internal class InMemoryResourceStorage: IResourceStorage
     public Resource FindFirstAvailableInDates(string groupId, int type, DateTime startDate, DateTime endDate)
     {
         //TODO query
-        var data = InMemoryStorage.Resources
+        /*var data = InMemoryStorage.Resources
             .Where(resource =>
                 resource["GroupId"] == groupId &&
                 resource["Type"] == type &&
                 ((List<IDictionary<string, dynamic>>)resource["Books"])
                 .Any(book =>
-                    book["StartDate"] == groupId))
+                    book["StartDate"] == startDate))
+            .ToList().First();*/
+        
+        var data = InMemoryStorage.Resources
+            .Where(resource =>
+                resource["GroupId"] == groupId &&
+                resource["Type"] == type)
             .ToList().First();
         
         //TODO change linqu query
@@ -28,6 +34,6 @@ internal class InMemoryResourceStorage: IResourceStorage
         
         
 
-        return new Resource(data["Id"], data["GroupId"], data["Type"], data["IsActive"], data["Books"]);
+        return new Resource(data["Id"], data["GroupId"], data["Type"], data["IsActive"], new List<Book>());
     }
 }

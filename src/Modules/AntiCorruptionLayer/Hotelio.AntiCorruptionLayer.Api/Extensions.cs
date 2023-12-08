@@ -1,3 +1,5 @@
+using Hotelio.AntiCorruptionLayer.EventMapping;
+
 namespace Hotelio.AntiCorruptionLayer.Api;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +12,7 @@ public static class Extensions
     public static IServiceCollection AddAntiCorruptionLayer(this IServiceCollection services)
     {
         services.AddScoped<IAvailabilityApiClient, AvailabilityApiClient>();
+        services.AddAntiCorruptionLayerEventMapping();
         return services;
     }
 

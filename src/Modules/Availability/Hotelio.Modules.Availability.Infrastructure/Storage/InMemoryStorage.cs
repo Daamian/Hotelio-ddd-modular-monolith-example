@@ -1,6 +1,3 @@
-using Hotelio.Modules.Availability.Domain.Model;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Hotelio.Modules.Availability.Infrastructure.Storage;
 
 internal class InMemoryStorage
@@ -9,34 +6,34 @@ internal class InMemoryStorage
     {
         new Dictionary<string, dynamic>()
         {
-            {"Id", "id1"}, 
+            {"Id", "ccac553d-d50d-4785-806a-7e32fdea3c23"}, 
             {"GroupId", "Hotel-1"}, 
             {"Type", 1}, {"IsActive", true}, 
-            {"Books", new List<IDictionary<string, dynamic>>() { new Dictionary<string, dynamic>() { {"Id", "test1"}, { "OwnerId", "owner-1"} } } }
+            {"Books", new List<IDictionary<string, dynamic>>() { new Dictionary<string, dynamic>() } }
         },
         new Dictionary<string, dynamic>()
         {
-            {"Id", "id2"}, 
+            {"Id", "11f41341-5ef6-4942-af4b-ab2c700db8c5"}, 
             {"GroupId", "Hotel-1"}, 
             {"Type", 2}, 
             {"IsActive", true}, 
-            {"Books", new List<IDictionary<string, dynamic>>() { new Dictionary<string, dynamic>() { {"Id", "test2"} } } }
+            {"Books", new List<IDictionary<string, dynamic>>() { new Dictionary<string, dynamic>() } }
         },
         new Dictionary<string, dynamic>()
         {
-            {"Id", "id3"}, 
+            {"Id", "1cd46654-44df-454b-9b03-24f58fb226dd"}, 
             {"GroupId", "Hotel-2"}, 
             {"Type", 1}, 
             {"IsActive", true}, 
-            {"Books", new List<IDictionary<string, dynamic>>() { new Dictionary<string, dynamic>() { {"Id", "test3"} } } }
+            {"Books", new List<IDictionary<string, dynamic>>() { new Dictionary<string, dynamic>() } }
         },
         new Dictionary<string, dynamic>()
         {
-            {"Id", "id4"}, 
+            {"Id", "cbf8691d-02d1-481d-9263-f379b6cfbfc4"}, 
             {"GroupId", "Hotel-1"}, 
             {"Type", 2}, 
             {"IsActive", true}, 
-            {"Books", new List<IDictionary<string, dynamic>>() { new Dictionary<string, dynamic>() { {"Id", "test4"} } } }
+            {"Books", new List<IDictionary<string, dynamic>>() { new Dictionary<string, dynamic>() } }
         }
     };
 }

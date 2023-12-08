@@ -4,39 +4,22 @@ using Hotelio.Modules.Booking.Application.ReadModel.VO;
 
 namespace Hotelio.Modules.Booking.Application.ReadModel;
 
-internal class Reservation
-{
-    public Guid Id { set; get; }
-    public Hotel Hotel { set; get; }
-    public Owner Owner { set; get; }
-    public RoomType RoomType { set; get; }
-    public string? RoomId { set; get; }
-    public int NumberOfGuests { set; get; }
-    public String Status { set; get; }
-    public double PriceToPay { set; get; }
-    public double PricePayed { set; get; }
-    public String PaymentType { set; get; }
-    public DateTime StartDate { set; get; }
-    public DateTime EndDate { set; get; }
-    public List<Amenity> Amenities { set; get; }
+internal record Reservation(
+    Guid Id, 
+    Hotel Hotel, 
+    Owner Owner, 
+    RoomType RoomType, 
+    int NumberOfGuests,
+    string Status,
+    double PriceToPay, 
+    double PricePayed, 
+    string PaymentType, 
+    DateTime StartDate, 
+    DateTime EndDate,
+    List<Amenity> Amenities, 
+    string? RoomId = null
+    );
 
-    public Reservation(Guid id, Hotel hotel, Owner owner, RoomType roomType, int numberOfGuests, string status, double priceToPay, double pricePayed, string paymentType, DateTime startDate, DateTime endDate, List<Amenity> amenities, string? roomId = null)
-    {
-        Id = id;
-        Hotel = hotel;
-        Owner = owner;
-        RoomType = roomType;
-        NumberOfGuests = numberOfGuests;
-        Status = status;
-        PriceToPay = priceToPay;
-        PricePayed = pricePayed;
-        PaymentType = paymentType;
-        StartDate = startDate;
-        EndDate = endDate;
-        Amenities = amenities;
-        RoomId = roomId;
 
-    }
-}
 
 
