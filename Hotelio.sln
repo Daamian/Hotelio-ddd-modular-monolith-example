@@ -37,17 +37,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{8314C153-E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Availability.Test.Unit", "src\Modules\Availability\Test\Hotelio.Modules.Availability.Test.Unit\Hotelio.Modules.Availability.Test.Unit.csproj", "{E9EEE758-19BB-4867-A97E-F69959A9EFCE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AntiCorruptionLayer", "AntiCorruptionLayer", "{7ABD6489-81AF-429D-850D-E47E12F2CD40}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.AntiCorruptionLayer.Api", "src\Modules\AntiCorruptionLayer\Hotelio.AntiCorruptionLayer.Api\Hotelio.AntiCorruptionLayer.Api.csproj", "{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Availability.Application", "src\Modules\Availability\Hotelio.Modules.Availability.Application\Hotelio.Modules.Availability.Application.csproj", "{4044DB4F-257C-43D3-9DC7-264E917AD00C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Availability.Infrastructure", "src\Modules\Availability\Hotelio.Modules.Availability.Infrastructure\Hotelio.Modules.Availability.Infrastructure.csproj", "{49D14AD1-73D5-41D0-8804-C9106D866231}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Availability.Api", "src\Modules\Availability\Hotelio.Modules.Availability.Api\Hotelio.Modules.Availability.Api.csproj", "{23EA7956-2717-4F67-A28D-436534A844DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.AntiCorruptionLayer.EventMapping", "src\Modules\AntiCorruptionLayer\Hotelio.AntiCorruptionLayer.EventMapping\Hotelio.AntiCorruptionLayer.EventMapping.csproj", "{D7362FCA-6BDC-4029-9B96-93F9897D251B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossContext", "CrossContext", "{97617CA5-9514-43C8-84D5-D0F3CB798456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.CrossContext.Contract", "Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj", "{80BD3ED8-C84F-46B2-8E79-DD22D31E17B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HotelManagement", "HotelManagement", "{7B02ACA9-37AD-4161-8A01-4D45C339C984}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.HotelManagement.Api", "Hotelio.HotelManagement.Api\Hotelio.HotelManagement.Api.csproj", "{326E7A41-A572-436B-981E-D1249A3F6F59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,10 +97,6 @@ Global
 		{E9EEE758-19BB-4867-A97E-F69959A9EFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9EEE758-19BB-4867-A97E-F69959A9EFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9EEE758-19BB-4867-A97E-F69959A9EFCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4044DB4F-257C-43D3-9DC7-264E917AD00C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4044DB4F-257C-43D3-9DC7-264E917AD00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4044DB4F-257C-43D3-9DC7-264E917AD00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -111,10 +109,14 @@ Global
 		{23EA7956-2717-4F67-A28D-436534A844DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23EA7956-2717-4F67-A28D-436534A844DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23EA7956-2717-4F67-A28D-436534A844DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7362FCA-6BDC-4029-9B96-93F9897D251B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7362FCA-6BDC-4029-9B96-93F9897D251B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7362FCA-6BDC-4029-9B96-93F9897D251B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7362FCA-6BDC-4029-9B96-93F9897D251B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80BD3ED8-C84F-46B2-8E79-DD22D31E17B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80BD3ED8-C84F-46B2-8E79-DD22D31E17B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80BD3ED8-C84F-46B2-8E79-DD22D31E17B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80BD3ED8-C84F-46B2-8E79-DD22D31E17B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{326E7A41-A572-436B-981E-D1249A3F6F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{326E7A41-A572-436B-981E-D1249A3F6F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{326E7A41-A572-436B-981E-D1249A3F6F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{326E7A41-A572-436B-981E-D1249A3F6F59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,12 +136,13 @@ Global
 		{478DE620-CC28-4CE5-9FB7-1D2FA4CB2810} = {0AA41D1B-4ECE-4CC6-90E0-241EC1CE175F}
 		{8314C153-EE55-495B-8F94-83CD44B42EDF} = {0AA41D1B-4ECE-4CC6-90E0-241EC1CE175F}
 		{E9EEE758-19BB-4867-A97E-F69959A9EFCE} = {8314C153-EE55-495B-8F94-83CD44B42EDF}
-		{7ABD6489-81AF-429D-850D-E47E12F2CD40} = {F1E450D8-CE9C-4C59-9277-E32EE5EFEF8C}
-		{8852B6D7-BCEF-45BF-B7B8-D9CA19602514} = {7ABD6489-81AF-429D-850D-E47E12F2CD40}
 		{4044DB4F-257C-43D3-9DC7-264E917AD00C} = {0AA41D1B-4ECE-4CC6-90E0-241EC1CE175F}
 		{49D14AD1-73D5-41D0-8804-C9106D866231} = {0AA41D1B-4ECE-4CC6-90E0-241EC1CE175F}
 		{23EA7956-2717-4F67-A28D-436534A844DA} = {0AA41D1B-4ECE-4CC6-90E0-241EC1CE175F}
-		{D7362FCA-6BDC-4029-9B96-93F9897D251B} = {7ABD6489-81AF-429D-850D-E47E12F2CD40}
+		{97617CA5-9514-43C8-84D5-D0F3CB798456} = {F1E450D8-CE9C-4C59-9277-E32EE5EFEF8C}
+		{80BD3ED8-C84F-46B2-8E79-DD22D31E17B3} = {97617CA5-9514-43C8-84D5-D0F3CB798456}
+		{7B02ACA9-37AD-4161-8A01-4D45C339C984} = {F1E450D8-CE9C-4C59-9277-E32EE5EFEF8C}
+		{326E7A41-A572-436B-981E-D1249A3F6F59} = {7B02ACA9-37AD-4161-8A01-4D45C339C984}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}

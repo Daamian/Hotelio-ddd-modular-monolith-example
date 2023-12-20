@@ -22,15 +22,14 @@
     <None Remove="ReadModel\VO\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Client\DTO\" />
     <Folder Include="Exception\" />
-    <Folder Include="Client\Exception\" />
     <Folder Include="Query\" />
     <Folder Include="Query\DTO\" />
     <Folder Include="Query\Handler\" />
     <Folder Include="ReadModel\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
     <ProjectReference Include="..\Hotelio.Modules.Booking.Domain\Hotelio.Modules.Booking.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

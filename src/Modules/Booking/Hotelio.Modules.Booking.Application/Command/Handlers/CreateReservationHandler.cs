@@ -1,7 +1,7 @@
 ﻿
+using Hotelio.CrossContext.Contract.HotelManagement;
 using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Modules.Booking.Domain.Repository;
-using Hotelio.Modules.Booking.Application.Client;
 using Hotelio.Modules.Booking.Domain.Model.DTO;
 using MediatR;
 
@@ -10,17 +10,17 @@ namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 internal sealed class CreateReservationHandler : IRequestHandler<CreateReservation>
 {
     private readonly IReservationRepository _reservationRepository;
-    private readonly IHotelApiClient _hotelApiClient;
+    private readonly IHotelManagement _hotelManagement;
 
-    public CreateReservationHandler(IReservationRepository reservationRepository, IHotelApiClient hotelApiClient)
+    public CreateReservationHandler(IReservationRepository reservationRepository, IHotelManagement hotelManagement)
     {
         _reservationRepository = reservationRepository;
-        _hotelApiClient = hotelApiClient;
+        _hotelManagement = hotelManagement;
     }
 
     public async Task Handle(CreateReservation command, CancellationToken cancellationToken)
     {
-        var hotel = await this._hotelApiClient.GetAsync(command.HotelId);
+        var hotel = await this._hotelManagement.GetAsync(command.HotelId);
 
         var reservation = Reservation.Create(
             command.Id,

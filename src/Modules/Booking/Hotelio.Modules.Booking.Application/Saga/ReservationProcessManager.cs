@@ -1,7 +1,6 @@
-using Hotelio.Modules.Booking.Application.Client;
-using Hotelio.Modules.Booking.Application.Client.Availability;
+using Hotelio.CrossContext.Contract.Availability;
+using Hotelio.CrossContext.Contract.Availability.Event;
 using Hotelio.Modules.Booking.Application.Command;
-using Hotelio.Modules.Booking.Application.Event.External;
 using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Shared.Commands;
@@ -14,17 +13,17 @@ using Hotelio.Modules.Booking.Domain.Event;
 internal class ReservationProcessManager: 
     INotificationHandler<ReservationCreated>, 
     INotificationHandler<ReservationCanceled>,
-    INotificationHandler<RoomBooked>,
-    INotificationHandler<RoomTypeBookRejected>
+    INotificationHandler<ResourceBooked>,
+    INotificationHandler<ResourceTypeBookRejected>
 {
     private readonly IReadModelStorage _readModel;
-    private readonly IAvailabilityApiClient _availabilityApi;
+    private readonly IAvailability _availability;
     private readonly ICommandBus _commandBus;
 
-    public ReservationProcessManager(IReadModelStorage readModel, IAvailabilityApiClient availabilityApi, ICommandBus commandBus)
+    public ReservationProcessManager(IReadModelStorage readModel, IAvailability availability, ICommandBus commandBus)
     {
         _readModel = readModel;
-        _availabilityApi = availabilityApi;
+        _availability = availability;
         _commandBus = commandBus;
     }
 
@@ -38,7 +37,7 @@ internal class ReservationProcessManager:
 
         if (reservation.PaymentType == PaymentType.PostPaid.ToString())
         {
-            await this._availabilityApi.Book(
+            await this._availability.BookFirstAvailableAsync(
                 reservation.Hotel.Id, 
                 reservation.RoomType.Id,
                 reservation.Id.ToString(), 
@@ -58,17 +57,17 @@ internal class ReservationProcessManager:
             return;
         }
 
-        await this._availabilityApi.UnBook(reservation.RoomId, domainEvent.ReservationId, reservation.StartDate, reservation.EndDate);
+        await this._availability.UnBookAsync(reservation.RoomId, domainEvent.ReservationId);
     }
 
-    public async Task Handle(RoomBooked e, CancellationToken cancelationToken)
+    public async Task Handle(ResourceBooked e, CancellationToken cancelationToken)
     {
         //TODO consider what if confirmation is not possible
-        await this._commandBus.DispatchAsync(new ConfirmReservation(e.RoomId, e.ReservationId));
+        await this._commandBus.DispatchAsync(new ConfirmReservation(e.ResourceId, e.OwnerId));
     }
 
-    public async Task Handle(RoomTypeBookRejected e, CancellationToken cancelationToken)
+    public async Task Handle(ResourceTypeBookRejected e, CancellationToken cancelationToken)
     {
-        await this._commandBus.DispatchAsync(new RejectReservation(e.ReservationId));
+        await this._commandBus.DispatchAsync(new RejectReservation(e.OwnerId));
     }
 }

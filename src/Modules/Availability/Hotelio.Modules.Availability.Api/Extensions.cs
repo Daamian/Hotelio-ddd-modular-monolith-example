@@ -1,4 +1,5 @@
-using Hotelio.Modules.Availability.Api.Services;
+using Hotelio.CrossContext.Contract.Availability;
+using Hotelio.Modules.Availability.Api.CrossContext;
 using Hotelio.Modules.Availability.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 
@@ -10,7 +11,12 @@ public static class Extensions
 {
     public static IServiceCollection AddAvailability(this IServiceCollection services)
     {
-        services.AddScoped<IAvailabilityService, AvailabilityService>();
+        services.AddScoped<IAvailability, AvailabilityService>();
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining<EventPublisher>();
+        });
+        
         services.AddAvailabilityInfrastructure();
         return services;
     }

@@ -1,6 +1,7 @@
-﻿using System;
-using Hotelio.AntiCorruptionLayer.Api;
+﻿
 using Hotelio.Bootstrapper.AuthorizationFilter;
+using Hotelio.CrossContext.Contract;
+using Hotelio.HotelManagement.Api;
 using Hotelio.Modules.Availability.Api;
 using Hotelio.Modules.Booking.Api;
 using Hotelio.Shared;
@@ -20,7 +21,8 @@ public class Startup
     {
         services.AddBookingModule();
         services.AddAvailability();
-        services.AddAntiCorruptionLayer();
+        services.AddHotelManagementModule();
+        services.AddCrossContext();
         services.AddSharedFramework(_configuration);
 
         services.AddControllersWithViews(options =>
@@ -34,7 +36,8 @@ public class Startup
         app.UseSharedFramework();
         app.UseBookingModule();
         app.UseAvailability();
-        app.UseAntiCorruptionLayer();
+        app.UseHotelManagementModule();
+        app.UseCrossContext();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();

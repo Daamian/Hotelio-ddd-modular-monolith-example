@@ -1,5 +1,0 @@
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Api/obj/Debug/net6.0/Hotelio.Module.Booking.Api.csproj.AssemblyReference.cache
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Api/obj/Debug/net6.0/Hotelio.Module.Booking.Api.GeneratedMSBuildEditorConfig.editorconfig
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Api/obj/Debug/net6.0/Hotelio.Module.Booking.Api.AssemblyInfoInputs.cache
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Api/obj/Debug/net6.0/Hotelio.Module.Booking.Api.AssemblyInfo.cs
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Module.Booking.Api/obj/Debug/net6.0/Hotelio.Module.Booking.Api.csproj.CoreCompileInputs.cache
