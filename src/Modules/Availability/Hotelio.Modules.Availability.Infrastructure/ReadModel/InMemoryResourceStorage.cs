@@ -17,12 +17,6 @@ internal class InMemoryResourceStorage: IResourceStorage
                     book["StartDate"] == startDate))
             .ToList().First();*/
         
-        var data = InMemoryStorage.Resources
-            .Where(resource =>
-                resource["GroupId"] == groupId &&
-                resource["Type"] == type)
-            .ToList().First();
-        
         //TODO change linqu query
         /*var data = from resource in InMemoryStorage.Resources
             where resource.ContainsKey("GroupId") && resource["GroupId"] == groupId
@@ -32,7 +26,11 @@ internal class InMemoryResourceStorage: IResourceStorage
                                                   .Any(book => book.ContainsKey("Id") && book["Id"] == groupId)
             select resource.ToList().First();*/
         
-        
+        var data = InMemoryStorage.Resources
+            .Where(resource =>
+                resource["GroupId"] == groupId &&
+                resource["Type"] == type)
+            .ToList().First();
 
         return new Resource(data["Id"], data["GroupId"], data["Type"], data["IsActive"], new List<Book>());
     }

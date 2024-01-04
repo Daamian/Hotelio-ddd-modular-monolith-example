@@ -19,6 +19,7 @@ public static class Extensions
         services.AddMediatR(cfg => {
             cfg.RegisterServicesFromAssemblyContaining<CreateReservationHandler>();
             cfg.RegisterServicesFromAssemblyContaining<ConfirmReservationHandler>();
+            cfg.RegisterServicesFromAssemblyContaining<PayReservationHandler>();
             cfg.RegisterServicesFromAssemblyContaining<ReservationProcessManager>();
         });
         

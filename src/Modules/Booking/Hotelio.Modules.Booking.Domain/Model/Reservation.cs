@@ -83,6 +83,11 @@ internal class Reservation: Aggregate
         }
 
         this._pricePayed += price;
+
+        if (IsPaid())
+        {
+            this.Events.Add(new ReservationPayed(this._id));
+        }
     }
 
     public void Confirm(string roomId)

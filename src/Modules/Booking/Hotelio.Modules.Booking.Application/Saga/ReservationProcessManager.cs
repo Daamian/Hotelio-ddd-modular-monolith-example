@@ -14,7 +14,8 @@ internal class ReservationProcessManager:
     INotificationHandler<ReservationCreated>, 
     INotificationHandler<ReservationCanceled>,
     INotificationHandler<ResourceBooked>,
-    INotificationHandler<ResourceTypeBookRejected>
+    INotificationHandler<ResourceTypeBookRejected>,
+    INotificationHandler<ReservationPayed>
 {
     private readonly IReadModelStorage _readModel;
     private readonly IAvailability _availability;
@@ -43,14 +44,30 @@ internal class ReservationProcessManager:
                 reservation.Id.ToString(), 
                 reservation.StartDate, 
                 reservation.EndDate);
-        } else {
-            //TODO: temp book
         }
     }
-    
+
+    public async Task Handle(ReservationPayed domainEvent, CancellationToken cancelationToken)
+    {
+        var reservation = await _readModel.FindAsync(new Guid(domainEvent.Id));
+        
+        if (null == reservation) {
+            return;
+        }
+
+        if (reservation.PaymentType == PaymentType.InAdvance.ToString())
+        {
+            await this._availability.BookFirstAvailableAsync(
+                reservation.Hotel.Id, 
+                reservation.RoomType.Id,
+                reservation.Id.ToString(), 
+                reservation.StartDate, 
+                reservation.EndDate);
+        }
+    }
+
     public async Task Handle(ReservationCanceled domainEvent, CancellationToken cancelationToken)
     {
-        //TODO consider what if unbook is not possible
         var reservation = await _readModel.FindAsync(new Guid(domainEvent.ReservationId));
 
         if (null == reservation || null == reservation.RoomId) {
@@ -62,7 +79,6 @@ internal class ReservationProcessManager:
 
     public async Task Handle(ResourceBooked e, CancellationToken cancelationToken)
     {
-        //TODO consider what if confirmation is not possible
         await this._commandBus.DispatchAsync(new ConfirmReservation(e.ResourceId, e.OwnerId));
     }
 

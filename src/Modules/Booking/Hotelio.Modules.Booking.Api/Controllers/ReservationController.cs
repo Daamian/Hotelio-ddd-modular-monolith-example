@@ -28,6 +28,13 @@ internal class ReservationController : ControllerBase
         return NoContent();
     }
 
+    [HttpPut("{id:guid}/pay/{key}")]
+    public async Task<IActionResult> PayReservation(Guid id, string key, PayReservation command)
+    {
+        await this._commandBus.DispatchAsync(command);
+        return NoContent();
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<Reservation>> Get(Guid id)
     {
