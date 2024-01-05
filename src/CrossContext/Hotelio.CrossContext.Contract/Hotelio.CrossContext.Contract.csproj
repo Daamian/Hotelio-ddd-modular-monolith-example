@@ -6,10 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-
     <ItemGroup>
-      <ProjectReference Include="..\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
-      <ProjectReference Include="..\src\Shared\Hotelio.Shared\Hotelio.Shared.csproj" />
+      <ProjectReference Include="..\..\Shared\Hotelio.Shared\Hotelio.Shared.csproj" />
     </ItemGroup>
 
 </Project>

@@ -4,16 +4,17 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Hotelio' " />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
-    <ProjectReference Include="..\..\..\Hotelio.HotelManagement.Api\Hotelio.HotelManagement.Api.csproj" />
+    <ProjectReference Include="..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
     <ProjectReference Include="..\..\Modules\Availability\Hotelio.Modules.Availability.Api\Hotelio.Modules.Availability.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Booking\Hotelio.Modules.Booking.Api\Hotelio.Modules.Booking.Api.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\HotelManagement\Hotelio.Modules.HotelManagement.Api\Hotelio.Modules.HotelManagement.Api.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controllers\" />

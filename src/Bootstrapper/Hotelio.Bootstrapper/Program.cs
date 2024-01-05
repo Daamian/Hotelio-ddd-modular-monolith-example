@@ -1,6 +1,6 @@
 using Hotelio.Bootstrapper.AuthorizationFilter;
 using Hotelio.CrossContext.Contract;
-using Hotelio.HotelManagement.Api;
+using Hotelio.Modules.HotelManagement.Api;
 using Hotelio.Modules.Availability.Api;
 using Hotelio.Modules.Booking.Api;
 using Hotelio.Shared;

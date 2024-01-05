@@ -2,7 +2,7 @@ using Hotelio.CrossContext.Contract.HotelManagement;
 using Hotelio.CrossContext.Contract.HotelManagement.DTO;
 using Hotelio.CrossContext.Contract.HotelManagement.Exception;
 
-namespace Hotelio.HotelManagement.Api.CrossContext;
+namespace Hotelio.Modules.HotelManagement.Api.CrossContext;
 
 internal class HotelManagementService: IHotelManagement
 {

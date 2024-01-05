@@ -29,7 +29,7 @@
     <Folder Include="ReadModel\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
+    <ProjectReference Include="..\..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
     <ProjectReference Include="..\Hotelio.Modules.Booking.Domain\Hotelio.Modules.Booking.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

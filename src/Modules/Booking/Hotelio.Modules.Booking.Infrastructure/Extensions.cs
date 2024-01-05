@@ -3,6 +3,7 @@ using Hotelio.Modules.Booking.Application.Command.Handlers;
 using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Application.Saga;
 using Hotelio.Modules.Booking.Domain.Repository;
+using Hotelio.Modules.Booking.Infrastructure.DAL;
 using Hotelio.Modules.Booking.Infrastructure.ReadModel;
 using Hotelio.Modules.Booking.Infrastructure.Repository;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,8 @@ public static class Extensions
             cfg.RegisterServicesFromAssemblyContaining<PayReservationHandler>();
             cfg.RegisterServicesFromAssemblyContaining<ReservationProcessManager>();
         });
+
+        services.AddDbContext<ReservationDbContext>();
         
         return services;
     }

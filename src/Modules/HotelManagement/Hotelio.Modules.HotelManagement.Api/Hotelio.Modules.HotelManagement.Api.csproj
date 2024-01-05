@@ -7,11 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\Shared\Hotelio.Shared\Hotelio.Shared.csproj" />
+      <ProjectReference Include="..\..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Hotelio.Shared\Hotelio.Shared.csproj" />
     </ItemGroup>
-
-
-
-
 
 </Project>

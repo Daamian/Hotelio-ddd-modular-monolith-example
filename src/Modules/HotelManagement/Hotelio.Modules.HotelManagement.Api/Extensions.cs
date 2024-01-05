@@ -1,9 +1,9 @@
 using Hotelio.CrossContext.Contract.HotelManagement;
-using Hotelio.HotelManagement.Api.CrossContext;
+using Hotelio.Modules.HotelManagement.Api.CrossContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hotelio.HotelManagement.Api;
+namespace Hotelio.Modules.HotelManagement.Api;
 
 public static class Extensions
 {
