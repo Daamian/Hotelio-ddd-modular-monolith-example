@@ -1,8 +1,8 @@
 using Hotelio.CrossContext.Contract.Availability;
 using Hotelio.CrossContext.Contract.Availability.Event;
 using Hotelio.Modules.Booking.Application.Command;
-using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Domain.Model;
+using Hotelio.Modules.Booking.Domain.Repository;
 using Hotelio.Shared.Commands;
 using MediatR;
 
@@ -17,30 +17,32 @@ internal class ReservationProcessManager:
     INotificationHandler<ResourceTypeBookRejected>,
     INotificationHandler<ReservationPayed>
 {
-    private readonly IReadModelStorage _readModel;
     private readonly IAvailability _availability;
     private readonly ICommandBus _commandBus;
+    private readonly IReservationRepository _reservationRepository;
 
-    public ReservationProcessManager(IReadModelStorage readModel, IAvailability availability, ICommandBus commandBus)
+    public ReservationProcessManager(IReservationRepository reservationRepository, IAvailability availability, ICommandBus commandBus)
     {
-        _readModel = readModel;
+        _reservationRepository = reservationRepository;
         _availability = availability;
         _commandBus = commandBus;
     }
 
     public async Task Handle(ReservationCreated domainEvent, CancellationToken cancelationToken)
     {
-        var reservation = await _readModel.FindAsync(new Guid(domainEvent.Id));
+        var reservationAg = await _reservationRepository.FindAsync(domainEvent.Id);
         
-        if (null == reservation) {
+        if (null == reservationAg) {
             return;
         }
 
-        if (reservation.PaymentType == PaymentType.PostPaid.ToString())
+        var reservation = reservationAg.Snap();
+
+        if (reservation.PaymentType == (int) PaymentType.PostPaid)
         {
             await this._availability.BookFirstAvailableAsync(
-                reservation.Hotel.Id, 
-                reservation.RoomType.Id,
+                reservation.HotelId, 
+                reservation.RoomType,
                 reservation.Id.ToString(), 
                 reservation.StartDate, 
                 reservation.EndDate);
@@ -49,17 +51,19 @@ internal class ReservationProcessManager:
 
     public async Task Handle(ReservationPayed domainEvent, CancellationToken cancelationToken)
     {
-        var reservation = await _readModel.FindAsync(new Guid(domainEvent.Id));
+        var reservationAg= await _reservationRepository.FindAsync(domainEvent.Id);
         
-        if (null == reservation) {
+        if (null == reservationAg) {
             return;
         }
 
-        if (reservation.PaymentType == PaymentType.InAdvance.ToString())
+        var reservation = reservationAg.Snap();
+
+        if (reservation.PaymentType == (int) PaymentType.InAdvance)
         {
             await this._availability.BookFirstAvailableAsync(
-                reservation.Hotel.Id, 
-                reservation.RoomType.Id,
+                reservation.HotelId, 
+                reservation.RoomType,
                 reservation.Id.ToString(), 
                 reservation.StartDate, 
                 reservation.EndDate);
@@ -68,11 +72,13 @@ internal class ReservationProcessManager:
 
     public async Task Handle(ReservationCanceled domainEvent, CancellationToken cancelationToken)
     {
-        var reservation = await _readModel.FindAsync(new Guid(domainEvent.ReservationId));
+        var reservationAg= await _reservationRepository.FindAsync(domainEvent.ReservationId);
 
-        if (null == reservation || null == reservation.RoomId) {
+        if (null == reservationAg || null == reservationAg.Snap().RoomId) {
             return;
         }
+        
+        var reservation = reservationAg.Snap();
 
         await this._availability.UnBookAsync(reservation.RoomId, domainEvent.ReservationId);
     }

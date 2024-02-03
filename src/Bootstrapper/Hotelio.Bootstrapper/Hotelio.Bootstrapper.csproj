@@ -24,4 +24,15 @@
     <Folder Include="Controllers\" />
     <Folder Include="AuthorizationFilter\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>

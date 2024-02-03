@@ -42,6 +42,11 @@ internal class InMemoryReservationRepository : IReservationRepository
         return InMemoryStorage.Reservations.Find(r => (string) r.Snapshot()["Id"] == id);
     }
 
+    public Task<Reservation>? FindAsync(string id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task UpdateAsync(Reservation reservation)
     {
         var index = InMemoryStorage.Reservations

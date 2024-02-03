@@ -26,7 +26,6 @@
     <Folder Include="Query\" />
     <Folder Include="Query\DTO\" />
     <Folder Include="Query\Handler\" />
-    <Folder Include="ReadModel\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />

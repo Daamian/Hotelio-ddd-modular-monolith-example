@@ -46,10 +46,4 @@ internal class ReservationController : ControllerBase
 
         return Ok(reservation);
     }
-
-    [HttpGet]
-    public ActionResult<string> Get()
-    {
-        return Ok("Hello reservation");
-    }
 }

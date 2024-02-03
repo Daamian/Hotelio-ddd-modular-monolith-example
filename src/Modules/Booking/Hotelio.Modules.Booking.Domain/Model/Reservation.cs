@@ -2,8 +2,9 @@
 using Hotelio.Modules.Booking.Domain.Model.DTO;
 using Hotelio.Shared.Exception;
 using Hotelio.Modules.Booking.Domain.Exception;
+using Hotelio.Modules.Booking.Domain.Model.Snapshot;
 using Hotelio.Shared.Domain;
-using MassTransit;
+using AmenitySnap = Hotelio.Modules.Booking.Domain.Model.Snapshot.Amenity;
 
 namespace Hotelio.Modules.Booking.Domain.Model;
 
@@ -23,6 +24,8 @@ internal class Reservation: Aggregate
     private List<Amenity> _amenities;
     private readonly Status[] _activeStatuses = { Status.Created, Status.Confirmed, Status.Started };
     private readonly Status[] _acceptedStatuses = { Status.Confirmed, Status.Started };
+    
+    protected Reservation() {}
 
     private Reservation(string id, string hotelId, string ownerId, int roomType, int numberOfGuests, Status status, double priceToPay, double pricePayed, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
@@ -63,6 +66,11 @@ internal class Reservation: Aggregate
         reservation.Events.Add(new ReservationCreated(id));
         
         return reservation;
+    }
+
+    public string GetId()
+    {
+        return _id;
     }
 
     public void Pay(double price)
@@ -252,6 +260,25 @@ internal class Reservation: Aggregate
             { "Amenities", this._amenities },
             { "RoomId", this._roomId}
         };
+    }
+
+    public ReservationSnapshot Snap()
+    {
+        return new ReservationSnapshot(
+            _id,
+            _hotelId,
+            _ownerId,
+            _roomId,
+            _roomType,
+            _numberOfGuests,
+            (int) _status,
+            _priceToPay,
+            _pricePayed,
+            (int) _paymentType,
+            _dateRange.StartDate,
+            _dateRange.EndDate,
+            _amenities.Select(a => new AmenitySnap(a.Id)).ToList()
+        );
     }
 
     private static bool IsAmenitiesAvailableInHotel(List<Amenity> amenities, HotelConfig hotel)

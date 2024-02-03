@@ -13,8 +13,9 @@ internal class ReservationDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("reservations");
+        modelBuilder.HasDefaultSchema("booking");
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        modelBuilder.ApplyConfiguration(new ReservationEntityConfiguration());
     }
     
 }

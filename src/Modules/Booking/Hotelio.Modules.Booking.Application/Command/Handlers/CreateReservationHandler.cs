@@ -38,8 +38,7 @@ internal sealed class CreateReservationHandler : IRequestHandler<CreateReservati
             command.Amenities.Select(id => new Amenity(id)).ToList()
         );
 
-        await _reservationRepository.AddAsync(reservation);
-        await Task.CompletedTask;
+        await this._reservationRepository.AddAsync(reservation);
     }
 }
 

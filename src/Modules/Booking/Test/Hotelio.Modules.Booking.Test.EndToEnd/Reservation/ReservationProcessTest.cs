@@ -52,15 +52,15 @@ public class ReservationProcessTest
             id = reservation.Id,
             hotel = new { id = "Hotel-1", name = "Hotel name" },
             owner = new { id = "Owner-1", name = "Damian", surname = "Kusek" },
-            roomType = new { id = 1, name = "Room type name" },
+            roomType = new { id = 1, name = "Superior" },
             numberOfGuests = 2,
             status = "Confirmed",
             priceToPay = 100,
             pricePayed = 0,
             paymentType = "PostPaid",
-            startDate = "2023-01-01T00:00:00",
-            endDate = "2023-01-19T00:00:00",
-            amenities = new[] { new { id = "amenity-1", name = "Amenity name" } },
+            startDate = "2023-01-01T00:00:00Z", //TODO jak przechowywać datę w bazie mongo ????
+            endDate = "2023-01-19T00:00:00Z",
+            amenities = new[] { new { id = "amenity-1", name = "All inc" } },
             roomId = "ccac553d-d50d-4785-806a-7e32fdea3c23"
         };
         

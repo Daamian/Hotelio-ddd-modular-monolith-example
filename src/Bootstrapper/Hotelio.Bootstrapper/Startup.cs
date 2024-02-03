@@ -19,7 +19,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddBookingModule();
+        services.AddBookingModule(_configuration);
         services.AddAvailability();
         services.AddHotelManagementModule();
         services.AddCrossContext();

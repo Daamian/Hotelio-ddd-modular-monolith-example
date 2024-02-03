@@ -27,7 +27,7 @@ internal sealed class InMemoryReadModelStorage : IReadModelStorage
         List<Domain.Model.Amenity> amenities = (List<Domain.Model.Amenity>)snapshot["Amenities"];
 
         return new Reservation(
-            new Guid((string)snapshot["Id"]),
+            (string)snapshot["Id"],
             new Hotel((string)snapshot["HotelId"], "Hotel name"),
             new Owner((string) snapshot["OwnerId"], "Damian", "Kusek"),
             new RoomType((int) snapshot["RoomType"], "Room type name"),
@@ -41,5 +41,10 @@ internal sealed class InMemoryReadModelStorage : IReadModelStorage
             amenities.Select(a => new Amenity(a.Id, "Amenity name")).ToList(),
             (string?) snapshot["RoomId"]
         );
+    }
+
+    public Task SaveAsync(Reservation reservation)
+    {
+        throw new NotImplementedException();
     }
 }

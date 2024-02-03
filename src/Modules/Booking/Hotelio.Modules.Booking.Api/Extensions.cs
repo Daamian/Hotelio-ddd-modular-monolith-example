@@ -4,15 +4,16 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 using Hotelio.Modules.Booking.Infrastructure;
 using Hotelio.Modules.Booking.Shared;
+using Microsoft.Extensions.Configuration;
 
 [assembly: InternalsVisibleTo("Hotelio.Bootstrapper")]
 namespace Hotelio.Modules.Booking.Api;
 
 public static class Extensions
 {
-    public static IServiceCollection AddBookingModule(this IServiceCollection services)
+    public static IServiceCollection AddBookingModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddBookingInfrastructure();
+        services.AddBookingInfrastructure(configuration);
         services.AddBookingShared();
         
         return services;

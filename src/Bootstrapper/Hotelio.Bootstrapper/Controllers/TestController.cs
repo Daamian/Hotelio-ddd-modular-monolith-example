@@ -10,7 +10,7 @@ public class ReservationController : ControllerBase
     [HttpGet]
     public ActionResult<string> Get()
     {
-        return Ok("Hello reservation");
+        return Ok("Hello test docker");
     }
 }
 

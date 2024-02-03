@@ -3,12 +3,13 @@ using Hotelio.CrossContext.Contract;
 using Hotelio.Modules.HotelManagement.Api;
 using Hotelio.Modules.Availability.Api;
 using Hotelio.Modules.Booking.Api;
+using Hotelio.Modules.Booking.Infrastructure.DAL;
 using Hotelio.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddBookingModule()
+    .AddBookingModule(builder.Configuration)
     .AddAvailability()
     .AddHotelManagementModule()
     .AddCrossContext()
