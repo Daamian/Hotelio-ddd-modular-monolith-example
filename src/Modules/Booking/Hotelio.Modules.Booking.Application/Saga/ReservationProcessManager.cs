@@ -1,5 +1,6 @@
 using Hotelio.CrossContext.Contract.Availability;
 using Hotelio.CrossContext.Contract.Availability.Event;
+using Hotelio.CrossContext.Contract.Shared.Exception;
 using Hotelio.Modules.Booking.Application.Command;
 using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Modules.Booking.Domain.Repository;
@@ -61,12 +62,17 @@ internal class ReservationProcessManager:
 
         if (reservation.PaymentType == (int) PaymentType.InAdvance)
         {
-            await this._availability.BookFirstAvailableAsync(
-                reservation.HotelId, 
-                reservation.RoomType,
-                reservation.Id.ToString(), 
-                reservation.StartDate, 
-                reservation.EndDate);
+            try
+            {
+                await this._availability.BookFirstAvailableAsync(
+                    reservation.HotelId,
+                    reservation.RoomType,
+                    reservation.Id,
+                    reservation.StartDate,
+                    reservation.EndDate);
+            } catch (ContractException e) {
+                await this._commandBus.DispatchAsync(new RejectReservation(reservation.Id));
+            }
         }
     }
 

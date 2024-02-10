@@ -1,4 +1,5 @@
 using Hotelio.CrossContext.Contract.Availability;
+using Hotelio.CrossContext.Contract.Availability.Exception;
 using Hotelio.Modules.Availability.Application.Command;
 using BookCommand = Hotelio.Modules.Availability.Application.Command.Book;
 using Hotelio.Modules.Availability.Application.ReadModel;
@@ -23,10 +24,10 @@ internal class AvailabilityService: IAvailability
 
         if (resource is null)
         {
-            //TODO event or exception ???
-            return;
+            throw new ResourceIsNotAvailableException($"Resource of group {group} and type {type} in specific date range");
         }
 
+        //TODO what if command handler throws exception ???
         await this._commandBus.DispatchAsync(new BookCommand(resource.Id, ownerId, starDate, endDate));
     }
 
