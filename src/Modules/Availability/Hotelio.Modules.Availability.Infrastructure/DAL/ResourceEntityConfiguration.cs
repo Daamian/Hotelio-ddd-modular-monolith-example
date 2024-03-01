@@ -8,9 +8,21 @@ internal class ResourceEntityConfiguration : IEntityTypeConfiguration<Resource>
 {
     public void Configure(EntityTypeBuilder<Resource> builder)
     {
-        builder.HasKey("_id");
+        builder.HasKey(r => r.Id);
         builder.Ignore(r => r.Events);
-        builder
+        
+        /*builder
+            .HasMany(e => e._books)
+            .WithOne();*/
+        
+        /*var navigation = builder.Metadata.FindNavigation(nameof(Resource.Books));
+        navigation.SetPropertyAccessMode(PropertyAccessMode.Field);*/
+        
+        /*builder.HasMany<Book>("_books")
+            .WithOne()
+            .HasForeignKey("resource_id").IsRequired(true);*/
+
+        /*builder
             .Property<string>("_groupId")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("group_id")
@@ -26,6 +38,6 @@ internal class ResourceEntityConfiguration : IEntityTypeConfiguration<Resource>
             .IsRequired(true);
         builder.HasMany<Book>("_books")
             .WithOne()
-            .HasForeignKey("resource_id").IsRequired(true);
+            .HasForeignKey("resource_id").IsRequired(true);*/
     }
 }

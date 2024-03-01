@@ -9,6 +9,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Hotelio.Modules.Availability.Application\Hotelio.Modules.Availability.Application.csproj" />
+
+
     </ItemGroup>
 
 

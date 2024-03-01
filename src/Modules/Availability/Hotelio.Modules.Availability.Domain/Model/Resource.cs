@@ -1,28 +1,42 @@
 using Hotelio.Modules.Availability.Domain.Event;
 using Hotelio.Modules.Availability.Domain.Exception;
 using Hotelio.Shared.Domain;
+using MassTransit.Futures.Contracts;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotelio.Modules.Availability.Domain.Model;
 
 internal class Resource: Aggregate
 {
-    private Guid _id;
-    private string _groupId;
-    private int _type;
-    private HashSet<Book> _books = new HashSet<Book>();
-    private bool _isActive;
+    public Guid Id { get; private set; }
+    public string GroupId { get; private set; }
+    public int Type { get; private set; }
+    public bool IsActive { get; private set; }
+    
+    public List<Book> Books { get; set; } = new List<Book>();
+    //public IReadOnlyList<Book> Books => _books.AsReadOnly();
 
     private Resource(Guid id, string groupId, int type, bool active = true)
     {
-        this._id = id;
-        this._groupId = groupId;
-        this._type = type;
-        this._isActive = active;
+        this.Id = id;
+        this.GroupId = groupId;
+        this.Type = type;
+        this.IsActive = active;
+    }
+
+    protected Resource()
+    {
+        
     }
     
     public static Resource Create(Guid id, string groupId, int type, bool active = true)
     {
         return new Resource(id, groupId, type, active);
+    }
+
+    public void ChangeGroup(string newGroupId)
+    {
+        this.GroupId = newGroupId;
     }
     
     public void Book(string ownerId, DateTime startDate, DateTime endDate)
@@ -32,19 +46,19 @@ internal class Resource: Aggregate
             throw new ResourceIsBookedException("Resource is booked in given period");
         }
 
-        if (false == this._isActive)
+        if (false == this.IsActive)
         {
             throw new ResourceIsNotActiveException("Resource is not active");
         }
 
-        var book = new Book(new Guid(), ownerId, startDate, endDate);
-        this._books.Add(book);
-        this.Events.Add(new ResourceBooked(this._id.ToString(), book.BookId.ToString(), book.OwnerId, book.StartDate, book.EndDate));
+        var book = new Book(Guid.NewGuid(), ownerId, startDate, endDate);
+        this.Books.Add(book);
+        this.Events.Add(new ResourceBooked(this.Id.ToString(), book.OwnerId, book.StartDate, book.EndDate));
     }
 
     public void UnBook(string ownerId, DateTime startDate, DateTime endDate)
     {
-        var bookFound = this._books.SingleOrDefault(book =>
+        var bookFound = this.Books.SingleOrDefault(book =>
             book.StartDate == startDate && book.EndDate == endDate && book.OwnerId == ownerId);
         
         if (bookFound is null)
@@ -52,12 +66,12 @@ internal class Resource: Aggregate
             throw new BookNotExistsException("Book not exist in this resource");
         }
 
-        this._books.Remove(bookFound);
+        this.Books.Remove(bookFound);
     }
 
     private bool IsBooked(DateTime startDate, DateTime endDate)
     {
-        var booksInDateRange = this._books.Where(book =>
+        var booksInDateRange = this.Books.Where(book =>
             book.StartDate >= startDate && book.EndDate <= endDate);
 
         return booksInDateRange.Any();
@@ -67,11 +81,11 @@ internal class Resource: Aggregate
     {
         return new Dictionary<string, object>
         {
-            { "Id", this._id },
-            { "IsActive", this._isActive },
-            { "GroupId", this._groupId },
-            { "Type", this._type },
-            { "Books", this._books }
+            { "Id", this.Id },
+            { "IsActive", this.IsActive },
+            { "GroupId", this.GroupId },
+            { "Type", this.Type },
+            { "Books", this.Books }
         };
     }
 }

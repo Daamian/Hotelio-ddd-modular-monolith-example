@@ -6,6 +6,7 @@ namespace Hotelio.Modules.Availability.Infrastructure.DAL;
 internal class ResourceDbContext : DbContext
 {
     public DbSet<Resource> Resources { get; set; }
+    public DbSet<Book> Books { get; set; }
 
     public ResourceDbContext(DbContextOptions<ResourceDbContext> options) : base(options)
     {
@@ -13,8 +14,19 @@ internal class ResourceDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.HasDefaultSchema("availability");
-        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-        modelBuilder.ApplyConfiguration(new ResourceEntityConfiguration());
+        //modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        modelBuilder.Entity<Resource>()
+            .HasMany(e => e.Books)
+            .WithOne()
+            .HasForeignKey("ResourceId")
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Resource>().Ignore(r => r.Events);
+        
+        //modelBuilder.ApplyConfiguration(new ResourceEntityConfiguration());
     }
 }

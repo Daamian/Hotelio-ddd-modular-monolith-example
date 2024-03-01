@@ -58,6 +58,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Availability.Test.Integration", "src\Modules\Availability\Test\Hotelio.Modules.Availability.Test.Integration\Hotelio.Modules.Availability.Test.Integration.csproj", "{7A519C60-6FD8-4D9D-850C-A75BD4118F05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{C795C659-FBB2-4BC4-B6ED-6EC7019BBF09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C795C659-FBB2-4BC4-B6ED-6EC7019BBF09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C795C659-FBB2-4BC4-B6ED-6EC7019BBF09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A519C60-6FD8-4D9D-850C-A75BD4118F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A519C60-6FD8-4D9D-850C-A75BD4118F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A519C60-6FD8-4D9D-850C-A75BD4118F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A519C60-6FD8-4D9D-850C-A75BD4118F05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +160,7 @@ Global
 		{4FE400B8-A56E-4224-AC2D-F77F51544526} = {F1E450D8-CE9C-4C59-9277-E32EE5EFEF8C}
 		{BF347EA7-21A9-4A66-B626-77B3F9FBF9C1} = {4FE400B8-A56E-4224-AC2D-F77F51544526}
 		{C795C659-FBB2-4BC4-B6ED-6EC7019BBF09} = {9674D4C5-FA88-4A11-95BA-40FB84B861C5}
+		{7A519C60-6FD8-4D9D-850C-A75BD4118F05} = {8314C153-EE55-495B-8F94-83CD44B42EDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}

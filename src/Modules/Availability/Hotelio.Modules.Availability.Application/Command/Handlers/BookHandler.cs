@@ -24,6 +24,8 @@ internal sealed class BookHandler: IRequestHandler<Book>
         
         //TODO try domain exception and dispatch events ???
         resource.Book(command.OwnerId, command.StarDate, command.EndDate);
-        await this._repository.UpdateAsync(resource);
+        this._repository.Update(resource);
+
+        //return Task.CompletedTask;
     }
 }

@@ -33,6 +33,7 @@ internal class AvailabilityService: IAvailability
 
     public async Task UnBookAsync(string resourceId, string ownerId)
     {
+        //TODO bookId against ownerId ???
         await this._commandBus.DispatchAsync(new UnBook(resourceId, ownerId));
     }
 }

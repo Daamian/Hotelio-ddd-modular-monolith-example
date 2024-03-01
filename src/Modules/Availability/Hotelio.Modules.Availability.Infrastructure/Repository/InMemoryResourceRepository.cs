@@ -38,7 +38,27 @@ internal class InMemoryResourceRepository : IResourceRepository
         InMemoryStorage.Resources[index] = resource.Snapshot();
         this.publishEvents(resource);
     }
-    
+
+    public Task AddAsync(Resource resource)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Add(Resource resource)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Resource?> FindAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update(Resource resource)
+    {
+        throw new NotImplementedException();
+    }
+
     private void publishEvents(Resource resource)
     {
         var events = resource.Events.ToList();
