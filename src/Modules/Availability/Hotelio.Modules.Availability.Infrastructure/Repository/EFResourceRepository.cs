@@ -43,11 +43,9 @@ internal class EFResourceRepository: IResourceRepository
     public async Task<Resource?> FindAsync(Guid id) => await _dbContext.Resources.FindAsync(id);
     public void Update(Resource resource)
     {
-        //var resourceFound = _dbContext.Resources.FirstOrDefault(u => u.Id == resource.Id);
-
-        _dbContext.Update(resource);
+        _dbContext.Resources.Update(resource);
         _dbContext.SaveChanges();
-        //this.publishEvents(resource);
+        this.publishEvents(resource);
     }
 
     private async Task publishEvents(Resource resource)

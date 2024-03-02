@@ -13,8 +13,8 @@ internal class Resource: Aggregate
     public int Type { get; private set; }
     public bool IsActive { get; private set; }
     
-    public List<Book> Books { get; set; } = new List<Book>();
-    //public IReadOnlyList<Book> Books => _books.AsReadOnly();
+    private List<Book> _books = new List<Book>();
+    public IReadOnlyList<Book> Books => _books.AsReadOnly();
 
     private Resource(Guid id, string groupId, int type, bool active = true)
     {
@@ -51,14 +51,14 @@ internal class Resource: Aggregate
             throw new ResourceIsNotActiveException("Resource is not active");
         }
 
-        var book = new Book(Guid.NewGuid(), ownerId, startDate, endDate);
-        this.Books.Add(book);
+        var book = new Book(ownerId, startDate, endDate);
+        this._books.Add(book);
         this.Events.Add(new ResourceBooked(this.Id.ToString(), book.OwnerId, book.StartDate, book.EndDate));
     }
 
     public void UnBook(string ownerId, DateTime startDate, DateTime endDate)
     {
-        var bookFound = this.Books.SingleOrDefault(book =>
+        var bookFound = this._books.SingleOrDefault(book =>
             book.StartDate == startDate && book.EndDate == endDate && book.OwnerId == ownerId);
         
         if (bookFound is null)
@@ -66,12 +66,12 @@ internal class Resource: Aggregate
             throw new BookNotExistsException("Book not exist in this resource");
         }
 
-        this.Books.Remove(bookFound);
+        this._books.Remove(bookFound);
     }
 
     private bool IsBooked(DateTime startDate, DateTime endDate)
     {
-        var booksInDateRange = this.Books.Where(book =>
+        var booksInDateRange = this._books.Where(book =>
             book.StartDate >= startDate && book.EndDate <= endDate);
 
         return booksInDateRange.Any();
@@ -85,7 +85,7 @@ internal class Resource: Aggregate
             { "IsActive", this.IsActive },
             { "GroupId", this.GroupId },
             { "Type", this.Type },
-            { "Books", this.Books }
+            { "Books", this._books }
         };
     }
 }

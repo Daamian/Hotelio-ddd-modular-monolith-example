@@ -4,14 +4,14 @@
     "/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/Hotelio.Modules.Booking.Api.csproj": {}
   },
   "projects": {
-    "/Users/damian/projects/Hotelio/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj": {
+    "/Users/damian/projects/Hotelio/src/CrossContext/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/damian/projects/Hotelio/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj",
+        "projectUniqueName": "/Users/damian/projects/Hotelio/src/CrossContext/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj",
         "projectName": "Hotelio.CrossContext.Contract",
-        "projectPath": "/Users/damian/projects/Hotelio/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj",
+        "projectPath": "/Users/damian/projects/Hotelio/src/CrossContext/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj",
         "packagesPath": "/Users/damian/.nuget/packages/",
-        "outputPath": "/Users/damian/projects/Hotelio/Hotelio.CrossContext.Contract/obj/",
+        "outputPath": "/Users/damian/projects/Hotelio/src/CrossContext/Hotelio.CrossContext.Contract/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/damian/.nuget/NuGet/NuGet.Config"
@@ -146,8 +146,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/damian/projects/Hotelio/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj": {
-                "projectPath": "/Users/damian/projects/Hotelio/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj"
+              "/Users/damian/projects/Hotelio/src/CrossContext/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj": {
+                "projectPath": "/Users/damian/projects/Hotelio/src/CrossContext/Hotelio.CrossContext.Contract/Hotelio.CrossContext.Contract.csproj"
               },
               "/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Domain/Hotelio.Modules.Booking.Domain.csproj": {
                 "projectPath": "/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Domain/Hotelio.Modules.Booking.Domain.csproj"
@@ -286,6 +286,14 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.25, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -406,6 +414,38 @@
             "MediatR": {
               "target": "Package",
               "version": "[12.1.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.25, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.25, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[6.0.25, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.25, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.25, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[6.0.0-rc.2.21480.5, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.23.1, )"
             },
             "Scrutor": {
               "target": "Package",

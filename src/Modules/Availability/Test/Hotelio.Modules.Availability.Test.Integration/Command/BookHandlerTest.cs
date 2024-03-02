@@ -11,7 +11,7 @@ namespace Hotelio.Modules.Availability.Test.Integration.Command;
 
 using Hotelio.Modules.Availability.Application.Command.Handlers;
 
-public class BookHandlerTest
+public class BookHandlerTest : IDisposable
 {
     private readonly BookHandler _bookHandler;
     private readonly ResourceDbContext _dbContext;
@@ -29,53 +29,38 @@ public class BookHandlerTest
     }
     
     [Fact]
-    public void BookResourceTest()
+    public async void BookResourceTest()
     {
         //Given
-        /*_dbContext.Database.EnsureCreated();
+        _dbContext.Database.EnsureCreated();
         var resourceId = Guid.NewGuid();
         var resource = Resource.Create(resourceId, "group-1", 1, true);
-        _repository.Add(resource);*/
+        _repository.Add(resource);
 
         var startDate = new DateTime(2024, 2, 1);
         var endDate = new DateTime(2024, 2, 5);
-
-
-        //var resourceId = new Guid("42766282-cb62-46dc-82e8-6d2ff88fc5c9");
         
         //Expected
-        //var resourceExpected = Resource.Create(resourceId, "group-1", 1, true);
-        //resourceExpected.Book("owner-1", startDate, endDate);
+        var resourceExpected = Resource.Create(resourceId, "group-1", 1, true);
+        resourceExpected.Book("owner-1", startDate, endDate);
         
         //When
-        var resourceId = new Guid("f614d2dd-feab-465a-9caa-1d7308f0f174");
         var command = new Book(resourceId.ToString(), "owner-1", startDate, endDate);
-        //await _bookHandler.Handle(command, CancellationToken.None);
+        await _bookHandler.Handle(command, CancellationToken.None);
         
-        //var resourceFound = _repository.Find(resourceId);
-        
-        var resourceToUpdate = _repository.Find(resourceId);
-        
-        //TODO try domain exception and dispatch events ???
-        resourceToUpdate.Book(command.OwnerId, command.StarDate, command.EndDate);
-        //resourceToUpdate.ChangeGroup("testnewgroupid");
-        _repository.Update(resourceToUpdate);
+        var resourceFound = await _repository.FindAsync(resourceId);
         
         //Then
-        //TODO assert read model
-        Assert.True(true);
-        //Assert.Equal(resourceExpected.Books, resourceFound.Books);
+        Assert.Collection(resourceFound.Books, book => {
+            Assert.Equal("owner-1", book.OwnerId);
+            Assert.Equal(startDate, book.StartDate);
+            Assert.Equal(endDate, book.EndDate);
+        });
     }
 
-    [Fact]
-    public void BookResourceV2Test()
+    public void Dispose()
     {
-        var resourceId = new Guid("f614d2dd-feab-465a-9caa-1d7308f0f174");
-        var resourceToUpdate = _repository.Find(resourceId);
-        var startDate = new DateTime(2024, 2, 1);
-        var endDate = new DateTime(2024, 2, 5);
-        
-        resourceToUpdate.Book("owner-1", startDate, endDate);
-        _repository.Update(resourceToUpdate);
+        _dbContext.Database.EnsureDeleted();
+        _dbContext.Dispose();
     }
 }

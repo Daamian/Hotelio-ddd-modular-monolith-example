@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
       <ProjectReference Include="..\..\..\Shared\Hotelio.Shared\Hotelio.Shared.csproj" />
+      <ProjectReference Include="..\Hotelio.Modules.HotelManagement.Core\Hotelio.Modules.HotelManagement.Core.csproj" />
     </ItemGroup>
 
 </Project>

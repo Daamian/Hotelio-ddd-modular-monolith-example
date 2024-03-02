@@ -1,12 +1,16 @@
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Api.deps.json
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Api.dll
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Api.pdb
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.CrossContext.Contract.dll
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Application.dll
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Domain.dll
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Infrastructure.dll
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Shared.dll
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Shared.dll
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Application.pdb
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Shared.pdb
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Infrastructure.pdb
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.CrossContext.Contract.pdb
+/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Application.pdb
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Domain.pdb
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Shared.pdb
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/obj/Debug/net6.0/Hotelio.Modules.Booking.Api.csproj.AssemblyReference.cache
@@ -19,7 +23,3 @@
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/obj/Debug/net6.0/refint/Hotelio.Modules.Booking.Api.dll
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/obj/Debug/net6.0/Hotelio.Modules.Booking.Api.pdb
 /Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/obj/Debug/net6.0/ref/Hotelio.Modules.Booking.Api.dll
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Infrastructure.dll
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.Modules.Booking.Infrastructure.pdb
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.CrossContext.Contract.dll
-/Users/damian/projects/Hotelio/src/Modules/Booking/Hotelio.Modules.Booking.Api/bin/Debug/net6.0/Hotelio.CrossContext.Contract.pdb
