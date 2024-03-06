@@ -56,10 +56,9 @@ internal class Resource: Aggregate
         this.Events.Add(new ResourceBooked(this.Id.ToString(), book.OwnerId, book.StartDate, book.EndDate));
     }
 
-    public void UnBook(string ownerId, DateTime startDate, DateTime endDate)
+    public void UnBook(Guid bookId)
     {
-        var bookFound = this._books.SingleOrDefault(book =>
-            book.StartDate == startDate && book.EndDate == endDate && book.OwnerId == ownerId);
+        var bookFound = this._books.SingleOrDefault(book => book.Id.Equals(bookId));
         
         if (bookFound is null)
         {

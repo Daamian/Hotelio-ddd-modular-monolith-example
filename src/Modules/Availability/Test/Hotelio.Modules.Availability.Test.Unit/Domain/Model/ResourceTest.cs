@@ -65,9 +65,10 @@ public class ResourceTest
         DateTime endDate = startDate.AddHours(2);
 
         resource.Book(ownerId, startDate, endDate);
+        var bookId = resource.Books.First().Id;
 
         // Act
-        resource.UnBook(ownerId, startDate, endDate);
+        resource.UnBook(bookId);
 
         // Assert
         var snapshot = resource.Snapshot();
@@ -83,7 +84,9 @@ public class ResourceTest
         DateTime startDate = DateTime.Now;
         DateTime endDate = startDate.AddHours(2);
 
+        var bookId = new Guid("74c780d4-294b-4bde-ae6e-04f560eb1775");
+
         // Act & Assert
-        Assert.Throws<BookNotExistsException>(() => resource.UnBook(ownerId, startDate, endDate));
+        Assert.Throws<BookNotExistsException>(() => resource.UnBook(bookId));
     }
 }
