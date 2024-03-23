@@ -29,7 +29,7 @@ public class UnBookHandlerTest : IDisposable
     }
 
     [Fact]
-    public async void UnBookResourceTest()
+    public async void UnBookResourceWithOneTest()
     {
         //Given
         _dbContext.Database.EnsureCreated();
@@ -51,6 +51,11 @@ public class UnBookHandlerTest : IDisposable
         var resourceFound = await _repository.FindAsync(resourceId);
         
         Assert.Empty(resourceFound.Books);
+    }
+
+    public async void UnBookResourceWithManyTest()
+    {
+        //TODO implement
     }
 
     public void Dispose()

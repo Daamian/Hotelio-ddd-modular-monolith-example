@@ -1,3 +1,4 @@
+using Hotelio.Modules.Availability.Domain.Exception;
 using Hotelio.Modules.Availability.Domain.Model;
 using Hotelio.Modules.Availability.Infrastructure.DAL;
 using Hotelio.Modules.Availability.Infrastructure.Repository;
@@ -29,7 +30,7 @@ public class BookHandlerTest : IDisposable
     }
     
     [Fact]
-    public async void BookResourceTest()
+    public async void OneBookResourceTest()
     {
         //Given
         _dbContext.Database.EnsureCreated();
@@ -58,9 +59,33 @@ public class BookHandlerTest : IDisposable
         });
     }
 
-    public async void UnBookResourceTest()
+    [Fact]
+    public async void TryToBookBusyResource()
     {
-        //TODO
+        //Given
+        _dbContext.Database.EnsureCreated();
+        
+        var startDate = new DateTime(2024, 2, 1);
+        var endDate = new DateTime(2024, 2, 5);
+        
+        var resourceId = Guid.NewGuid();
+        var resource = Resource.Create(resourceId, "group-1", 1, true);
+        resource.Book("owner1", startDate, endDate);
+        await _repository.AddAsync(resource);
+        
+        //When
+        var command = new Book(resourceId.ToString(), "owner-1", startDate, endDate);
+        
+        //Then
+        await Assert.ThrowsAsync<ResourceIsBookedException>(() 
+            => _bookHandler.Handle(command, CancellationToken.None));
+
+    }
+
+    [Fact]
+    public async void ManyBookResourceTest()
+    {
+        //TODO after return id
     }
 
     public void Dispose()

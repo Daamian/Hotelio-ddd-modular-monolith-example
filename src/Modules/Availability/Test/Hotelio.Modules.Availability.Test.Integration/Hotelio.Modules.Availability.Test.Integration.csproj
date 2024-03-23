@@ -24,8 +24,13 @@
 
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Hotelio.Modules.Availability.Api\Hotelio.Modules.Availability.Api.csproj" />
       <ProjectReference Include="..\..\Hotelio.Modules.Availability.Application\Hotelio.Modules.Availability.Application.csproj" />
       <ProjectReference Include="..\..\Hotelio.Modules.Availability.Infrastructure\Hotelio.Modules.Availability.Infrastructure.csproj" />
     </ItemGroup>
+
+
+
+
 
 </Project>

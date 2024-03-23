@@ -1,8 +1,10 @@
+using System.Runtime.CompilerServices;
 using Hotelio.CrossContext.Contract.Availability;
 using Hotelio.Modules.Availability.Api.CrossContext;
 using Hotelio.Modules.Availability.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 
+[assembly: InternalsVisibleTo("Hotelio.Modules.Availability.Test.Integration")]
 namespace Hotelio.Modules.Availability.Api;
 
 using Microsoft.Extensions.DependencyInjection;

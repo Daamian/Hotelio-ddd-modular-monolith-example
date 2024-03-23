@@ -11,7 +11,13 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
       <ProjectReference Include="..\Hotelio.Modules.Availability.Domain\Hotelio.Modules.Availability.Domain.csproj" />
+
+
+
     </ItemGroup>
+
+
+
 
 
 

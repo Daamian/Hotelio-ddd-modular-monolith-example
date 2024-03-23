@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Hotelio.Modules.Availability.Application.Command.Handlers;
+using Hotelio.Modules.Availability.Application.Query.Handler;
 using Hotelio.Modules.Availability.Application.ReadModel;
 using Hotelio.Modules.Availability.Domain.Repository;
 using Hotelio.Modules.Availability.Infrastructure.DAL;
@@ -20,11 +21,12 @@ public static class Extensions
             options.UseSqlServer("Server=localhost,1433;Database=master;User=sa;Password=Your_password123;"));
         
         services.AddScoped<IResourceRepository, EFResourceRepository>();
-        services.AddScoped<IResourceStorage, InMemoryResourceStorage>();
+        services.AddScoped<IResourceStorage, SqlServerResourceStorage>();
 
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<BookHandler>();
+            cfg.RegisterServicesFromAssemblyContaining<GetFirstAvailableResourceInDateRangeHandler>();
         });
         
         return services;
