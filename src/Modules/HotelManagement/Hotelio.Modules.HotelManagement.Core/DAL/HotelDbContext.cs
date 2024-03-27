@@ -6,6 +6,7 @@ namespace Hotelio.Modules.HotelManagement.Core.DAL;
 internal class HotelDbContext: DbContext
 {
     public DbSet<Hotel> Hotels { get; set; }
+    public DbSet<Room> Rooms { get; set; }
     
     public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options)
     {
@@ -18,8 +19,8 @@ internal class HotelDbContext: DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         modelBuilder.Entity<Hotel>()
             .HasMany(h => h.Rooms)
-            .WithOne()
-            .HasForeignKey("HotelId")
+            .WithOne(r => r.Hotel)
+            .HasForeignKey(r => r.HotelId)
             .IsRequired();
     }
 }

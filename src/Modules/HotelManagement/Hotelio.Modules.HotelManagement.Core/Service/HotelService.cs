@@ -1,30 +1,46 @@
 using Hotelio.Modules.HotelManagement.Core.DAL;
 using Hotelio.Modules.HotelManagement.Core.Model;
+using Hotelio.Modules.HotelManagement.Core.Repository;
+using Hotelio.Modules.HotelManagement.Core.Service.DTO;
+using Hotelio.Modules.HotelManagement.Core.Service.Exception;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hotelio.Modules.HotelManagement.Core.Service;
 
-internal class HotelService
+internal class HotelService: IHotelService
 {
-    private readonly HotelDbContext _db;
+    private readonly IHotelRepository _repository;
 
-    public HotelService(HotelDbContext db)
+    public HotelService(IHotelRepository repository) => _repository = repository;
+    
+    public int Add(HotelDto dto)
     {
-        _db = db;
+        var hotel = new Hotel() { Name = dto.Name };
+        _repository.Add(hotel);
+        return hotel.Id;
     }
 
-    public void Add(Hotel hotel)
+    public void Update(HotelDto dto)
     {
-        _db.Hotels.Add(hotel);
-        _db.SaveChanges();
-    } 
-    public Hotel? Find(int id) => _db.Hotels
-        .Include(h => h.Rooms)
-        .FirstOrDefault(h => h.Id == id);
+        var hotel = _repository.Find(dto.Id);
 
-    public void Update(Hotel hotel)
+        if (hotel is null)
+        {
+            throw new HotelNotFoundException($"Not found hotel with id {dto.Id}");
+        }
+
+        hotel.Name = dto.Name;
+        _repository.Update(hotel);
+    }
+
+    public HotelDto? Get(int id)
     {
-        _db.Hotels.Update(hotel);
-        _db.SaveChanges();
+        var hotel = _repository.Find(id);
+
+        if (hotel is null) {
+            return null;
+        }
+
+        return new HotelDto(hotel.Id, hotel.Name);
     }
 }

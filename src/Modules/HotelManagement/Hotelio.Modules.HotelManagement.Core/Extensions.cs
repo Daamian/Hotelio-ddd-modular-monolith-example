@@ -1,5 +1,8 @@
 using System.Runtime.CompilerServices;
 using Hotelio.Modules.HotelManagement.Core.DAL;
+using Hotelio.Modules.HotelManagement.Core.DAL.Repository;
+using Hotelio.Modules.HotelManagement.Core.Repository;
+using Hotelio.Modules.HotelManagement.Core.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +16,11 @@ public static class Extensions
     {
         services.AddDbContext<HotelDbContext>(options =>
             options.UseSqlServer("Server=localhost,1433;Database=master;User=sa;Password=Your_password123;"));
-        
+
+        services.AddScoped<IHotelRepository, HotelRepository>();
+        services.AddScoped<IHotelService, HotelService>();
+        services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<IHotelService, HotelService>();
         return services;
     }
 

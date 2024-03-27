@@ -1,65 +1,69 @@
 using Hotelio.Modules.HotelManagement.Core.DAL;
 using Hotelio.Modules.HotelManagement.Core.DAL.Repository;
-using Hotelio.Modules.HotelManagement.Core.Model;
 using Hotelio.Modules.HotelManagement.Core.Service;
 using Hotelio.Modules.HotelManagement.Core.Service.DTO;
-using Hotelio.Shared.Event;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 
 namespace Hotelio.Modules.HotelManagement.Test.Integration.Service;
 
-public class HotelServiceTest : IDisposable
+public class RoomServiceTest
 {
     private readonly HotelService _hotelService;
+    private readonly RoomService _roomService;
     private readonly HotelDbContext _dbContext;
-    private readonly HotelRepository _repository;
+    private readonly RoomRepository _repository;
+    private readonly HotelRepository _hotelRepository;
     
-    public HotelServiceTest()
+    public RoomServiceTest()
     {
         var optionBuilder = new DbContextOptionsBuilder<HotelDbContext>()
             .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;TrustServerCertificate=True");
         _dbContext = new HotelDbContext(optionBuilder.Options);
-        _repository = new HotelRepository(_dbContext);
-        _hotelService = new HotelService(_repository);
+        _repository = new RoomRepository(_dbContext);
+        _roomService = new RoomService(_repository);
+        _hotelRepository = new HotelRepository(_dbContext);
+        _hotelService = new HotelService(_hotelRepository);
     }
 
     [Fact]
-    public void AddHotelManagementTest()
+    public void AddRoomTest()
     {
         _dbContext.Database.EnsureCreated();
         
         //Given
         var hotel = new HotelDto(0, "Hotel Test");
-        
+        var hotelId = _hotelService.Add(hotel);
+        var room = new RoomDto(0, 120, 2, 1, hotelId);
         
         //When
-        var id = _hotelService.Add(hotel);
+        var id = _roomService.Add(room);
         
         //Expected
-        var hotelExpected = new HotelDto(id, "Hotel Test");
+        var roomExpected = new RoomDto(id, 120, 2, 1, 1);
         
         //Then
-        var hotelFound = _hotelService.Get(id);
-        Assert.Equal(hotelExpected, hotelFound);
+        var roomFound = _roomService.Get(id);
+        Assert.Equal(roomExpected, roomFound);
     }
 
     [Fact]
-    public void UpdateHotelTest()
+    public void UpdateRoomTest()
     {
         _dbContext.Database.EnsureCreated();
         
         //Given
         var hotel = new HotelDto(0, "Hotel Test");
-        var id = _hotelService.Add(hotel);
-        var hotelToUpdate = new HotelDto(id, "New name");
+        var hotelId = _hotelService.Add(hotel);
+        var room = new RoomDto(0, 120, 2, 1, hotelId);
+        var id = _roomService.Add(room);
+        var roomToUpdate = new RoomDto(id, 130, 3, 2, hotelId);
         
         //When
-        _hotelService.Update(hotelToUpdate);
+        _roomService.Update(roomToUpdate);
         
         //Then
-        var hotelFound = _hotelService.Get(id);
-        Assert.Equal(hotelToUpdate, hotelFound);
+        var roomFound = _roomService.Get(id);
+        Assert.Equal(roomToUpdate, roomFound);
     }
 
     public void Dispose()
