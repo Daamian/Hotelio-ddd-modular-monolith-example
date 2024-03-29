@@ -4,5 +4,5 @@ namespace Hotelio.Shared.Domain;
 
 public abstract class Aggregate
 {
-    public List<IEvent> Events { get; protected set; } = new List<IEvent>();
+    public List<IEvent> Events { get; protected set; } = new();
 }

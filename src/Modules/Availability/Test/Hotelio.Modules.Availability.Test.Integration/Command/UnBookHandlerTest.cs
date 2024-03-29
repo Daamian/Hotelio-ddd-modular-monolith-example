@@ -15,7 +15,7 @@ public class UnBookHandlerTest : IDisposable
     private readonly UnBookHandler _unBookHandler;
     private readonly ResourceDbContext _dbContext;
     private readonly Mock<IEventBus> _eventBusMock;
-    private readonly EFResourceRepository _repository;
+    private readonly EfResourceRepository _repository;
     
     public UnBookHandlerTest()
     {
@@ -23,7 +23,7 @@ public class UnBookHandlerTest : IDisposable
             .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;");
         _dbContext = new ResourceDbContext(optionBuilder.Options);
         _eventBusMock = new Mock<IEventBus>();
-        _repository = new EFResourceRepository(_dbContext, _eventBusMock.Object);
+        _repository = new EfResourceRepository(_dbContext, _eventBusMock.Object);
         _unBookHandler = new UnBookHandler(_repository);
         _bookHandler = new BookHandler(_repository);
     }

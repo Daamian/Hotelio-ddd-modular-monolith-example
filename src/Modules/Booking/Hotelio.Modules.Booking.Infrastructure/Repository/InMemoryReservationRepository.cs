@@ -30,7 +30,7 @@ internal class InMemoryReservationRepository : IReservationRepository
         var events = reservation.Events.ToList();
         foreach (var domainEvent in events)
         {
-            this._eventBus.publish(domainEvent);
+            this._eventBus.Publish(domainEvent);
         }
         
         reservation.Events.Clear();

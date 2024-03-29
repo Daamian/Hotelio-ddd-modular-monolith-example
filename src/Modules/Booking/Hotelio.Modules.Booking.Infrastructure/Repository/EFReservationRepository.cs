@@ -43,7 +43,7 @@ internal class EFReservationRepository: IReservationRepository
         var events = reservation.Events.ToList();
         foreach (var domainEvent in events)
         {
-            await this._eventBus.publish(domainEvent);
+            await this._eventBus.Publish(domainEvent);
         }
         
         reservation.Events.Clear();

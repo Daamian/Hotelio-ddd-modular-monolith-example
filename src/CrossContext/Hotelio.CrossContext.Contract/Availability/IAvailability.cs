@@ -1,6 +1,6 @@
 namespace Hotelio.CrossContext.Contract.Availability;
 
-using Hotelio.CrossContext.Contract.Availability.Exception;
+using Exception;
 
 public interface IAvailability
 {

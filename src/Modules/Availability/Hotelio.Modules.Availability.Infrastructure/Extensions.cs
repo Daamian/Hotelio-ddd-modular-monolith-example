@@ -20,7 +20,7 @@ public static class Extensions
         services.AddDbContext<ResourceDbContext>(options =>
             options.UseSqlServer("Server=localhost,1433;Database=master;User=sa;Password=Your_password123;"));
         
-        services.AddScoped<IResourceRepository, EFResourceRepository>();
+        services.AddScoped<IResourceRepository, EfResourceRepository>();
         services.AddScoped<IResourceStorage, SqlServerResourceStorage>();
 
         services.AddMediatR(cfg =>

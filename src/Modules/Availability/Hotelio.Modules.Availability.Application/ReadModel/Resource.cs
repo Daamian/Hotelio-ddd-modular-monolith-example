@@ -1,6 +1,6 @@
 namespace Hotelio.Modules.Availability.Application.ReadModel;
 
-public record Resource(
+internal record Resource(
     string Id,
     string Group,
     int Type,

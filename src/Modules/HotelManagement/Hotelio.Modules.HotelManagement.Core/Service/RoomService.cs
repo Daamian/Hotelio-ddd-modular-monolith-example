@@ -38,7 +38,7 @@ internal class RoomService: IRoomService
             return null;
         }
 
-        return mapModel(room);
+        return _mapModel(room);
     }
 
     private static Room MapDto(RoomDto roomDto, Room? room = null)
@@ -56,7 +56,7 @@ internal class RoomService: IRoomService
         return room;
     }
 
-    private static RoomDto mapModel(Room room)
+    private static RoomDto _mapModel(Room room)
     {
         return new RoomDto(room.Id, room.Number, room.MaxGuests, (int) room.Type, room.HotelId);
     }

@@ -5,7 +5,7 @@ namespace Hotelio.Modules.Availability.Infrastructure.ReadModel;
 
 internal class SqlServerResourceStorage: IResourceStorage
 {
-    private string _connectionString;
+    private readonly string _connectionString;
 
     public SqlServerResourceStorage(string connectionString)
     {
@@ -14,9 +14,9 @@ internal class SqlServerResourceStorage: IResourceStorage
 
     public async Task<Resource?> FindFirstAvailableInDatesAsync(string group, int type, DateTime startDate, DateTime endDate)
     {
-        Resource resource = null;
+        Resource? resource = null;
 
-        using (SqlConnection connection = new SqlConnection(_connectionString))
+       await using (var connection = new SqlConnection(_connectionString))
         {
             string query = @"
                             SELECT TOP 1 r.*
@@ -46,7 +46,7 @@ internal class SqlServerResourceStorage: IResourceStorage
 
             if (reader.Read())
             {
-                var id = (System.Guid)reader["Id"];
+                var id = (Guid)reader["Id"];
                 resource = new Resource(
                     id.ToString(), 
                     (string)reader["GroupId"], 

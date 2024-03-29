@@ -4,15 +4,15 @@ using MediatR;
 
 public class MediatREventBus: IEventBus
 {
-    private IMediator _mediator;
+    private readonly IMediator _mediator;
 
     public MediatREventBus(IMediator mediator)
     {
         _mediator = mediator;
     }
 
-    public async Task publish(IEvent eventItem)
+    public async Task Publish(IEvent eventItem)
     {
-        await this._mediator.Publish(eventItem);
+        await _mediator.Publish(eventItem);
     }
 }

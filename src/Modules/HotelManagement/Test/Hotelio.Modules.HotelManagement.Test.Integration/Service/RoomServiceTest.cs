@@ -6,23 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotelio.Modules.HotelManagement.Test.Integration.Service;
 
-public class RoomServiceTest
+public class RoomServiceTest: IDisposable
 {
     private readonly HotelService _hotelService;
     private readonly RoomService _roomService;
     private readonly HotelDbContext _dbContext;
-    private readonly RoomRepository _repository;
-    private readonly HotelRepository _hotelRepository;
-    
+
     public RoomServiceTest()
     {
         var optionBuilder = new DbContextOptionsBuilder<HotelDbContext>()
             .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;TrustServerCertificate=True");
         _dbContext = new HotelDbContext(optionBuilder.Options);
-        _repository = new RoomRepository(_dbContext);
-        _roomService = new RoomService(_repository);
-        _hotelRepository = new HotelRepository(_dbContext);
-        _hotelService = new HotelService(_hotelRepository);
+        var repository = new RoomRepository(_dbContext);
+        _roomService = new RoomService(repository);
+        var hotelRepository = new HotelRepository(_dbContext);
+        _hotelService = new HotelService(hotelRepository);
     }
 
     [Fact]

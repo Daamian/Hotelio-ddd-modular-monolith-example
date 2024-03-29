@@ -1,5 +1,4 @@
-﻿using System;
-namespace Hotelio.Shared.Queries;
+﻿namespace Hotelio.Shared.Queries;
 
 public interface IQueryBus
 {

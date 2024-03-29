@@ -1,9 +1,7 @@
-using Hotelio.Modules.HotelManagement.Core.DAL;
 using Hotelio.Modules.HotelManagement.Core.Model;
 using Hotelio.Modules.HotelManagement.Core.Repository;
 using Hotelio.Modules.HotelManagement.Core.Service.DTO;
 using Hotelio.Modules.HotelManagement.Core.Service.Exception;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hotelio.Modules.HotelManagement.Core.Service;
 

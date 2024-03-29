@@ -17,15 +17,15 @@ public class BookHandlerTest : IDisposable
     private readonly BookHandler _bookHandler;
     private readonly ResourceDbContext _dbContext;
     private readonly Mock<IEventBus> _eventBusMock;
-    private readonly EFResourceRepository _repository;
+    private readonly EfResourceRepository _repository;
     
     public BookHandlerTest()
     {
         var optionBuilder = new DbContextOptionsBuilder<ResourceDbContext>()
-            .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;");
+            .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;TrustServerCertificate=True");
         _dbContext = new ResourceDbContext(optionBuilder.Options);
         _eventBusMock = new Mock<IEventBus>();
-        _repository = new EFResourceRepository(_dbContext, _eventBusMock.Object);
+        _repository = new EfResourceRepository(_dbContext, _eventBusMock.Object);
         _bookHandler = new BookHandler(_repository);
     }
     
@@ -36,7 +36,7 @@ public class BookHandlerTest : IDisposable
         _dbContext.Database.EnsureCreated();
         var resourceId = Guid.NewGuid();
         var resource = Resource.Create(resourceId, "group-1", 1, true);
-        _repository.Add(resource);
+        await _repository.AddAsync(resource);
 
         var startDate = new DateTime(2024, 2, 1);
         var endDate = new DateTime(2024, 2, 5);

@@ -13,10 +13,9 @@ namespace Hotelio.Modules.Availability.Test.Integration.CrossContext;
 public class AvailabilityServiceTest
 {
     private readonly SqlServerResourceStorage _storage = new SqlServerResourceStorage("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;TrustServerCertificate=True");
-    private readonly EFResourceStorage _efStorage;
     private readonly ResourceDbContext _dbContext;
     private readonly Mock<IEventBus> _eventBusMock;
-    private readonly EFResourceRepository _resourceRepository;
+    private readonly EfResourceRepository _resourceRepository;
     private readonly IAvailability _availability;
     
     public AvailabilityServiceTest()
@@ -24,8 +23,7 @@ public class AvailabilityServiceTest
         var optionBuilder = new DbContextOptionsBuilder<ResourceDbContext>()
             .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;TrustServerCertificate=True");
         _dbContext = new ResourceDbContext(optionBuilder.Options);
-        _efStorage = new EFResourceStorage(_dbContext);
-        _resourceRepository = new EFResourceRepository(_dbContext, _eventBusMock.Object);
+        _resourceRepository = new EfResourceRepository(_dbContext, _eventBusMock.Object);
     }
     
     [Fact]

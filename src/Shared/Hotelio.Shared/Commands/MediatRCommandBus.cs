@@ -6,9 +6,9 @@ public class MediatRCommandBus: ICommandBus
 {
     private readonly IMediator _mediator;
 
-    public MediatRCommandBus(IMediator _mediator)
+    public MediatRCommandBus(IMediator mediator)
     {
-        this._mediator = _mediator;
+        this._mediator = mediator;
     }
     
     public async Task DispatchAsync<TCommand>(TCommand command) where TCommand : class, ICommand

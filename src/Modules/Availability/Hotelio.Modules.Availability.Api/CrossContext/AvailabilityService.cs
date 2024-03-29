@@ -31,12 +31,12 @@ internal class AvailabilityService: IAvailability
         }
 
         //TODO what if command handler throws exception ???
-        await this._commandBus.DispatchAsync(new BookCommand(resource.Id, ownerId, starDate, endDate));
+        await _commandBus.DispatchAsync(new BookCommand(resource.Id, ownerId, starDate, endDate));
     }
 
     public async Task UnBookAsync(string resourceId, string ownerId)
     {
         //TODO bookId against ownerId ???
-        await this._commandBus.DispatchAsync(new UnBook(resourceId, ownerId));
+        await _commandBus.DispatchAsync(new UnBook(resourceId, ownerId));
     }
 }

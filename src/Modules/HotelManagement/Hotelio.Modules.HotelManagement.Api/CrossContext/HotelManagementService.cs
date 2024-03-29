@@ -14,6 +14,7 @@ internal class HotelManagementService: IHotelManagement
 
     public async Task<Hotel> GetAsync(string id)
     {
+        //TODO get from repository
         var hotel = this._hotels.Find(h => h.Id == id);
 
         if (null == hotel)

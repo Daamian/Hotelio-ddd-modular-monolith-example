@@ -1,5 +1,4 @@
-﻿using System;
-namespace Hotelio.Shared.Commands;
+﻿namespace Hotelio.Shared.Commands;
 
 public interface ICommandBus
 {

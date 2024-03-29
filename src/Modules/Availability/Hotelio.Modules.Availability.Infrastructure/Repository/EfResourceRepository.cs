@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotelio.Modules.Availability.Infrastructure.Repository;
 
-internal class EFResourceRepository: IResourceRepository
+internal class EfResourceRepository: IResourceRepository
 {
-    private ResourceDbContext _dbContext;
+    private readonly ResourceDbContext _dbContext;
     private readonly IEventBus _eventBus;
 
-    public EFResourceRepository(ResourceDbContext dbContext, IEventBus eventBus)
+    public EfResourceRepository(ResourceDbContext dbContext, IEventBus eventBus)
     {
         _dbContext = dbContext;
         _eventBus = eventBus;
@@ -25,7 +25,7 @@ internal class EFResourceRepository: IResourceRepository
     {
         _dbContext.Resources.Attach(resource);
         await _dbContext.SaveChangesAsync();
-        await this.publishEvents(resource);
+        await _publishEvents(resource);
     }
 
     public async Task AddAsync(Resource resource)
@@ -34,26 +34,14 @@ internal class EFResourceRepository: IResourceRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public void Add(Resource resource)
-    {
-        _dbContext.Resources.Add(resource);
-        _dbContext.SaveChanges();
-    }
-
     public async Task<Resource?> FindAsync(Guid id) => await _dbContext.Resources.FindAsync(id);
-    public void Update(Resource resource)
-    {
-        _dbContext.Resources.Update(resource);
-        _dbContext.SaveChanges();
-        this.publishEvents(resource);
-    }
 
-    private async Task publishEvents(Resource resource)
+    private async Task _publishEvents(Resource resource)
     {
         var events = resource.Events.ToList();
         foreach (var domainEvent in events)
         {
-            await this._eventBus.publish(domainEvent);
+            await this._eventBus.Publish(domainEvent);
         }
         
         resource.Events.Clear();

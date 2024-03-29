@@ -1,6 +1,5 @@
 using Hotelio.Modules.HotelManagement.Core.Model;
 using Hotelio.Modules.HotelManagement.Core.Repository;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hotelio.Modules.HotelManagement.Core.DAL.Repository;
 

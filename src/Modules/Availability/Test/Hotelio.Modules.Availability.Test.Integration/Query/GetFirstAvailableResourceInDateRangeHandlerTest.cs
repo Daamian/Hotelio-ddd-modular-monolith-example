@@ -13,7 +13,7 @@ namespace Hotelio.Modules.Availability.Test.Integration.Query;
 public class GetFirstAvailableResourceInDateRangeHandlerTest: IDisposable
 {
     private readonly ResourceDbContext _dbContext;
-    private readonly EFResourceRepository _repository;
+    private readonly EfResourceRepository _repository;
     private readonly Mock<IEventBus> _eventBusMock;
     private readonly GetFirstAvailableResourceInDateRangeHandler _queryHandler;
     private readonly SqlServerResourceStorage _storage;
@@ -24,7 +24,7 @@ public class GetFirstAvailableResourceInDateRangeHandlerTest: IDisposable
             .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;;TrustServerCertificate=True");
         _dbContext = new ResourceDbContext(optionBuilder.Options);
         _eventBusMock = new Mock<IEventBus>();
-        _repository = new EFResourceRepository(_dbContext, _eventBusMock.Object);
+        _repository = new EfResourceRepository(_dbContext, _eventBusMock.Object);
         _storage = new SqlServerResourceStorage("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;;TrustServerCertificate=True");
         _queryHandler = new GetFirstAvailableResourceInDateRangeHandler(_storage);
     }
