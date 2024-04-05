@@ -7,6 +7,7 @@ using Hotelio.Modules.Booking.Infrastructure.DAL;
 using Hotelio.Modules.Booking.Infrastructure.ReadModel;
 using Hotelio.Modules.Booking.Infrastructure.ReadModel.Settings;
 using Hotelio.Modules.Booking.Infrastructure.Repository;
+using Hotelio.Shared.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +20,7 @@ public static class Extensions
     public static IServiceCollection AddBookingInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<ReservationDbContext>(options =>
-            options.UseSqlServer("Server=localhost,1433;Database=master;User=sa;Password=Your_password123;"));
+            options.UseSqlServer(ConfigHelper.GetSqlServerConfig(configuration).ConnectionString));
         
         services.AddScoped<IReservationRepository, EFReservationRepository>();
         services.AddScoped<IReadModelStorage, MongoReadModelStorage>();

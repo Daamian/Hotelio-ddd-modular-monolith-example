@@ -4,6 +4,7 @@ using Hotelio.Modules.Availability.Domain.Model;
 using Hotelio.Modules.Availability.Infrastructure.DAL;
 using Hotelio.Modules.Availability.Infrastructure.Repository;
 using Hotelio.Shared.Event;
+using Hotelio.Shared.Tests;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -20,7 +21,7 @@ public class UnBookHandlerTest : IDisposable
     public UnBookHandlerTest()
     {
         var optionBuilder = new DbContextOptionsBuilder<ResourceDbContext>()
-            .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;");
+            .UseSqlServer(ConfigHelper.GetSqlServerConfig().ConnectionString);
         _dbContext = new ResourceDbContext(optionBuilder.Options);
         _eventBusMock = new Mock<IEventBus>();
         _repository = new EfResourceRepository(_dbContext, _eventBusMock.Object);

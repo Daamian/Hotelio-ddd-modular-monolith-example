@@ -3,15 +3,16 @@ using Hotelio.Modules.HotelManagement.Api.CrossContext;
 using Hotelio.Modules.HotelManagement.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace Hotelio.Modules.HotelManagement.Api;
 
 public static class Extensions
 {
-    public static IServiceCollection AddHotelManagementModule(this IServiceCollection services)
+    public static IServiceCollection AddHotelManagementModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IHotelManagement, HotelManagementService>();
-        services.AddHotelManagementCore();
+        services.AddHotelManagementCore(configuration);
         return services;
     }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Hotelio.Shared.SqlServer;
 
 namespace Hotelio.Shared;
 
@@ -23,7 +24,6 @@ public static class Extensions
         services.AddScoped<ICommandBus, MediatRCommandBus>();
         services.AddScoped<IQueryBus, MediatRQueryBus>();
         services.AddScoped<IEventBus, MediatREventBus>();
-
         return services;
     }
 

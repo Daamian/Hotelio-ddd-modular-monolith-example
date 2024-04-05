@@ -9,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddBookingModule(builder.Configuration)
-    .AddAvailability()
-    .AddHotelManagementModule()
+    .AddAvailability(builder.Configuration)
+    .AddHotelManagementModule(builder.Configuration)
     .AddCrossContext()
     .AddSharedFramework(builder.Configuration);
 

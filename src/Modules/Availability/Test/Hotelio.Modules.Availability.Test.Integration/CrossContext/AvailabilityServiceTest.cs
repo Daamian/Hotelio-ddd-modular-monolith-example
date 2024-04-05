@@ -5,6 +5,7 @@ using Hotelio.Modules.Availability.Infrastructure.DAL;
 using Hotelio.Modules.Availability.Infrastructure.ReadModel;
 using Hotelio.Modules.Availability.Infrastructure.Repository;
 using Hotelio.Shared.Event;
+using Hotelio.Shared.Tests;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -12,7 +13,7 @@ namespace Hotelio.Modules.Availability.Test.Integration.CrossContext;
 
 public class AvailabilityServiceTest
 {
-    private readonly SqlServerResourceStorage _storage = new SqlServerResourceStorage("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;TrustServerCertificate=True");
+    private readonly SqlServerResourceStorage _storage = new SqlServerResourceStorage(ConfigHelper.GetSqlServerConfig().ConnectionString);
     private readonly ResourceDbContext _dbContext;
     private readonly Mock<IEventBus> _eventBusMock;
     private readonly EfResourceRepository _resourceRepository;
@@ -21,7 +22,7 @@ public class AvailabilityServiceTest
     public AvailabilityServiceTest()
     {
         var optionBuilder = new DbContextOptionsBuilder<ResourceDbContext>()
-            .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;TrustServerCertificate=True");
+            .UseSqlServer(ConfigHelper.GetSqlServerConfig().ConnectionString);
         _dbContext = new ResourceDbContext(optionBuilder.Options);
         _resourceRepository = new EfResourceRepository(_dbContext, _eventBusMock.Object);
     }
