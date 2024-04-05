@@ -2,6 +2,7 @@ using Hotelio.Modules.HotelManagement.Core.DAL;
 using Hotelio.Modules.HotelManagement.Core.DAL.Repository;
 using Hotelio.Modules.HotelManagement.Core.Service;
 using Hotelio.Modules.HotelManagement.Core.Service.DTO;
+using Hotelio.Shared.Tests;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hotelio.Modules.HotelManagement.Test.Integration.Service;
@@ -14,7 +15,7 @@ public class HotelServiceTest : IDisposable
     public HotelServiceTest()
     {
         var optionBuilder = new DbContextOptionsBuilder<HotelDbContext>()
-            .UseSqlServer("Server=localhost,1433;Database=tests;User=sa;Password=Your_password123;TrustServerCertificate=True");
+            .UseSqlServer(ConfigHelper.GetSqlServerConfig().ConnectionString);
         _dbContext = new HotelDbContext(optionBuilder.Options);
         var repository = new HotelRepository(_dbContext);
         _hotelService = new HotelService(repository);
