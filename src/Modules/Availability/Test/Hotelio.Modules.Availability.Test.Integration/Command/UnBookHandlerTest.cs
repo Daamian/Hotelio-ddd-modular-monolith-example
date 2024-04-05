@@ -54,9 +54,39 @@ public class UnBookHandlerTest : IDisposable
         Assert.Empty(resourceFound.Books);
     }
 
+    [Fact]
     public async void UnBookResourceWithManyTest()
     {
-        //TODO implement
+        _dbContext.Database.EnsureCreated();
+        
+        var resourceId = Guid.NewGuid();
+        var resource = Resource.Create(resourceId, "group-1", 1, true);
+        resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 14));
+        resource.Book("owner-2", new DateTime(2024, 1, 14), new DateTime(2024, 1, 30));
+        resource.Book("owner-3", new DateTime(2024, 2, 5), new DateTime(2024, 2, 15));
+        await _repository.AddAsync(resource);
+
+        var books = resource.Books;
+        var bookId = books.FirstOrDefault(r => r.OwnerId == "owner-2")!.Id;
+        
+        //When
+        var command = new UnBook(resourceId.ToString(), bookId.ToString());
+        await _unBookHandler.Handle(command, CancellationToken.None);
+        
+        //Then
+        var resourceFound = await _repository.FindAsync(resourceId);
+        
+        //Then
+        Assert.Collection(resourceFound.Books, book => {
+            Assert.Equal("owner-1", book.OwnerId);
+            Assert.Equal(new DateTime(2024, 1, 1), book.StartDate);
+            Assert.Equal(new DateTime(2024, 1, 14), book.EndDate);
+        }, book =>
+        {
+            Assert.Equal("owner-3", book.OwnerId);
+            Assert.Equal(new DateTime(2024, 2, 5), book.StartDate);
+            Assert.Equal(new DateTime(2024, 2, 15), book.EndDate);
+        });
     }
 
     public void Dispose()

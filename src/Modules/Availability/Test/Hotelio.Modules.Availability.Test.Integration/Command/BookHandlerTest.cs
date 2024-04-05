@@ -89,7 +89,42 @@ public class BookHandlerTest : IDisposable
     [Fact]
     public async void ManyBookResourceTest()
     {
-        //TODO after return id
+        //Given
+        _dbContext.Database.EnsureCreated();
+        var resourceId = Guid.NewGuid();
+        var resource = Resource.Create(resourceId, "group-1", 1, true);
+        resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 14));
+        resource.Book("owner-2", new DateTime(2024, 1, 14), new DateTime(2024, 1, 30));
+        resource.Book("owner-3", new DateTime(2024, 2, 5), new DateTime(2024, 2, 15));
+        await _repository.AddAsync(resource);
+        
+        //When
+        var command = new Book(resourceId.ToString(), "owner-4", new DateTime(2024, 2, 1), new DateTime(2024, 2, 5));
+        await _bookHandler.Handle(command, CancellationToken.None);
+        
+        var resourceFound = await _repository.FindAsync(resourceId);
+        
+        //Then
+        Assert.Collection(resourceFound.Books, book => {
+            Assert.Equal("owner-1", book.OwnerId);
+            Assert.Equal(new DateTime(2024, 1, 1), book.StartDate);
+            Assert.Equal(new DateTime(2024, 1, 14), book.EndDate);
+        }, book =>
+        {
+            Assert.Equal("owner-2", book.OwnerId);
+            Assert.Equal(new DateTime(2024, 1, 14), book.StartDate);
+            Assert.Equal(new DateTime(2024, 1, 30), book.EndDate);
+        }, book =>
+        {
+            Assert.Equal("owner-3", book.OwnerId);
+            Assert.Equal(new DateTime(2024, 2, 5), book.StartDate);
+            Assert.Equal(new DateTime(2024, 2, 15), book.EndDate);
+        }, book =>
+        {
+            Assert.Equal("owner-4", book.OwnerId);
+            Assert.Equal(new DateTime(2024, 2, 1), book.StartDate);
+            Assert.Equal(new DateTime(2024, 2, 5), book.EndDate);
+        });
     }
 
     public void Dispose()
