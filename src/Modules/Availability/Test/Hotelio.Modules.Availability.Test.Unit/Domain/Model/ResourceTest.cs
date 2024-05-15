@@ -19,7 +19,7 @@ public class ResourceTest
         Assert.NotNull(resource);
         Assert.Equal(resourceId, snapshot["Id"]);
         Assert.True((bool) snapshot["IsActive"]);
-        Assert.Empty((HashSet<Book>) snapshot["Books"]);
+        Assert.Empty(resource.Books);
     }
 
     [Fact]
@@ -36,7 +36,7 @@ public class ResourceTest
 
         // Assert
         var snapshot = resource.Snapshot();
-        Assert.Single((HashSet<Book>)snapshot["Books"]);
+        Assert.Single(resource.Books);
     }
 
     [Fact]
@@ -72,7 +72,7 @@ public class ResourceTest
 
         // Assert
         var snapshot = resource.Snapshot();
-        Assert.Empty((HashSet<Book>)snapshot["Books"]);
+        Assert.Empty(resource.Books);
     }
 
     [Fact]

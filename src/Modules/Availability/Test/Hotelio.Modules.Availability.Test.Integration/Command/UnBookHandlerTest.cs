@@ -5,12 +5,13 @@ using Hotelio.Modules.Availability.Infrastructure.DAL;
 using Hotelio.Modules.Availability.Infrastructure.Repository;
 using Hotelio.Shared.Event;
 using Hotelio.Shared.Tests;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace Hotelio.Modules.Availability.Test.Integration.Command;
 
-public class UnBookHandlerTest : IDisposable
+public class UnBookHandlerTest
 {
     private readonly BookHandler _bookHandler;
     private readonly UnBookHandler _unBookHandler;
@@ -33,7 +34,6 @@ public class UnBookHandlerTest : IDisposable
     public async void UnBookResourceWithOneTest()
     {
         //Given
-        _dbContext.Database.EnsureCreated();
         var resourceId = Guid.NewGuid();
         var resource = Resource.Create(resourceId, "group-1", 1, true);
         resource.Book(
@@ -57,8 +57,6 @@ public class UnBookHandlerTest : IDisposable
     [Fact]
     public async void UnBookResourceWithManyTest()
     {
-        _dbContext.Database.EnsureCreated();
-        
         var resourceId = Guid.NewGuid();
         var resource = Resource.Create(resourceId, "group-1", 1, true);
         resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 14));
@@ -87,11 +85,5 @@ public class UnBookHandlerTest : IDisposable
             Assert.Equal(new DateTime(2024, 2, 5), book.StartDate);
             Assert.Equal(new DateTime(2024, 2, 15), book.EndDate);
         });
-    }
-
-    public void Dispose()
-    {
-        _dbContext.Database.EnsureDeleted();
-        _dbContext.Dispose();
     }
 }

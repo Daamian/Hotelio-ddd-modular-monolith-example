@@ -1,47 +1,54 @@
-using Hotelio.CrossContext.Contract.Availability;
+
+using Hotelio.CrossContext.Contract.Availability.Exception;
 using Hotelio.Modules.Availability.Api.CrossContext;
+using Hotelio.Modules.Availability.Application.Query;
 using Hotelio.Modules.Availability.Domain.Model;
-using Hotelio.Modules.Availability.Infrastructure.DAL;
-using Hotelio.Modules.Availability.Infrastructure.ReadModel;
-using Hotelio.Modules.Availability.Infrastructure.Repository;
-using Hotelio.Shared.Event;
-using Hotelio.Shared.Tests;
-using Microsoft.EntityFrameworkCore;
+using BookCommand = Hotelio.Modules.Availability.Application.Command.Book;
+using Hotelio.Shared.Commands;
+using ResourceReadModel = Hotelio.Modules.Availability.Application.ReadModel.Resource;
+using Hotelio.Shared.Queries;
+
 using Moq;
 
 namespace Hotelio.Modules.Availability.Test.Integration.CrossContext;
 
 public class AvailabilityServiceTest
 {
-    private readonly SqlServerResourceStorage _storage = new SqlServerResourceStorage(ConfigHelper.GetSqlServerConfig().ConnectionString);
-    private readonly ResourceDbContext _dbContext;
-    private readonly Mock<IEventBus> _eventBusMock;
-    private readonly EfResourceRepository _resourceRepository;
-    private readonly IAvailability _availability;
+    private readonly Mock<IQueryBus> _queryBusMock = new();
+    private readonly Mock<ICommandBus> _commandBusMock = new();
+    private readonly AvailabilityService _availabilityService;
     
     public AvailabilityServiceTest()
     {
-        var optionBuilder = new DbContextOptionsBuilder<ResourceDbContext>()
-            .UseSqlServer(ConfigHelper.GetSqlServerConfig().ConnectionString);
-        _dbContext = new ResourceDbContext(optionBuilder.Options);
-        _resourceRepository = new EfResourceRepository(_dbContext, _eventBusMock.Object);
+        _queryBusMock = new Mock<IQueryBus>();
+        _commandBusMock = new Mock<ICommandBus>();
+        _availabilityService = new AvailabilityService(_queryBusMock.Object, _commandBusMock.Object);
     }
     
     [Fact]
-    public async void TestBook()
+    public async Task BookFirstAvailableAsyncWithAvailableResource()
     {
-        //TODO:
-        //1. Prepare and persist resource with books
-        /*var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, "group-1", 1, true);
-        resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 5));
-        resource.Book("owner-2", new DateTime(2024, 1, 10), new DateTime(2024, 1, 14));
-        await _resourceRepository.AddAsync(resource);*/
-        
-        //2. Try to book in available dates in 6.01 - 10.01
-        
-        //var resourceFound = await _storage.FindFirstAvailableInDatesAsync("group", 1, startDate, endDate);
-        //TODO how to test AvailabilityService ???
-        Assert.True(true);
+        // Given
+        var resourceId = "Resource123";
+        _queryBusMock.Setup(q => q.QueryAsync(It.IsAny<GetFirstAvailableResourceInDateRange>()))
+            .ReturnsAsync(new ResourceReadModel(resourceId, "groupId", 1, true));
+
+        // When
+        await _availabilityService.BookFirstAvailableAsync("Group", 1, "Owner123", DateTime.UtcNow, DateTime.UtcNow.AddDays(1));
+
+        // Assert
+        _commandBusMock.Verify(c => c.DispatchAsync(It.Is<BookCommand>(b => b.ResourceId == resourceId && b.OwnerId == "Owner123")), Times.Once);
+    }
+
+    [Fact]
+    public async Task BookFirstAvailableAsyncWithoutAvailableResource()
+    {
+        // Given
+        _queryBusMock.Setup(q => q.QueryAsync(It.IsAny<GetFirstAvailableResourceInDateRange>()))
+            .ReturnsAsync((ResourceReadModel)null);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<ResourceIsNotAvailableException>(() =>
+            _availabilityService.BookFirstAvailableAsync("Group", 1, "Owner123", DateTime.UtcNow, DateTime.UtcNow.AddDays(1)));
     }
 }

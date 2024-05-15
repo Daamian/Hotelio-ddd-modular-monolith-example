@@ -1,21 +1,20 @@
+using System.Net;
 using Hotelio.Modules.Availability.Domain.Exception;
 using Hotelio.Modules.Availability.Domain.Model;
 using Hotelio.Modules.Availability.Infrastructure.DAL;
 using Hotelio.Modules.Availability.Infrastructure.Repository;
 using Hotelio.Shared.Event;
-using Hotelio.Shared.SqlServer;
 using Hotelio.Shared.Tests;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using Book = Hotelio.Modules.Availability.Application.Command.Book;
-using BookModel = Hotelio.Modules.Availability.Domain.Model.Book;
 
 namespace Hotelio.Modules.Availability.Test.Integration.Command;
 
 using Hotelio.Modules.Availability.Application.Command.Handlers;
 
-public class BookHandlerTest : IDisposable
+public class BookHandlerTest
 {
     private readonly BookHandler _bookHandler;
     private readonly ResourceDbContext _dbContext;
@@ -24,7 +23,6 @@ public class BookHandlerTest : IDisposable
     
     public BookHandlerTest()
     {
-        
         var optionBuilder = new DbContextOptionsBuilder<ResourceDbContext>()
             .UseSqlServer(ConfigHelper.GetSqlServerConfig().ConnectionString);
         _dbContext = new ResourceDbContext(optionBuilder.Options);
@@ -37,7 +35,6 @@ public class BookHandlerTest : IDisposable
     public async void OneBookResourceTest()
     {
         //Given
-        _dbContext.Database.EnsureCreated();
         var resourceId = Guid.NewGuid();
         var resource = Resource.Create(resourceId, "group-1", 1, true);
         await _repository.AddAsync(resource);
@@ -67,8 +64,6 @@ public class BookHandlerTest : IDisposable
     public async void TryToBookBusyResource()
     {
         //Given
-        _dbContext.Database.EnsureCreated();
-        
         var startDate = new DateTime(2024, 2, 1);
         var endDate = new DateTime(2024, 2, 5);
         
@@ -90,7 +85,6 @@ public class BookHandlerTest : IDisposable
     public async void ManyBookResourceTest()
     {
         //Given
-        _dbContext.Database.EnsureCreated();
         var resourceId = Guid.NewGuid();
         var resource = Resource.Create(resourceId, "group-1", 1, true);
         resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 14));
@@ -125,11 +119,5 @@ public class BookHandlerTest : IDisposable
             Assert.Equal(new DateTime(2024, 2, 1), book.StartDate);
             Assert.Equal(new DateTime(2024, 2, 5), book.EndDate);
         });
-    }
-
-    public void Dispose()
-    {
-        _dbContext.Database.EnsureDeleted();
-        _dbContext.Dispose();
     }
 }

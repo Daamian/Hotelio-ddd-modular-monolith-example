@@ -78,7 +78,7 @@ internal class ReservationProcessManager:
 
     public async Task Handle(ReservationCanceled domainEvent, CancellationToken cancelationToken)
     {
-        var reservationAg= await _reservationRepository.FindAsync(domainEvent.ReservationId);
+        var reservationAg = await _reservationRepository.FindAsync(domainEvent.ReservationId);
 
         if (null == reservationAg || null == reservationAg.Snap().RoomId) {
             return;
