@@ -20,7 +20,7 @@ internal class HotelManagementController : ControllerBase
     public IActionResult Create(HotelRequest request)
     {
         var id = _hotelService.Add(new HotelDto(0, request.Name));
-        return NoContent();
+        return Ok(new { Id = id });
     }
     
     [HttpPut("{id:int}")]
