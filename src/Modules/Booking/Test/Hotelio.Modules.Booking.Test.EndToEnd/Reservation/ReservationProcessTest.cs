@@ -22,6 +22,8 @@ public class ReservationProcessTest
     [Fact]
     public async Task CreateReservation()
     {
+        //TODO Create hotel on api - first implement event on cross contract
+        
         //Step 1: Create reservation
         await using var application = new WebApplicationFactory<Startup>();
         using var client = application.CreateClient();
@@ -42,6 +44,7 @@ public class ReservationProcessTest
 
         var content = new StringContent(JsonSerializer.Serialize(reservation), Encoding.UTF8, "application/json");
         var response = await client.PostAsync("/api/reservation", content);
+        var r = response.Content.ToString();
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         
         //Step 2: Get created reservation and check response

@@ -41,12 +41,17 @@ internal class ReservationProcessManager:
 
         if (reservation.PaymentType == (int) PaymentType.PostPaid)
         {
-            await this._availability.BookFirstAvailableAsync(
-                reservation.HotelId, 
-                reservation.RoomType,
-                reservation.Id.ToString(), 
-                reservation.StartDate, 
-                reservation.EndDate);
+            try
+            {
+                await this._availability.BookFirstAvailableAsync(
+                    reservation.HotelId, 
+                    reservation.RoomType,
+                    reservation.Id.ToString(), 
+                    reservation.StartDate, 
+                    reservation.EndDate);
+            } catch (ContractException e) {
+                await this._commandBus.DispatchAsync(new RejectReservation(reservation.Id));
+            }
         }
     }
 

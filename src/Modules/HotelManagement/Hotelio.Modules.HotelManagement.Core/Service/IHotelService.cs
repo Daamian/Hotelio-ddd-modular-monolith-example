@@ -6,4 +6,5 @@ public interface IHotelService
 {
     public int Add(HotelDto dto);
     public void Update(HotelDto dto);
+    public HotelDto? Get(int id);
 }
