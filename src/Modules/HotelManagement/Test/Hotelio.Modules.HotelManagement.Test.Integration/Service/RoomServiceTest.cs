@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotelio.Modules.HotelManagement.Test.Integration.Service;
 
-public class RoomServiceTest: IDisposable
+[Collection("Database collection")]
+public class RoomServiceTest
 {
     private readonly HotelService _hotelService;
     private readonly RoomService _roomService;
@@ -27,8 +28,6 @@ public class RoomServiceTest: IDisposable
     [Fact]
     public void AddRoomTest()
     {
-        _dbContext.Database.EnsureCreated();
-        
         //Given
         var hotel = new HotelDto(0, "Hotel Test");
         var hotelId = _hotelService.Add(hotel);
@@ -38,7 +37,7 @@ public class RoomServiceTest: IDisposable
         var id = _roomService.Add(room);
         
         //Expected
-        var roomExpected = new RoomDto(id, 120, 2, 1, 1);
+        var roomExpected = new RoomDto(id, 120, 2, 1, hotelId);
         
         //Then
         var roomFound = _roomService.Get(id);
@@ -48,8 +47,6 @@ public class RoomServiceTest: IDisposable
     [Fact]
     public void UpdateRoomTest()
     {
-        _dbContext.Database.EnsureCreated();
-        
         //Given
         var hotel = new HotelDto(0, "Hotel Test");
         var hotelId = _hotelService.Add(hotel);
@@ -63,11 +60,5 @@ public class RoomServiceTest: IDisposable
         //Then
         var roomFound = _roomService.Get(id);
         Assert.Equal(roomToUpdate, roomFound);
-    }
-
-    public void Dispose()
-    {
-        _dbContext.Database.EnsureDeleted();
-        _dbContext.Dispose();
     }
 }

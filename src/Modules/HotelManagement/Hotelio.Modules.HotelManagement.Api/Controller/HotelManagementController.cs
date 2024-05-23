@@ -9,7 +9,7 @@ namespace Hotelio.Modules.HotelManagement.Api.Controller;
 [Route("api/hotel")]
 internal class HotelManagementController : ControllerBase
 {
-    private IHotelService _hotelService;
+    private readonly IHotelService _hotelService;
 
     public HotelManagementController(IHotelService hotelService)
     {

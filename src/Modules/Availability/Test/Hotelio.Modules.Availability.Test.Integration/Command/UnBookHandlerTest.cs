@@ -5,12 +5,12 @@ using Hotelio.Modules.Availability.Infrastructure.DAL;
 using Hotelio.Modules.Availability.Infrastructure.Repository;
 using Hotelio.Shared.Event;
 using Hotelio.Shared.Tests;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace Hotelio.Modules.Availability.Test.Integration.Command;
 
+[Collection("Database collection")]
 public class UnBookHandlerTest
 {
     private readonly BookHandler _bookHandler;

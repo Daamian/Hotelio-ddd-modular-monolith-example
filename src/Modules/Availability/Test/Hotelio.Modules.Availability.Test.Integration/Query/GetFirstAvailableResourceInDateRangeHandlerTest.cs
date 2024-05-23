@@ -12,6 +12,7 @@ using Moq;
 
 namespace Hotelio.Modules.Availability.Test.Integration.Query;
 
+[Collection("Database collection")]
 public class GetFirstAvailableResourceInDateRangeHandlerTest
 {
     private readonly ResourceDbContext _dbContext;

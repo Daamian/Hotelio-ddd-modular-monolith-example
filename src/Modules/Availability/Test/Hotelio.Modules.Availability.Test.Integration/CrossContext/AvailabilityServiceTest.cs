@@ -2,7 +2,6 @@
 using Hotelio.CrossContext.Contract.Availability.Exception;
 using Hotelio.Modules.Availability.Api.CrossContext;
 using Hotelio.Modules.Availability.Application.Query;
-using Hotelio.Modules.Availability.Domain.Model;
 using BookCommand = Hotelio.Modules.Availability.Application.Command.Book;
 using Hotelio.Shared.Commands;
 using ResourceReadModel = Hotelio.Modules.Availability.Application.ReadModel.Resource;
@@ -12,6 +11,7 @@ using Moq;
 
 namespace Hotelio.Modules.Availability.Test.Integration.CrossContext;
 
+[Collection("Database collection")]
 public class AvailabilityServiceTest
 {
     private readonly Mock<IQueryBus> _queryBusMock = new();

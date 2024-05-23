@@ -14,6 +14,7 @@ namespace Hotelio.Modules.Availability.Test.Integration.Command;
 
 using Hotelio.Modules.Availability.Application.Command.Handlers;
 
+[Collection("Database collection")]
 public class BookHandlerTest
 {
     private readonly BookHandler _bookHandler;
