@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+[assembly: InternalsVisibleTo("Hotelio.Modules.HotelManagement.Api")]
 [assembly: InternalsVisibleTo("Hotelio.Modules.HotelManagement.Test.Integration")]
 namespace Hotelio.Modules.HotelManagement.Core;
 
@@ -23,6 +24,8 @@ public static class Extensions
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IRoomRepository, RoomRepository>();
         services.AddScoped<IHotelService, HotelService>();
+        services.AddScoped<IRoomService, RoomService>();
+        
         return services;
     }
 

@@ -6,4 +6,5 @@ internal interface IRoomService
 {
     public int Add(RoomDto roomDto);
     public void Update(RoomDto roomDto);
+    public RoomDto? Get(int id);
 }
