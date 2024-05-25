@@ -16,6 +16,13 @@ internal class EventPublisher: INotificationHandler<ResourceBooked>
     
     public async Task Handle(ResourceBooked domainEvent, CancellationToken cancelationToken)
     {
-        await _eventBus.Publish(new ResourceBookedContract(domainEvent.Id, domainEvent.OwnerId));
+        await _eventBus.Publish(
+            new ResourceBookedContract(
+                domainEvent.ExternalId, 
+                domainEvent.OwnerId,
+                domainEvent.StartDate,
+                domainEvent.EndDate
+                )
+            );
     }
 }

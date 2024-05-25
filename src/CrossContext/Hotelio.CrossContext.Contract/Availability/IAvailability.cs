@@ -4,6 +4,8 @@ using Exception;
 
 public interface IAvailability
 {
+    public Task CreateResource(string resourceId, string groupId, int type);
+    
     /// <exception cref="ResourceIsNotAvailableException">Throws when resource is not available in specific dates</exception>
     public Task BookFirstAvailableAsync(
         string group, 
@@ -13,4 +15,5 @@ public interface IAvailability
         DateTime endDate);
 
     public Task UnBookAsync(string resourceId, string ownerId);
+    
 }

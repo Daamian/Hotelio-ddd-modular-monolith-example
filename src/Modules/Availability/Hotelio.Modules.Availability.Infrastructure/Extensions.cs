@@ -30,6 +30,8 @@ public static class Extensions
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<BookHandler>();
+            cfg.RegisterServicesFromAssemblyContaining<UnBookHandler>();
+            cfg.RegisterServicesFromAssemblyContaining<CreateHandler>();
             cfg.RegisterServicesFromAssemblyContaining<GetFirstAvailableResourceInDateRangeHandler>();
         });
         

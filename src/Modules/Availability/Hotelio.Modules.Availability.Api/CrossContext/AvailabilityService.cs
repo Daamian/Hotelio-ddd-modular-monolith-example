@@ -19,6 +19,11 @@ internal class AvailabilityService: IAvailability
         _commandBus = commandBus;
     }
 
+    public async Task CreateResource(string resourceId, string groupId, int type)
+    {
+        await _commandBus.DispatchAsync(new Create(Guid.NewGuid(), resourceId, groupId, type));
+    }
+
     public async Task BookFirstAvailableAsync(string group, int type, string ownerId, DateTime starDate, DateTime endDate)
     {
         var resource = await _queryBus.QueryAsync(

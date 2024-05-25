@@ -20,7 +20,7 @@ internal sealed class CreateReservationHandler : IRequestHandler<CreateReservati
 
     public async Task Handle(CreateReservation command, CancellationToken cancellationToken)
     {
-        var hotel = await this._hotelManagement.GetAsync(command.HotelId);
+        var hotel = await _hotelManagement.GetAsync(command.HotelId);
 
         var reservation = Reservation.Create(
             command.Id,
@@ -38,7 +38,7 @@ internal sealed class CreateReservationHandler : IRequestHandler<CreateReservati
             command.Amenities.Select(id => new Amenity(id)).ToList()
         );
 
-        await this._reservationRepository.AddAsync(reservation);
+        await _reservationRepository.AddAsync(reservation);
     }
 }
 

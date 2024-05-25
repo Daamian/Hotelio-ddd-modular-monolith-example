@@ -9,6 +9,7 @@ namespace Hotelio.Modules.Availability.Domain.Model;
 internal class Resource: Aggregate
 {
     public Guid Id { get; private set; }
+    public string ExternalId { get; private set;  }
     public string GroupId { get; private set; }
     public int Type { get; private set; }
     public bool IsActive { get; private set; }
@@ -16,12 +17,13 @@ internal class Resource: Aggregate
     private List<Book> _books = new List<Book>();
     public IReadOnlyList<Book> Books => _books.AsReadOnly();
 
-    private Resource(Guid id, string groupId, int type, bool active = true)
+    private Resource(Guid id, string externalId, string groupId, int type, bool active = true)
     {
-        this.Id = id;
-        this.GroupId = groupId;
-        this.Type = type;
-        this.IsActive = active;
+        Id = id;
+        ExternalId = externalId;
+        GroupId = groupId;
+        Type = type;
+        IsActive = active;
     }
 
     protected Resource()
@@ -29,9 +31,9 @@ internal class Resource: Aggregate
         
     }
     
-    public static Resource Create(Guid id, string groupId, int type, bool active = true)
+    public static Resource Create(Guid id, string externalId, string groupId, int type, bool active = true)
     {
-        return new Resource(id, groupId, type, active);
+        return new Resource(id, externalId, groupId, type, active);
     }
 
     public void ChangeGroup(string newGroupId)
@@ -52,8 +54,14 @@ internal class Resource: Aggregate
         }
 
         var book = new Book(ownerId, startDate, endDate);
-        this._books.Add(book);
-        this.Events.Add(new ResourceBooked(this.Id.ToString(), book.OwnerId, book.StartDate, book.EndDate));
+        _books.Add(book);
+        Events.Add(new ResourceBooked(
+            this.Id.ToString(), 
+            ExternalId, 
+            book.OwnerId, 
+            book.StartDate, 
+            book.EndDate)
+        );
     }
 
     public void UnBook(Guid bookId)

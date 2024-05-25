@@ -70,7 +70,7 @@ public class GetFirstAvailableResourceInDateRangeHandlerTest
         var ids = await _prepareResources(groupId);
         
         var resource2Id = Guid.NewGuid();
-        var resource2 = Resource.Create(resource2Id, "group-1", 1, true);
+        var resource2 = Resource.Create(resource2Id, Guid.NewGuid().ToString(),"group-1", 1, true);
         resource2.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 30));
         await _repository.AddAsync(resource2);
         
@@ -102,7 +102,7 @@ public class GetFirstAvailableResourceInDateRangeHandlerTest
         var ids = await _prepareResources(groupId);
         
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, groupId, 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), groupId, 1, true);
         resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 11));
         await _repository.AddAsync(resource);
         
@@ -133,7 +133,7 @@ public class GetFirstAvailableResourceInDateRangeHandlerTest
         var groupId = Guid.NewGuid().ToString();
         var ids = await _prepareResources(groupId);
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, groupId, 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), groupId, 1, true);
         resource.Book("owner-1", new DateTime(2024, 1, 2), new DateTime(2024, 1, 30));
         await _repository.AddAsync(resource);
         
@@ -301,13 +301,13 @@ public class GetFirstAvailableResourceInDateRangeHandlerTest
     private async Task<string[]> _prepareResources(string groupId)
     {
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, groupId, 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), groupId, 1, true);
         resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 5));
         resource.Book("owner-2", new DateTime(2024, 1, 10), new DateTime(2024, 1, 14));
         await _repository.AddAsync(resource);
         
         var resource2Id = Guid.NewGuid();
-        var resource2 = Resource.Create(resource2Id, groupId, 1, true);
+        var resource2 = Resource.Create(resource2Id, Guid.NewGuid().ToString(), groupId, 1, true);
         resource2.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 30));
         await _repository.AddAsync(resource2);
         

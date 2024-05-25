@@ -37,14 +37,14 @@ public class BookHandlerTest
     {
         //Given
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, "group-1", 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), "group-1", 1, true);
         await _repository.AddAsync(resource);
 
         var startDate = new DateTime(2024, 2, 1);
         var endDate = new DateTime(2024, 2, 5);
         
         //Expected
-        var resourceExpected = Resource.Create(resourceId, "group-1", 1, true);
+        var resourceExpected = Resource.Create(resourceId, Guid.NewGuid().ToString(), "group-1", 1, true);
         resourceExpected.Book("owner-1", startDate, endDate);
         
         //When
@@ -69,7 +69,7 @@ public class BookHandlerTest
         var endDate = new DateTime(2024, 2, 5);
         
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, "group-1", 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), "group-1", 1, true);
         resource.Book("owner1", startDate, endDate);
         await _repository.AddAsync(resource);
         
@@ -87,7 +87,7 @@ public class BookHandlerTest
     {
         //Given
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, "group-1", 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), "group-1", 1, true);
         resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 14));
         resource.Book("owner-2", new DateTime(2024, 1, 14), new DateTime(2024, 1, 30));
         resource.Book("owner-3", new DateTime(2024, 2, 5), new DateTime(2024, 2, 15));
