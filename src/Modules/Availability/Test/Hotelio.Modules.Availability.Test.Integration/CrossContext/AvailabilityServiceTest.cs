@@ -5,6 +5,7 @@ using Hotelio.Modules.Availability.Application.Query;
 using Hotelio.Modules.Availability.Domain.Model;
 using Hotelio.Modules.Availability.Domain.Repository;
 using BookCommand = Hotelio.Modules.Availability.Application.Command.Book;
+using CreateCommand = Hotelio.Modules.Availability.Application.Command.Create;
 using Hotelio.Shared.Commands;
 using ResourceReadModel = Hotelio.Modules.Availability.Application.ReadModel.Resource;
 using Hotelio.Shared.Queries;
@@ -41,6 +42,20 @@ public class AvailabilityServiceTest
 
         // Assert
         _commandBusMock.Verify(c => c.DispatchAsync(It.Is<BookCommand>(b => b.ResourceId == internalId && b.OwnerId == "Owner123")), Times.Once);
+    }
+
+    [Fact]
+    public async Task CreateResource()
+    {
+        //Given
+        var resourceId = "Resource123";
+        
+        //When
+        await _availabilityService.CreateResource(resourceId);
+        
+        //Then
+        _commandBusMock.Verify(c => c.DispatchAsync(It.Is<CreateCommand>(c => c.ExternalId == resourceId)), Times.Once);
+
     }
 
     [Fact]

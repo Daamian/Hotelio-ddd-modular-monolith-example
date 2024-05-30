@@ -13,6 +13,11 @@ public static class Extensions
     {
         services.AddScoped<IHotelManagement, HotelManagementService>();
         services.AddHotelManagementCore(configuration);
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining<RoomEventHandler>();
+        });
+        
         return services;
     }
 
