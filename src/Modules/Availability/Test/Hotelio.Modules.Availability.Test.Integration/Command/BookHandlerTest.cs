@@ -37,18 +37,18 @@ public class BookHandlerTest
     {
         //Given
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), "group-1", 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString());
         await _repository.AddAsync(resource);
 
         var startDate = new DateTime(2024, 2, 1);
         var endDate = new DateTime(2024, 2, 5);
         
         //Expected
-        var resourceExpected = Resource.Create(resourceId, Guid.NewGuid().ToString(), "group-1", 1, true);
+        var resourceExpected = Resource.Create(resourceId, Guid.NewGuid().ToString());
         resourceExpected.Book("owner-1", startDate, endDate);
         
         //When
-        var command = new Book(resourceId.ToString(), "owner-1", startDate, endDate);
+        var command = new Book(resourceId, "owner-1", startDate, endDate);
         await _bookHandler.Handle(command, CancellationToken.None);
         
         var resourceFound = await _repository.FindAsync(resourceId);
@@ -69,12 +69,12 @@ public class BookHandlerTest
         var endDate = new DateTime(2024, 2, 5);
         
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), "group-1", 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString());
         resource.Book("owner1", startDate, endDate);
         await _repository.AddAsync(resource);
         
         //When
-        var command = new Book(resourceId.ToString(), "owner-1", startDate, endDate);
+        var command = new Book(resourceId, "owner-1", startDate, endDate);
         
         //Then
         await Assert.ThrowsAsync<ResourceIsBookedException>(() 
@@ -87,14 +87,14 @@ public class BookHandlerTest
     {
         //Given
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(), "group-1", 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString());
         resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 14));
         resource.Book("owner-2", new DateTime(2024, 1, 14), new DateTime(2024, 1, 30));
         resource.Book("owner-3", new DateTime(2024, 2, 5), new DateTime(2024, 2, 15));
         await _repository.AddAsync(resource);
         
         //When
-        var command = new Book(resourceId.ToString(), "owner-4", new DateTime(2024, 2, 1), new DateTime(2024, 2, 5));
+        var command = new Book(resourceId, "owner-4", new DateTime(2024, 2, 1), new DateTime(2024, 2, 5));
         await _bookHandler.Handle(command, CancellationToken.None);
         
         var resourceFound = await _repository.FindAsync(resourceId);

@@ -15,6 +15,6 @@ internal class CreateHandler: IRequestHandler<Create>
     
     public async Task Handle(Create request, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(Resource.Create(request.Id, request.ExternalId, request.GroupId, request.Type));
+        await _repository.AddAsync(Resource.Create(request.Id, request.ExternalId));
     }
 }

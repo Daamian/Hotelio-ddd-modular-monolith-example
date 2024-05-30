@@ -43,9 +43,11 @@ internal class ReservationProcessManager:
         {
             try
             {
-                await this._availability.BookFirstAvailableAsync(
-                    reservation.HotelId, 
-                    reservation.RoomType,
+                var roomId = "test";
+                // var roomId = await._catalog.FindFirstAvailableAsync(reservation.HotelId, reservation.RoomType)
+                // await._availability.BookAsync(roomId)
+                await this._availability.BookAsync(
+                    roomId,
                     reservation.Id.ToString(), 
                     reservation.StartDate, 
                     reservation.EndDate);
@@ -69,9 +71,11 @@ internal class ReservationProcessManager:
         {
             try
             {
-                await this._availability.BookFirstAvailableAsync(
-                    reservation.HotelId,
-                    reservation.RoomType,
+                var roomId = "test";
+                // var roomId = await._catalog.FindFirstAvailableAsync(reservation.HotelId, reservation.RoomType)
+                // await._availability.BookAsync(roomId)
+                await this._availability.BookAsync(
+                    roomId,
                     reservation.Id,
                     reservation.StartDate,
                     reservation.EndDate);

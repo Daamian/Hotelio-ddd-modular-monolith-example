@@ -10,19 +10,15 @@ internal class Resource: Aggregate
 {
     public Guid Id { get; private set; }
     public string ExternalId { get; private set;  }
-    public string GroupId { get; private set; }
-    public int Type { get; private set; }
     public bool IsActive { get; private set; }
     
     private List<Book> _books = new List<Book>();
     public IReadOnlyList<Book> Books => _books.AsReadOnly();
 
-    private Resource(Guid id, string externalId, string groupId, int type, bool active = true)
+    private Resource(Guid id, string externalId, bool active = true)
     {
         Id = id;
         ExternalId = externalId;
-        GroupId = groupId;
-        Type = type;
         IsActive = active;
     }
 
@@ -31,14 +27,9 @@ internal class Resource: Aggregate
         
     }
     
-    public static Resource Create(Guid id, string externalId, string groupId, int type, bool active = true)
+    public static Resource Create(Guid id, string externalId, bool active = true)
     {
-        return new Resource(id, externalId, groupId, type, active);
-    }
-
-    public void ChangeGroup(string newGroupId)
-    {
-        this.GroupId = newGroupId;
+        return new Resource(id, externalId, active);
     }
     
     public void Book(string ownerId, DateTime startDate, DateTime endDate)
@@ -90,8 +81,6 @@ internal class Resource: Aggregate
         {
             { "Id", this.Id },
             { "IsActive", this.IsActive },
-            { "GroupId", this.GroupId },
-            { "Type", this.Type },
             { "Books", this._books }
         };
     }

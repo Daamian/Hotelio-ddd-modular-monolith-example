@@ -4,7 +4,5 @@ namespace Hotelio.Modules.Availability.Application.Command;
 
 internal record Create(
     Guid Id,
-    string ExternalId,
-    string GroupId,
-    int Type
+    string ExternalId
     ): ICommand;

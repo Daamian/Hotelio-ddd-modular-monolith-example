@@ -7,4 +7,5 @@ internal interface IResourceRepository
     Task UpdateAsync(Resource resource);
     Task AddAsync(Resource resource);
     Task<Resource?> FindAsync(Guid id);
+    Task<Resource?> FindByExternalIdAsync(string resourceId);
 }

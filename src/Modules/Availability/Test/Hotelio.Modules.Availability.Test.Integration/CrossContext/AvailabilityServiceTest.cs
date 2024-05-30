@@ -2,6 +2,8 @@
 using Hotelio.CrossContext.Contract.Availability.Exception;
 using Hotelio.Modules.Availability.Api.CrossContext;
 using Hotelio.Modules.Availability.Application.Query;
+using Hotelio.Modules.Availability.Domain.Model;
+using Hotelio.Modules.Availability.Domain.Repository;
 using BookCommand = Hotelio.Modules.Availability.Application.Command.Book;
 using Hotelio.Shared.Commands;
 using ResourceReadModel = Hotelio.Modules.Availability.Application.ReadModel.Resource;
@@ -14,15 +16,15 @@ namespace Hotelio.Modules.Availability.Test.Integration.CrossContext;
 [Collection("Database collection")]
 public class AvailabilityServiceTest
 {
-    private readonly Mock<IQueryBus> _queryBusMock = new();
+    private readonly Mock<IResourceRepository> _repositoryMock = new();
     private readonly Mock<ICommandBus> _commandBusMock = new();
     private readonly AvailabilityService _availabilityService;
     
     public AvailabilityServiceTest()
     {
-        _queryBusMock = new Mock<IQueryBus>();
+        _repositoryMock = new Mock<IResourceRepository>();
         _commandBusMock = new Mock<ICommandBus>();
-        _availabilityService = new AvailabilityService(_queryBusMock.Object, _commandBusMock.Object);
+        _availabilityService = new AvailabilityService(_commandBusMock.Object, _repositoryMock.Object);
     }
     
     [Fact]
@@ -30,25 +32,28 @@ public class AvailabilityServiceTest
     {
         // Given
         var resourceId = "Resource123";
-        _queryBusMock.Setup(q => q.QueryAsync(It.IsAny<GetFirstAvailableResourceInDateRange>()))
-            .ReturnsAsync(new ResourceReadModel(resourceId, "groupId", 1, true));
+        var internalId = Guid.NewGuid();
+        _repositoryMock.Setup(q => q.FindByExternalIdAsync(resourceId))
+            .ReturnsAsync(Resource.Create(internalId, resourceId));
 
         // When
-        await _availabilityService.BookFirstAvailableAsync("Group", 1, "Owner123", DateTime.UtcNow, DateTime.UtcNow.AddDays(1));
+        await _availabilityService.BookAsync(resourceId, "Owner123", DateTime.UtcNow, DateTime.UtcNow.AddDays(1));
 
         // Assert
-        _commandBusMock.Verify(c => c.DispatchAsync(It.Is<BookCommand>(b => b.ResourceId == resourceId && b.OwnerId == "Owner123")), Times.Once);
+        _commandBusMock.Verify(c => c.DispatchAsync(It.Is<BookCommand>(b => b.ResourceId == internalId && b.OwnerId == "Owner123")), Times.Once);
     }
 
     [Fact]
     public async Task BookFirstAvailableAsyncWithoutAvailableResource()
     {
         // Given
-        _queryBusMock.Setup(q => q.QueryAsync(It.IsAny<GetFirstAvailableResourceInDateRange>()))
-            .ReturnsAsync((ResourceReadModel)null);
+        var resourceId = "Resource123";
+        var internalId = Guid.NewGuid();
+        _repositoryMock.Setup(q => q.FindByExternalIdAsync(resourceId))
+            .ReturnsAsync((Resource) null);
 
         // Act & Assert
-        await Assert.ThrowsAsync<ResourceIsNotAvailableException>(() =>
-            _availabilityService.BookFirstAvailableAsync("Group", 1, "Owner123", DateTime.UtcNow, DateTime.UtcNow.AddDays(1)));
+        await Assert.ThrowsAsync<ResourceNotFoundException>(() =>
+            _availabilityService.BookAsync(resourceId, "Owner123", DateTime.UtcNow, DateTime.UtcNow.AddDays(1)));
     }
 }

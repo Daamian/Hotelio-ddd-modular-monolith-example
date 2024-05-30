@@ -15,7 +15,7 @@ namespace Hotelio.Modules.Availability.Test.Integration.Query;
 [Collection("Database collection")]
 public class GetFirstAvailableResourceInDateRangeHandlerTest
 {
-    private readonly ResourceDbContext _dbContext;
+    /*private readonly ResourceDbContext _dbContext;
     private readonly EfResourceRepository _repository;
     private readonly Mock<IEventBus> _eventBusMock;
     private readonly GetFirstAvailableResourceInDateRangeHandler _queryHandler;
@@ -314,5 +314,5 @@ public class GetFirstAvailableResourceInDateRangeHandlerTest
         string[] ids = {resourceId.ToString(), resource2Id.ToString()};
 
         return ids;
-    }
+    }*/
 }

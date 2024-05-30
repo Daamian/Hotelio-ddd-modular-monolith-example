@@ -1,38 +1,35 @@
 using Hotelio.CrossContext.Contract.Availability;
 using Hotelio.CrossContext.Contract.Availability.Exception;
 using Hotelio.Modules.Availability.Application.Command;
-using Hotelio.Modules.Availability.Application.Query;
+using Hotelio.Modules.Availability.Domain.Repository;
 using BookCommand = Hotelio.Modules.Availability.Application.Command.Book;
 using Hotelio.Shared.Commands;
-using Hotelio.Shared.Queries;
 
 namespace Hotelio.Modules.Availability.Api.CrossContext;
 
 internal class AvailabilityService: IAvailability
 {
-    private readonly IQueryBus _queryBus;
     private readonly ICommandBus _commandBus;
+    private readonly IResourceRepository _repository;
 
-    public AvailabilityService(IQueryBus queryBus, ICommandBus commandBus)
+    public AvailabilityService(ICommandBus commandBus, IResourceRepository repository)
     {
-        _queryBus = queryBus;
         _commandBus = commandBus;
+        _repository = repository;
     }
 
-    public async Task CreateResource(string resourceId, string groupId, int type)
+    public async Task CreateResource(string resourceId)
     {
-        await _commandBus.DispatchAsync(new Create(Guid.NewGuid(), resourceId, groupId, type));
+        await _commandBus.DispatchAsync(new Create(Guid.NewGuid(), resourceId));
     }
 
-    public async Task BookFirstAvailableAsync(string group, int type, string ownerId, DateTime starDate, DateTime endDate)
+    public async Task BookAsync(string resourceId, string ownerId, DateTime starDate, DateTime endDate)
     {
-        var resource = await _queryBus.QueryAsync(
-            new GetFirstAvailableResourceInDateRange(group, type, starDate, endDate));
-
+        var resource = await _repository.FindByExternalIdAsync(resourceId);
+        
         if (resource is null)
         {
-            throw new ResourceIsNotAvailableException(
-                $"Resource of group {group} and type {type} in specific date range");
+            throw new ResourceNotFoundException($"Resource is not found ");
         }
 
         //TODO what if command handler throws exception ???

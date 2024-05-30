@@ -35,6 +35,10 @@ internal class EfResourceRepository: IResourceRepository
     }
 
     public async Task<Resource?> FindAsync(Guid id) => await _dbContext.Resources.FindAsync(id);
+    
+    public async Task<Resource?> FindByExternalIdAsync(string resourceId)
+    => await _dbContext.Resources.Where(r => r.ExternalId == resourceId).FirstOrDefaultAsync();
+    
 
     private async Task _publishEvents(Resource resource)
     {

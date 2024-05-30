@@ -35,7 +35,7 @@ public class UnBookHandlerTest
     {
         //Given
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(),"group-1", 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString());
         resource.Book(
             "owner-id", 
             new DateTime(2024, 2, 1), 
@@ -58,7 +58,7 @@ public class UnBookHandlerTest
     public async void UnBookResourceWithManyTest()
     {
         var resourceId = Guid.NewGuid();
-        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString(),"group-1", 1, true);
+        var resource = Resource.Create(resourceId, Guid.NewGuid().ToString());
         resource.Book("owner-1", new DateTime(2024, 1, 1), new DateTime(2024, 1, 14));
         resource.Book("owner-2", new DateTime(2024, 1, 14), new DateTime(2024, 1, 30));
         resource.Book("owner-3", new DateTime(2024, 2, 5), new DateTime(2024, 2, 15));

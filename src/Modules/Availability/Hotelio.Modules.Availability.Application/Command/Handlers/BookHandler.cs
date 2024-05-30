@@ -15,7 +15,7 @@ internal sealed class BookHandler: IRequestHandler<Book>
 
     public async Task Handle(Book command, CancellationToken cancellationToken)
     {
-        var resource = await _repository.FindAsync(new Guid(command.ResourceId));
+        var resource = await _repository.FindAsync(command.ResourceId);
         
         if (resource is null)
         {

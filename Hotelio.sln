@@ -68,6 +68,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.HotelManage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.HotelManagement.Test.Api", "src\Modules\HotelManagement\Test\Hotelio.Modules.HotelManagement.Test.Api\Hotelio.Modules.HotelManagement.Test.Api.csproj", "{511AE7BF-FC13-4C67-B8C9-8F3EE577AF97}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{E78DC71B-A0EC-4AF6-87EA-15DD722E19AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Catalog.Core", "src\Modules\Catalog\Hotelio.Modules.Catalog.Core\Hotelio.Modules.Catalog.Core.csproj", "{C707994D-E06E-4A92-B228-12641C11434F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Catalog.Api", "src\Modules\Catalog\Hotelio.Modules.Catalog.Api\Hotelio.Modules.Catalog.Api.csproj", "{082CF58A-35BD-4F3A-9ABA-40B3A5039554}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,6 +160,14 @@ Global
 		{511AE7BF-FC13-4C67-B8C9-8F3EE577AF97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{511AE7BF-FC13-4C67-B8C9-8F3EE577AF97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{511AE7BF-FC13-4C67-B8C9-8F3EE577AF97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C707994D-E06E-4A92-B228-12641C11434F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C707994D-E06E-4A92-B228-12641C11434F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C707994D-E06E-4A92-B228-12641C11434F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C707994D-E06E-4A92-B228-12641C11434F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{082CF58A-35BD-4F3A-9ABA-40B3A5039554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{082CF58A-35BD-4F3A-9ABA-40B3A5039554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{082CF58A-35BD-4F3A-9ABA-40B3A5039554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{082CF58A-35BD-4F3A-9ABA-40B3A5039554}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -185,6 +199,9 @@ Global
 		{8525A3C1-EB0C-402B-A174-685180D76E73} = {4FE400B8-A56E-4224-AC2D-F77F51544526}
 		{B8D9C9AA-A253-4827-B868-6CAFD2DA0D0D} = {8525A3C1-EB0C-402B-A174-685180D76E73}
 		{511AE7BF-FC13-4C67-B8C9-8F3EE577AF97} = {8525A3C1-EB0C-402B-A174-685180D76E73}
+		{E78DC71B-A0EC-4AF6-87EA-15DD722E19AF} = {F1E450D8-CE9C-4C59-9277-E32EE5EFEF8C}
+		{C707994D-E06E-4A92-B228-12641C11434F} = {E78DC71B-A0EC-4AF6-87EA-15DD722E19AF}
+		{082CF58A-35BD-4F3A-9ABA-40B3A5039554} = {E78DC71B-A0EC-4AF6-87EA-15DD722E19AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}

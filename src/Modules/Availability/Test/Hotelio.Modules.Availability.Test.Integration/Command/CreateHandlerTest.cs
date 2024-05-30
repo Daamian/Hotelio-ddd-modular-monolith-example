@@ -35,10 +35,10 @@ public class CreateHandlerTest
         //Given
         var id = Guid.NewGuid();
         var externalId = Guid.NewGuid().ToString();
-        var command = new Create(id, externalId, "Hotel-22", 1);
+        var command = new Create(id, externalId);
         
         //Expected
-        var resourceExpected = Resource.Create(id, externalId, "Hotel-22", 1);
+        var resourceExpected = Resource.Create(id, externalId);
         
         //When
         await _createHandler.Handle(command, CancellationToken.None);
