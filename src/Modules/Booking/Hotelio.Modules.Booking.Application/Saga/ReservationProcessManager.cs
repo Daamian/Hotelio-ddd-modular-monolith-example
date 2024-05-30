@@ -1,5 +1,6 @@
 using Hotelio.CrossContext.Contract.Availability;
 using Hotelio.CrossContext.Contract.Availability.Event;
+using Hotelio.CrossContext.Contract.Catalog;
 using Hotelio.CrossContext.Contract.Shared.Exception;
 using Hotelio.Modules.Booking.Application.Command;
 using Hotelio.Modules.Booking.Domain.Model;
@@ -21,12 +22,18 @@ internal class ReservationProcessManager:
     private readonly IAvailability _availability;
     private readonly ICommandBus _commandBus;
     private readonly IReservationRepository _reservationRepository;
+    private readonly ICatalogSearcher _catalog;
 
-    public ReservationProcessManager(IReservationRepository reservationRepository, IAvailability availability, ICommandBus commandBus)
-    {
+    public ReservationProcessManager(
+        IReservationRepository reservationRepository, 
+        IAvailability availability, 
+        ICommandBus commandBus,
+        ICatalogSearcher catalogSearcher
+        ) {
         _reservationRepository = reservationRepository;
         _availability = availability;
         _commandBus = commandBus;
+        _catalog = catalogSearcher;
     }
 
     public async Task Handle(ReservationCreated domainEvent, CancellationToken cancelationToken)
@@ -43,14 +50,14 @@ internal class ReservationProcessManager:
         {
             try
             {
-                var roomId = "test";
-                // var roomId = await._catalog.FindFirstAvailableAsync(reservation.HotelId, reservation.RoomType)
-                // await._availability.BookAsync(roomId)
-                await this._availability.BookAsync(
-                    roomId,
-                    reservation.Id.ToString(), 
-                    reservation.StartDate, 
-                    reservation.EndDate);
+                var roomId = await _catalog.FindFirstAvailableAsync(
+                    reservation.HotelId,
+                    reservation.RoomType.ToString(),
+                    reservation.StartDate,
+                    reservation.EndDate
+                );
+                
+                await _availability.BookAsync(roomId, reservation.Id, reservation.StartDate, reservation.EndDate);
             } catch (ContractException e) {
                 await this._commandBus.DispatchAsync(new RejectReservation(reservation.Id));
             }
@@ -71,14 +78,14 @@ internal class ReservationProcessManager:
         {
             try
             {
-                var roomId = "test";
-                // var roomId = await._catalog.FindFirstAvailableAsync(reservation.HotelId, reservation.RoomType)
-                // await._availability.BookAsync(roomId)
-                await this._availability.BookAsync(
-                    roomId,
-                    reservation.Id,
+                var roomId = await _catalog.FindFirstAvailableAsync(
+                    reservation.HotelId,
+                    reservation.RoomType.ToString(),
                     reservation.StartDate,
-                    reservation.EndDate);
+                    reservation.EndDate
+                );
+                
+                await _availability.BookAsync(roomId, reservation.Id, reservation.StartDate, reservation.EndDate);
             } catch (ContractException e) {
                 await this._commandBus.DispatchAsync(new RejectReservation(reservation.Id));
             }
