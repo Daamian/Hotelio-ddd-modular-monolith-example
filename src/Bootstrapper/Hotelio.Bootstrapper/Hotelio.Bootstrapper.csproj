@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\Modules\Booking\Hotelio.Modules.Booking.Api\Hotelio.Modules.Booking.Api.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Catalog\Hotelio.Modules.Catalog.Api\Hotelio.Modules.Catalog.Api.csproj" />
     <ProjectReference Include="..\..\Modules\HotelManagement\Hotelio.Modules.HotelManagement.Api\Hotelio.Modules.HotelManagement.Api.csproj" />
   </ItemGroup>
   <ItemGroup>

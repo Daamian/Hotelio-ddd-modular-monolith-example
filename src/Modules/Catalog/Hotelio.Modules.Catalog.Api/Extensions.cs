@@ -1,4 +1,3 @@
-using Hotelio.CrossContext.Contract.Availability;
 using Hotelio.Modules.Catalog.Api.CrossContext.EventHandler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +7,7 @@ namespace Hotelio.Modules.Catalog.Api;
 
 public static class Extensions
 {
-    public static IServiceCollection AddCatalog(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddCatalogModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(cfg =>
         {
@@ -20,7 +19,7 @@ public static class Extensions
         return services;
     }
     
-    public static IApplicationBuilder UseAvailability(this IApplicationBuilder app)
+    public static IApplicationBuilder UseCatalogModule(this IApplicationBuilder app)
     {
         return app;
     }

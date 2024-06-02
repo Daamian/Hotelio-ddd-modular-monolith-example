@@ -4,6 +4,7 @@ using Hotelio.CrossContext.Contract;
 using Hotelio.Modules.HotelManagement.Api;
 using Hotelio.Modules.Availability.Api;
 using Hotelio.Modules.Booking.Api;
+using Hotelio.Modules.Catalog.Api;
 using Hotelio.Shared;
 
 namespace Hotelio.Bootstrapper;
@@ -22,6 +23,7 @@ public class Startup
         services.AddBookingModule(_configuration);
         services.AddAvailability(_configuration);
         services.AddHotelManagementModule(_configuration);
+        services.AddCatalogModule(_configuration);
         services.AddCrossContext();
         services.AddSharedFramework(_configuration);
 
@@ -37,6 +39,7 @@ public class Startup
         app.UseBookingModule();
         app.UseAvailability();
         app.UseHotelManagementModule();
+        app.UseCatalogModule();
         app.UseCrossContext();
         app.UseEndpoints(endpoints =>
         {
