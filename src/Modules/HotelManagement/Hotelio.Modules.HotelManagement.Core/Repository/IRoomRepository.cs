@@ -4,7 +4,7 @@ namespace Hotelio.Modules.HotelManagement.Core.Repository;
 
 internal interface IRoomRepository
 {
-    public void Add(Room room);
-    public Room? Find(int id);
-    public void Update(Room room);
+    public Task AddAsync(Room room);
+    public Task<Room?> FindAsync(int id);
+    public Task UpdateAsync(Room room);
 }

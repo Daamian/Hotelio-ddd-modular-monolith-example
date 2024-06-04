@@ -17,20 +17,20 @@ internal class HotelRepository: IHotelRepository
         _eventBus = eventBus;
     }
 
-    public void Add(Hotel hotel)
+    public async Task AddAsync(Hotel hotel)
     {
-        _db.Hotels.Add(hotel);
-        _db.SaveChanges();
-        _eventBus.Publish(new HotelCreated(hotel.Id.ToString(), hotel.Name));
+        await _db.Hotels.AddAsync(hotel);
+        await _db.SaveChangesAsync();
+        await _eventBus.Publish(new HotelCreated(hotel.Id.ToString(), hotel.Name));
     } 
-    public Hotel? Find(int id) => _db.Hotels
+    public async Task<Hotel?> FindAsync(int id) => await _db.Hotels
         .Include(h => h.Rooms)
-        .FirstOrDefault(h => h.Id == id);
+        .FirstOrDefaultAsync(h => h.Id == id);
 
-    public void Update(Hotel hotel)
+    public async Task UpdateAsync(Hotel hotel)
     {
         _db.Hotels.Update(hotel);
-        _db.SaveChanges();
-        _eventBus.Publish(new HotelUpdated(hotel.Id.ToString(), hotel.Name));
+        await _db.SaveChangesAsync();
+        await _eventBus.Publish(new HotelUpdated(hotel.Id.ToString(), hotel.Name));
     }
 }

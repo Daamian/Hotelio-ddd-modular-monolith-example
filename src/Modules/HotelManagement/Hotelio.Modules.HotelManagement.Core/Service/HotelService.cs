@@ -11,16 +11,16 @@ internal class HotelService: IHotelService
 
     public HotelService(IHotelRepository repository) => _repository = repository;
     
-    public int Add(HotelDto dto)
+    public async Task<int> AddAsync(HotelDto dto)
     {
         var hotel = new Hotel() { Name = dto.Name };
-        _repository.Add(hotel);
+        await _repository.AddAsync(hotel);
         return hotel.Id;
     }
 
-    public void Update(HotelDto dto)
+    public async Task UpdateAsync(HotelDto dto)
     {
-        var hotel = _repository.Find(dto.Id);
+        var hotel = await _repository.FindAsync(dto.Id);
 
         if (hotel is null)
         {
@@ -28,12 +28,12 @@ internal class HotelService: IHotelService
         }
 
         hotel.Name = dto.Name;
-        _repository.Update(hotel);
+        await _repository.UpdateAsync(hotel);
     }
 
-    public HotelDto? Get(int id)
+    public async Task<HotelDto?> GetAsync(int id)
     {
-        var hotel = _repository.Find(id);
+        var hotel = await _repository.FindAsync(id);
 
         if (hotel is null) {
             return null;

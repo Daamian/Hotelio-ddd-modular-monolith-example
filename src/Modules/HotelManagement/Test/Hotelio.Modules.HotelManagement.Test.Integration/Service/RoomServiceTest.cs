@@ -31,39 +31,39 @@ public class RoomServiceTest
     }
 
     [Fact]
-    public void AddRoomTest()
+    public async Task AddRoomTest()
     {
         //Given
         var hotel = new HotelDto(0, "Hotel Test");
-        var hotelId = _hotelService.Add(hotel);
+        var hotelId = await _hotelService.AddAsync(hotel);
         var room = new RoomDto(0, 120, 2, 1, hotelId);
         
         //When
-        var id = _roomService.Add(room);
+        var id = await _roomService.AddAsync(room);
         
         //Expected
         var roomExpected = new RoomDto(id, 120, 2, 1, hotelId);
         
         //Then
-        var roomFound = _roomService.Get(id);
+        var roomFound = await _roomService.GetAsync(id);
         Assert.Equal(roomExpected, roomFound);
     }
 
     [Fact]
-    public void UpdateRoomTest()
+    public async Task UpdateRoomTest()
     {
         //Given
         var hotel = new HotelDto(0, "Hotel Test");
-        var hotelId = _hotelService.Add(hotel);
+        var hotelId = await _hotelService.AddAsync(hotel);
         var room = new RoomDto(0, 120, 2, 1, hotelId);
-        var id = _roomService.Add(room);
+        var id = await _roomService.AddAsync(room);
         var roomToUpdate = new RoomDto(id, 130, 3, 2, hotelId);
         
         //When
-        _roomService.Update(roomToUpdate);
+        await _roomService.UpdateAsync(roomToUpdate);
         
         //Then
-        var roomFound = _roomService.Get(id);
+        var roomFound = await _roomService.GetAsync(id);
         Assert.Equal(roomToUpdate, roomFound);
     }
 }

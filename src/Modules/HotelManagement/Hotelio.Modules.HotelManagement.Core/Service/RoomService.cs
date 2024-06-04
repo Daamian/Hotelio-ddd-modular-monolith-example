@@ -11,28 +11,28 @@ internal class RoomService: IRoomService
 
     public RoomService(IRoomRepository roomRepository) => _roomRepository = roomRepository;
     
-    public int Add(RoomDto roomDto)
+    public async Task<int> AddAsync(RoomDto roomDto)
     {
         var room = MapDto(roomDto);
-        _roomRepository.Add(room);
+        await _roomRepository.AddAsync(room);
         return room.Id;
     }
 
-    public void Update(RoomDto roomDto)
+    public async Task UpdateAsync(RoomDto roomDto)
     {
-        var room = _roomRepository.Find(roomDto.Id);
+        var room = await _roomRepository.FindAsync(roomDto.Id);
 
         if (room is null)
         {
             throw new RoomNotFoundException($"Not found room with id {roomDto.Id}");
         }
         
-        _roomRepository.Update(MapDto(roomDto, room));
+        await _roomRepository.UpdateAsync(MapDto(roomDto, room));
     }
     
-    public RoomDto? Get(int id)
+    public async Task<RoomDto?> GetAsync(int id)
     {
-        var room = _roomRepository.Find(id);
+        var room = await _roomRepository.FindAsync(id);
 
         if (room is null) {
             return null;

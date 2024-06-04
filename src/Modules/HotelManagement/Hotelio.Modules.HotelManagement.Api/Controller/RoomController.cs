@@ -14,18 +14,18 @@ internal class RoomController: ControllerBase
     public RoomController(IRoomService roomService) => _roomService = roomService;
 
     [HttpPost]
-    public IActionResult Add(RoomRequest request)
+    public async Task<IActionResult> Add(RoomRequest request)
     {
-        var id = _roomService.Add(
+        var id = await _roomService.AddAsync(
             new RoomDto(0, request.Number, request.MaxGuests, request.Type, request.HotelId));
         
         return Ok(new { Id = id });
     }
     
     [HttpPut("{id:int}")]
-    public IActionResult Update(int id, RoomRequest request)
+    public async Task<IActionResult> Update(int id, RoomRequest request)
     {
-        _roomService.Update(new RoomDto(id, request.Number, request.MaxGuests, request.Type, request.HotelId));
+        await _roomService.UpdateAsync(new RoomDto(id, request.Number, request.MaxGuests, request.Type, request.HotelId));
         
         return NoContent();
     }
@@ -33,7 +33,7 @@ internal class RoomController: ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<RoomDto>> Get(int id)
     {
-        var room = _roomService.Get(id);
+        var room = await _roomService.GetAsync(id);
 
         if (room is null) {
             return NotFound();

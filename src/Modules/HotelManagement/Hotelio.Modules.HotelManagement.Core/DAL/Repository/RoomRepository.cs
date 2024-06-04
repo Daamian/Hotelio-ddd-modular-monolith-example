@@ -2,6 +2,7 @@ using Hotelio.CrossContext.Contract.HotelManagement.Event;
 using Hotelio.Modules.HotelManagement.Core.Model;
 using Hotelio.Modules.HotelManagement.Core.Repository;
 using Hotelio.Shared.Event;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotelio.Modules.HotelManagement.Core.DAL.Repository;
 
@@ -16,24 +17,24 @@ internal class RoomRepository: IRoomRepository
         _eventBus = eventBus;
     }
 
-    public void Add(Room room)
+    public async Task AddAsync(Room room)
     {
-        _db.Rooms.Add(room);
-        _db.SaveChanges();
-        _eventBus.Publish(new RoomAdded(
+        await _db.Rooms.AddAsync(room);
+        await _db.SaveChangesAsync();
+        await _eventBus.Publish(new RoomAdded(
             room.HotelId.ToString(),
             room.Id.ToString(),
             room.MaxGuests,
             room.Type.ToString()));
     }
 
-    public Room? Find(int id) => _db.Rooms.FirstOrDefault(r => r.Id == id);
+    public async Task<Room?> FindAsync(int id) => await _db.Rooms.FirstOrDefaultAsync(r => r.Id == id);
 
-    public void Update(Room room)
+    public async Task UpdateAsync(Room room)
     {
         _db.Rooms.Update(room);
-        _db.SaveChanges();
-        _eventBus.Publish(new RoomUpdated(
+        await _db.SaveChangesAsync();
+        await _eventBus.Publish(new RoomUpdated(
             room.HotelId.ToString(),
             room.Id.ToString(),
             room.MaxGuests,

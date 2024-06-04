@@ -27,37 +27,37 @@ public class HotelServiceTest
     }
 
     [Fact]
-    public void AddHotelManagementTest()
+    public async Task AddHotelManagementTest()
     {
         //Given
         var hotel = new HotelDto(0, "Hotel Test");
         
         
         //When
-        var id = _hotelService.Add(hotel);
+        var id = await _hotelService.AddAsync(hotel);
         
         //Expected
         var hotelExpected = new HotelDto(id, "Hotel Test");
         
         //Then
-        var hotelFound = _hotelService.Get(id);
+        var hotelFound = await _hotelService.GetAsync(id);
         Assert.Equal(hotelExpected, hotelFound);
     }
 
     [Fact]
-    public void UpdateHotelTest()
+    public async Task UpdateHotelTest()
     {
         
         //Given
         var hotel = new HotelDto(0, "Hotel Test");
-        var id = _hotelService.Add(hotel);
+        var id = await _hotelService.AddAsync(hotel);
         var hotelToUpdate = new HotelDto(id, "New name");
         
         //When
-        _hotelService.Update(hotelToUpdate);
+        await _hotelService.UpdateAsync(hotelToUpdate);
         
         //Then
-        var hotelFound = _hotelService.Get(id);
+        var hotelFound = await _hotelService.GetAsync(id);
         Assert.Equal(hotelToUpdate, hotelFound);
     }
 }

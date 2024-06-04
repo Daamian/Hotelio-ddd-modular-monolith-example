@@ -4,7 +4,7 @@ namespace Hotelio.Modules.HotelManagement.Core.Service;
 
 internal interface IRoomService
 {
-    public int Add(RoomDto roomDto);
-    public void Update(RoomDto roomDto);
-    public RoomDto? Get(int id);
+    public Task<int> AddAsync(RoomDto roomDto);
+    public Task UpdateAsync(RoomDto roomDto);
+    public Task<RoomDto?> GetAsync(int id);
 }

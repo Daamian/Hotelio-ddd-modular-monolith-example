@@ -4,7 +4,7 @@ namespace Hotelio.Modules.HotelManagement.Core.Service;
 
 internal interface IHotelService
 {
-    public int Add(HotelDto dto);
-    public void Update(HotelDto dto);
-    public HotelDto? Get(int id);
+    public Task<int> AddAsync(HotelDto dto);
+    public Task UpdateAsync(HotelDto dto);
+    public Task<HotelDto?> GetAsync(int id);
 }
