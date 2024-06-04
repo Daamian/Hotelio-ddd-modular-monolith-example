@@ -75,6 +75,129 @@ public class HotelMongoRepositoryTest
         Assert.NotNull(retrievedHotel);
         Assert.Equal(hotel.Id, retrievedHotel.Id);
     }
+
+    [Fact]
+    public async Task FindFirstAvailableWithOnePossibleRoom()
+    {
+        var hotel = new Hotel
+        {
+            Id = "3",
+            Name = "Test Hotel",
+            Rooms = new List<Room> { 
+                new Room()
+                {
+                    Id = "Room1", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
+                    {
+                        new Reservation() { StartDate = new DateTime(2024,1 , 10), StopDate = new DateTime(2024,1, 20)},
+                        new Reservation() { StartDate = new DateTime(2024,2 , 10), StopDate = new DateTime(2024,2, 20)},
+                        new Reservation() { StartDate = new DateTime(2024,3 , 10), StopDate = new DateTime(2024,3, 20)}
+                    }
+                },
+                new Room()
+                {
+                    Id = "Room2", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
+                    {
+                        new Reservation() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 5)},
+                        new Reservation() { StartDate = new DateTime(2024,2 , 25), StopDate = new DateTime(2024,2, 27)},
+                        new Reservation() { StartDate = new DateTime(2024,3 , 15), StopDate = new DateTime(2024,3, 25)}
+                    }
+                }
+            }
+        };
+        
+        await _hotelRepository.AddAsync(hotel);
+
+        var room = await _hotelRepository.FindFirstRoomAvailableAsync(
+            "3", 
+            "Deluxe",
+            new DateTime(2024,1 , 5),
+            new DateTime(2024,1, 21)
+            );
+        
+        Assert.Equal("Room2", room.Id);
+    }
+    
+    [Fact]
+    public async Task FindFirstAvailableWithManyPossibleRoom()
+    {
+        var hotel = new Hotel
+        {
+            Id = "3",
+            Name = "Test Hotel",
+            Rooms = new List<Room> { 
+                new Room()
+                {
+                    Id = "Room1", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
+                    {
+                        new Reservation() { StartDate = new DateTime(2024,1 , 3), StopDate = new DateTime(2024,1, 4)},
+                        new Reservation() { StartDate = new DateTime(2024,2 , 10), StopDate = new DateTime(2024,2, 20)},
+                        new Reservation() { StartDate = new DateTime(2024,3 , 10), StopDate = new DateTime(2024,3, 20)}
+                    }
+                },
+                new Room()
+                {
+                    Id = "Room2", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
+                    {
+                        new Reservation() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 5)},
+                        new Reservation() { StartDate = new DateTime(2024,2 , 25), StopDate = new DateTime(2024,2, 27)},
+                        new Reservation() { StartDate = new DateTime(2024,3 , 15), StopDate = new DateTime(2024,3, 25)}
+                    }
+                }
+            }
+        };
+        
+        await _hotelRepository.AddAsync(hotel);
+
+        var room = await _hotelRepository.FindFirstRoomAvailableAsync(
+            "3", 
+            "Deluxe",
+            new DateTime(2024,1 , 5),
+            new DateTime(2024,1, 21)
+        );
+        
+        Assert.Equal("Room1", room.Id);
+    }
+    
+    [Fact]
+    public async Task FindFirstAvailableWithNoPossibleRooms()
+    {
+        var hotel = new Hotel
+        {
+            Id = "3",
+            Name = "Test Hotel",
+            Rooms = new List<Room> { 
+                new Room()
+                {
+                    Id = "Room1", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
+                    {
+                        new Reservation() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 21)},
+                        new Reservation() { StartDate = new DateTime(2024,2 , 10), StopDate = new DateTime(2024,2, 20)},
+                        new Reservation() { StartDate = new DateTime(2024,3 , 10), StopDate = new DateTime(2024,3, 20)}
+                    }
+                },
+                new Room()
+                {
+                    Id = "Room2", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
+                    {
+                        new Reservation() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 6)},
+                        new Reservation() { StartDate = new DateTime(2024,2 , 25), StopDate = new DateTime(2024,2, 27)},
+                        new Reservation() { StartDate = new DateTime(2024,3 , 15), StopDate = new DateTime(2024,3, 25)}
+                    }
+                }
+            }
+        };
+        
+        await _hotelRepository.AddAsync(hotel);
+
+        var room = await _hotelRepository.FindFirstRoomAvailableAsync(
+            "3", 
+            "Deluxe",
+            new DateTime(2024,1 , 5),
+            new DateTime(2024,1, 21)
+        );
+        
+        Assert.Null(room);
+    }
     
     public void Dispose()
     {

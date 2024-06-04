@@ -50,7 +50,7 @@ internal class ReservationProcessManager:
         {
             try
             {
-                var roomId = await _catalog.FindFirstAvailableAsync(
+                var roomId = await _catalog.FindFirstRoomAvailableAsync(
                     reservation.HotelId,
                     reservation.RoomType.ToString(),
                     reservation.StartDate,
@@ -78,7 +78,7 @@ internal class ReservationProcessManager:
         {
             try
             {
-                var roomId = await _catalog.FindFirstAvailableAsync(
+                var roomId = await _catalog.FindFirstRoomAvailableAsync(
                     reservation.HotelId,
                     reservation.RoomType.ToString(),
                     reservation.StartDate,

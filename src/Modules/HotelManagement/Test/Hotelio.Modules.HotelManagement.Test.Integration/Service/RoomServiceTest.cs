@@ -26,7 +26,7 @@ public class RoomServiceTest
         _eventBusMock = new Mock<IEventBus>();
         var repository = new RoomRepository(_dbContext, _eventBusMock.Object);
         _roomService = new RoomService(repository);
-        var hotelRepository = new HotelRepository(_dbContext);
+        var hotelRepository = new HotelRepository(_dbContext, _eventBusMock.Object);
         _hotelService = new HotelService(hotelRepository);
     }
 

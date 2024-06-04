@@ -2,8 +2,10 @@ using Hotelio.Modules.HotelManagement.Core.DAL;
 using Hotelio.Modules.HotelManagement.Core.DAL.Repository;
 using Hotelio.Modules.HotelManagement.Core.Service;
 using Hotelio.Modules.HotelManagement.Core.Service.DTO;
+using Hotelio.Shared.Event;
 using Hotelio.Shared.Tests;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace Hotelio.Modules.HotelManagement.Test.Integration.Service;
 
@@ -12,13 +14,15 @@ public class HotelServiceTest
 {
     private readonly HotelService _hotelService;
     private readonly HotelDbContext _dbContext;
+    private readonly Mock<IEventBus> _eventBusMock;
 
     public HotelServiceTest()
     {
         var optionBuilder = new DbContextOptionsBuilder<HotelDbContext>()
             .UseSqlServer(ConfigHelper.GetSqlServerConfig().ConnectionString);
         _dbContext = new HotelDbContext(optionBuilder.Options);
-        var repository = new HotelRepository(_dbContext);
+        _eventBusMock = new Mock<IEventBus>();
+        var repository = new HotelRepository(_dbContext, _eventBusMock.Object);
         _hotelService = new HotelService(repository);
     }
 

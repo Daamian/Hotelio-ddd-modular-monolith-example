@@ -38,4 +38,15 @@ internal class HotelMongoRepository: IHotelRepository
     {
         return await _collection.Find(h => h.Rooms.Exists(r => r.Id == roomId)).SingleOrDefaultAsync();
     }
+
+    public async Task<Room?> FindFirstRoomAvailableAsync(string hotelId, string type, DateTime startDate, DateTime endDate)
+    {
+        var hotel = await _collection.Find(h => h.Id == hotelId).SingleOrDefaultAsync();
+        return hotel.Rooms.FirstOrDefault(r => r.Type == type && 
+                                               !r.Reservations.Exists(re => 
+                                                   (re.StartDate < endDate && re.StopDate > startDate) ||
+                                                   (startDate < re.StopDate && endDate > re.StartDate)
+                                                   )
+                                               );
+    }
 }
