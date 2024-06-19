@@ -19,7 +19,7 @@ public class DatabaseFixture : IDisposable
     }
 
     public void Dispose()
-    {
+    { 
         _dbContext.Database.EnsureDeleted();
     }
 }

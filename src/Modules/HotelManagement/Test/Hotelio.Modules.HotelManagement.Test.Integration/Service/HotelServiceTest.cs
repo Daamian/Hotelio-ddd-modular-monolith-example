@@ -1,5 +1,7 @@
 using Hotelio.Modules.HotelManagement.Core.DAL;
 using Hotelio.Modules.HotelManagement.Core.DAL.Repository;
+using Hotelio.Modules.HotelManagement.Core.Model;
+using Hotelio.Modules.HotelManagement.Core.Repository;
 using Hotelio.Modules.HotelManagement.Core.Service;
 using Hotelio.Modules.HotelManagement.Core.Service.DTO;
 using Hotelio.Shared.Event;
@@ -15,6 +17,8 @@ public class HotelServiceTest
     private readonly HotelService _hotelService;
     private readonly HotelDbContext _dbContext;
     private readonly Mock<IEventBus> _eventBusMock;
+    private readonly IAmenityRepository _amenityRepository;
+    private readonly IAmenityService _amenityService;
 
     public HotelServiceTest()
     {
@@ -23,21 +27,26 @@ public class HotelServiceTest
         _dbContext = new HotelDbContext(optionBuilder.Options);
         _eventBusMock = new Mock<IEventBus>();
         var repository = new HotelRepository(_dbContext, _eventBusMock.Object);
-        _hotelService = new HotelService(repository);
+        _amenityRepository = new AmenityRepository(_dbContext);
+        _amenityService = new AmenityService(_amenityRepository);
+        _hotelService = new HotelService(repository, _amenityRepository);
     }
 
     [Fact]
     public async Task AddHotelManagementTest()
     {
         //Given
-        var hotel = new HotelDto(0, "Hotel Test");
-        
+        var amenity1 = await _amenityService.AddAsync(new AmenityDto(0, "Breakfast"));
+        var amenity2 = await _amenityService.AddAsync(new AmenityDto(0, "Half Board"));
+
+        var amenities = new List<int>() { amenity1, amenity2 };
+        var hotel = new HotelDto(0, "Hotel Test", amenities);
         
         //When
         var id = await _hotelService.AddAsync(hotel);
         
         //Expected
-        var hotelExpected = new HotelDto(id, "Hotel Test");
+        var hotelExpected = new HotelDto(id, "Hotel Test", amenities);
         
         //Then
         var hotelFound = await _hotelService.GetAsync(id);

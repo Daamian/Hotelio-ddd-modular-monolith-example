@@ -19,19 +19,19 @@ internal class HotelManagementController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(HotelRequest request)
     {
-        var id = await _hotelService.AddAsync(new HotelDto(0, request.Name));
+        var id = await _hotelService.AddAsync(new HotelDto(0, request.Name, request.Amenities));
         return Ok(new { Id = id });
     }
     
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, HotelRequest request)
     {
-        await _hotelService.UpdateAsync(new HotelDto(id, request.Name));
+        await _hotelService.UpdateAsync(new HotelDto(id, request.Name, request.Amenities));
         return NoContent();
     }
     
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<HotelDto>> Get(int id)
+    public async Task<ActionResult<HotelDetailsDto>> Get(int id)
     {
         var hotel = await _hotelService.GetAsync(id);
 

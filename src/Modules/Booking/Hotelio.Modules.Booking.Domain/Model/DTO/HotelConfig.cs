@@ -2,8 +2,8 @@
 internal class HotelConfig
 {
     public readonly string Id;
-    public readonly List<string> Amenities = new List<string>();
-    public readonly List<RoomTypeConfig> RoomTypes = new List<RoomTypeConfig>();
+    public readonly List<string> Amenities;
+    public readonly List<RoomTypeConfig> RoomTypes;
 
     public HotelConfig(string id, List<string> amenities, List<RoomTypeConfig> roomTypes)
     {

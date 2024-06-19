@@ -24,7 +24,7 @@ internal class RoomRepository: IRoomRepository
         await _eventBus.Publish(new RoomAdded(
             room.HotelId.ToString(),
             room.Id.ToString(),
-            room.MaxGuests,
+            room.Type.MaxGuests,
             room.Type.ToString()));
     }
 
@@ -37,7 +37,7 @@ internal class RoomRepository: IRoomRepository
         await _eventBus.Publish(new RoomUpdated(
             room.HotelId.ToString(),
             room.Id.ToString(),
-            room.MaxGuests,
+            room.Type.MaxGuests,
             room.Type.ToString()));
     }
 }

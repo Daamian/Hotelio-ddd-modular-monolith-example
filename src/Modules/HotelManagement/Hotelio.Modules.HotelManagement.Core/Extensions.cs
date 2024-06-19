@@ -23,8 +23,12 @@ public static class Extensions
         services.AddScoped<IHotelRepository, HotelRepository>();
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IRoomService, RoomService>();
+        services.AddScoped<IRoomTypeService, RoomTypeService>();
+        services.AddScoped<IAmenityService, AmenityService>();
+        services.AddScoped<IAmenityRepository, AmenityRepository>();
         
         return services;
     }

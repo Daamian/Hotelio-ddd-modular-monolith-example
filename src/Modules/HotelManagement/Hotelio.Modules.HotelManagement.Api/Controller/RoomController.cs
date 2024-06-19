@@ -17,7 +17,7 @@ internal class RoomController: ControllerBase
     public async Task<IActionResult> Add(RoomRequest request)
     {
         var id = await _roomService.AddAsync(
-            new RoomDto(0, request.Number, request.MaxGuests, request.Type, request.HotelId));
+            new RoomDto(0, request.Number, request.Type, request.HotelId));
         
         return Ok(new { Id = id });
     }
@@ -25,7 +25,7 @@ internal class RoomController: ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, RoomRequest request)
     {
-        await _roomService.UpdateAsync(new RoomDto(id, request.Number, request.MaxGuests, request.Type, request.HotelId));
+        await _roomService.UpdateAsync(new RoomDto(id, request.Number, request.Type, request.HotelId));
         
         return NoContent();
     }

@@ -5,4 +5,5 @@ internal class Hotel
     public int Id { get; set; }
     public string Name { get; set; } = "";
     public List<Room> Rooms { get; set; } = new();
+    public List<Amenity> Amenities { get; set; } = new();
 }

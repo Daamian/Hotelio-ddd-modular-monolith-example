@@ -7,6 +7,8 @@ internal class HotelDbContext: DbContext
 {
     public DbSet<Hotel> Hotels { get; set; }
     public DbSet<Room> Rooms { get; set; }
+    public DbSet<RoomType> RoomTypes { get; set; }
+    public DbSet<Amenity> Amenities { get; set; }
     
     public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options)
     {
@@ -22,5 +24,15 @@ internal class HotelDbContext: DbContext
             .WithOne(r => r.Hotel)
             .HasForeignKey(r => r.HotelId)
             .IsRequired();
+        
+        modelBuilder.Entity<Room>()
+            .HasOne(e => e.Type)
+            .WithMany()
+            .HasForeignKey(e => e.RoomTypeId)
+            .IsRequired();
+        
+        modelBuilder.Entity<Hotel>()
+            .HasMany(e => e.Amenities)
+            .WithMany();
     }
 }

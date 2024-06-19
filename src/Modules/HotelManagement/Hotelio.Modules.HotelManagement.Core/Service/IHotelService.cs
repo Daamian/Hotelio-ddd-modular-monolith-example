@@ -6,5 +6,5 @@ internal interface IHotelService
 {
     public Task<int> AddAsync(HotelDto dto);
     public Task UpdateAsync(HotelDto dto);
-    public Task<HotelDto?> GetAsync(int id);
+    public Task<HotelDetailsDto?> GetAsync(int id);
 }

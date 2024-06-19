@@ -49,8 +49,7 @@ internal class RoomService: IRoomService
         }
 
         room.Number = roomDto.Number;
-        room.MaxGuests = roomDto.MaxGuests;
-        room.Type = (RoomType)roomDto.Type;
+        room.RoomTypeId = roomDto.Type;
         room.HotelId = roomDto.HotelId;
 
         return room;
@@ -58,6 +57,6 @@ internal class RoomService: IRoomService
 
     private static RoomDto _mapModel(Room room)
     {
-        return new RoomDto(room.Id, room.Number, room.MaxGuests, (int) room.Type, room.HotelId);
+        return new RoomDto(room.Id, room.Number, room.RoomTypeId, room.HotelId);
     }
 }
