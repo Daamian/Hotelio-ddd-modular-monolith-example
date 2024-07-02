@@ -21,14 +21,20 @@ internal class RoomRepository: IRoomRepository
     {
         await _db.Rooms.AddAsync(room);
         await _db.SaveChangesAsync();
-        await _eventBus.Publish(new RoomAdded(
-            room.HotelId.ToString(),
-            room.Id.ToString(),
-            room.Type.MaxGuests,
-            room.Type.ToString()));
+        
+        var roomAdded = await FindAsync(room.Id);
+        if (roomAdded is not null)  {
+            await _eventBus.Publish(new RoomAdded(
+                roomAdded.HotelId.ToString(),
+                roomAdded.Id.ToString(),
+                roomAdded.Type.MaxGuests,
+                roomAdded.Type.Id.ToString()));
+        }
     }
 
-    public async Task<Room?> FindAsync(int id) => await _db.Rooms.FirstOrDefaultAsync(r => r.Id == id);
+    public async Task<Room?> FindAsync(int id) => await _db.Rooms
+        .Include( r => r.Type)
+        .FirstOrDefaultAsync(r => r.Id == id);
 
     public async Task UpdateAsync(Room room)
     {
@@ -38,6 +44,6 @@ internal class RoomRepository: IRoomRepository
             room.HotelId.ToString(),
             room.Id.ToString(),
             room.Type.MaxGuests,
-            room.Type.ToString()));
+            room.Type.Id.ToString()));
     }
 }

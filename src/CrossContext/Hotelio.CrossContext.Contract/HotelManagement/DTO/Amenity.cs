@@ -3,10 +3,12 @@
 public class Amenity
 {
     public readonly string Id;
+    public readonly string Name;
 
-    public Amenity(string id)
+    public Amenity(string id, string name)
     {
-        this.Id = id;
+        Id = id;
+        Name = name;
     }
 }
 

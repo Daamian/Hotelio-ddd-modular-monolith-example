@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hotelio.Modules.Booking.Domain.Model;
@@ -22,8 +23,10 @@ internal class EFReservationRepository: IReservationRepository
     public async Task AddAsync(Reservation reservation)
     {
         _dbc.Reservations.Add(reservation);
-        var result = await _dbc.SaveChangesAsync();
-        await publishEvents(reservation);
+        await _dbc.SaveChangesAsync();
+        var events = reservation.Events.Select(item => item).ToList();
+        reservation.Events.Clear();
+        await publishEvents(events);
     }
 
     #nullable enable
@@ -35,17 +38,14 @@ internal class EFReservationRepository: IReservationRepository
     {
         _dbc.Reservations.Attach(reservation);
         await _dbc.SaveChangesAsync();
-        await publishEvents(reservation);
+        await publishEvents(reservation.Events);
     }
     
-    private async Task publishEvents(Reservation reservation)
+    private async Task publishEvents(List<IEvent> events)
     {
-        var events = reservation.Events.ToList();
         foreach (var domainEvent in events)
         {
-            await this._eventBus.Publish(domainEvent);
+            await _eventBus.Publish(domainEvent);
         }
-        
-        reservation.Events.Clear();
     }
 }

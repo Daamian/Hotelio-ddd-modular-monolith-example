@@ -1,3 +1,4 @@
+using Hotelio.CrossContext.Contract.HotelManagement;
 using Hotelio.Modules.Booking.Application.ReadModel.VO;
 using Hotelio.Modules.Booking.Domain.Event;
 using Hotelio.Modules.Booking.Domain.Model;
@@ -11,23 +12,26 @@ internal class ReservationReadModelProjector: INotificationHandler<ReservationCr
 {
     private readonly IReservationRepository _reservationRepository;
     private readonly IReadModelStorage _readModelStorage;
+    private readonly IHotelManagement _hotelManagement;
 
     public ReservationReadModelProjector(
         IReservationRepository reservationRepository, 
-        IReadModelStorage readModelStorage
+        IReadModelStorage readModelStorage,
+        IHotelManagement hotelManagement
         ) {
         _reservationRepository = reservationRepository;
         _readModelStorage = readModelStorage;
+        _hotelManagement = hotelManagement;
     }
 
     public async Task Handle(ReservationCreated domainEvent, CancellationToken cancelationToken)
     {
-        this._buildModel(domainEvent.Id);
+        await _buildModel(domainEvent.Id);
     }
 
-    private void _buildModel(string reservationId)
+    private async Task _buildModel(string reservationId)
     {
-        var reservation = _reservationRepository.FindAsync(reservationId).Result;
+        var reservation = await _reservationRepository.FindAsync(reservationId);
 
         if (null == reservation)
         {
@@ -35,12 +39,21 @@ internal class ReservationReadModelProjector: INotificationHandler<ReservationCr
         }
 
         var snapshot = reservation.Snap();
+        var hotel = await _hotelManagement.GetAsync(snapshot.HotelId);
+
+        var roomType = hotel.RoomTypes.Find(r => r.Id == snapshot.RoomType);
+        var amenities = snapshot.Amenities.Select(a => hotel.Amenities.Find(ha => ha.Id == a.Id)).ToList();
+        
+        if (roomType is null)
+        {
+            return;
+        }
         
         var model = new Reservation(
             reservationId,
-            new Hotel(snapshot.HotelId, "Hotel name"), //TODO get hotel name from Hotel Management context
+            new Hotel(snapshot.HotelId, hotel.Name),
             new Owner(snapshot.OwnerId, "Damian", "Kusek"), //TODO get name from customer context
-            new RoomType(snapshot.RoomType, "Superior"), //TODO get name from Hotel Management context
+            new RoomType(roomType.Id, roomType.Name),
             snapshot.NumberOfGuests,
             ((Status) snapshot.Status).ToString(),
             snapshot.PriceToPay,
@@ -48,10 +61,10 @@ internal class ReservationReadModelProjector: INotificationHandler<ReservationCr
             ((PaymentType) snapshot.PaymentType).ToString(),
             snapshot.StartDate.ToLocalTime(), //TODO timestamp ???
             snapshot.EndDate.ToLocalTime(),
-            snapshot.Amenities.Select(a => new AmenityReadModel(a.Id, "All inc")).ToList(),
+            amenities.Select(a => new AmenityReadModel(a.Id, a.Name)).ToList(),
             snapshot.RoomId
         );
 
-        _readModelStorage.SaveAsync(model);
+        await _readModelStorage.SaveAsync(model);
     }
 }

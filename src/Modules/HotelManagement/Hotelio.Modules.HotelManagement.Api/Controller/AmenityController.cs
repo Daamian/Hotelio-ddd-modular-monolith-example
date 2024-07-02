@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hotelio.Modules.HotelManagement.Api.Controller;
 
 [ApiController]
-[Microsoft.AspNetCore.Components.Route("api/hotel/amenity")]
+[Route("api/hotel/amenity")]
 internal class AmenityController : ControllerBase
 {
     private readonly IAmenityService _amenityService;

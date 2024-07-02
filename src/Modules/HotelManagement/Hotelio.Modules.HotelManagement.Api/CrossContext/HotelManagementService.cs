@@ -23,13 +23,15 @@ internal class HotelManagementService: IHotelManagement
         
         return new Hotel(
             hotel.Id.ToString(),
+            hotel.Name,
             hotel.Amenities.IsNullOrEmpty()
                 ? new List<Amenity>()
-                : hotel.Amenities.Select(amenityId => new Amenity(amenityId.ToString())).ToList(),
+                : hotel.Amenities.Select(amenity => new Amenity(amenity.Id.ToString(), amenity.Name)).ToList(),
             hotel.Rooms.IsNullOrEmpty()
                 ? new List<RoomType>()
                 : hotel.Rooms.Select(room => new RoomType(
                     room.Type, 
+                    room.TypeDetails.Name,
                     room.TypeDetails.MaxGuests, 
                     room.TypeDetails.Level)
                 ).ToList());

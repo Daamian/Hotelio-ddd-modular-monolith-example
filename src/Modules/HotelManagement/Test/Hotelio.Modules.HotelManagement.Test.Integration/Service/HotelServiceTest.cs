@@ -46,7 +46,11 @@ public class HotelServiceTest
         var id = await _hotelService.AddAsync(hotel);
         
         //Expected
-        var hotelExpected = new HotelDto(id, "Hotel Test", amenities);
+        var hotelExpected = new HotelDetailsDto(id, "Hotel Test", new List<AmenityDetailDto>()
+        {
+            new AmenityDetailDto(amenity1, "Breakfast"),
+            new AmenityDetailDto(amenity2, "Half Board")
+        });
         
         //Then
         var hotelFound = await _hotelService.GetAsync(id);
@@ -62,11 +66,14 @@ public class HotelServiceTest
         var id = await _hotelService.AddAsync(hotel);
         var hotelToUpdate = new HotelDto(id, "New name");
         
+        //Expected
+        var hotelExpected = new HotelDetailsDto(id, "Hotel Test");
+        
         //When
         await _hotelService.UpdateAsync(hotelToUpdate);
         
         //Then
         var hotelFound = await _hotelService.GetAsync(id);
-        Assert.Equal(hotelToUpdate, hotelFound);
+        Assert.Equal(hotelExpected, hotelFound);
     }
 }

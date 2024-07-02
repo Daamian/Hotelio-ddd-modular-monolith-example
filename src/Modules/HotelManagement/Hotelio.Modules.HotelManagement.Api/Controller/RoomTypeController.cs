@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hotelio.Modules.HotelManagement.Api.Controller;
 
 [ApiController]
-[Microsoft.AspNetCore.Components.Route("api/hotel/room_type")]
+[Route("api/hotel/room_type")]
 internal class RoomTypeController: ControllerBase
 {
     private readonly IRoomTypeService _roomTypeService;

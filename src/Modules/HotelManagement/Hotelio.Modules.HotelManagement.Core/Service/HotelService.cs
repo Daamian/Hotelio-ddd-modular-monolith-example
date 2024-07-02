@@ -73,9 +73,9 @@ internal class HotelService: IHotelService
         return amenities;
     }
     
-    private List<int>? _mapAmenitiesDto(List<Amenity> amenities)
+    private List<AmenityDetailDto>? _mapAmenitiesDto(List<Amenity> amenities)
     {
-        return amenities.IsNullOrEmpty() ? null : amenities.Select(amenity => amenity.Id).ToList();
+        return amenities.IsNullOrEmpty() ? null : amenities.Select(amenity => new AmenityDetailDto(amenity.Id, amenity.Name)).ToList();
     }
     
     private List<RoomDetailsDto>? _mapRooms(List<Room> rooms)
@@ -83,7 +83,7 @@ internal class HotelService: IHotelService
         return rooms.IsNullOrEmpty() ? null : rooms.Select(room => new RoomDetailsDto(
             room.Id, 
             room.Number, 
-            room.Type.Id, 
+            room.RoomTypeId, 
             room.HotelId,
             new RoomTypeDto(room.Type.Id, room.Type.Name, room.Type.MaxGuests, room.Type.Level))
         ).ToList();

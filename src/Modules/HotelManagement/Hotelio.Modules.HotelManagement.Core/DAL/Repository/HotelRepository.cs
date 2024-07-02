@@ -24,7 +24,8 @@ internal class HotelRepository: IHotelRepository
         await _eventBus.Publish(new HotelCreated(hotel.Id.ToString(), hotel.Name));
     } 
     public async Task<Hotel?> FindAsync(int id) => await _db.Hotels
-        .Include(h => h.Rooms)
+        .Include(h => h.Rooms).ThenInclude(r => r.Type)
+        .Include(h => h.Amenities)
         .FirstOrDefaultAsync(h => h.Id == id);
 
     public async Task UpdateAsync(Hotel hotel)

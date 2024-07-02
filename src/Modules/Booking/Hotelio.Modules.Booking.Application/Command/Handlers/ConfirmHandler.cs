@@ -20,7 +20,7 @@ internal sealed class ConfirmReservationHandler: IRequestHandler<ConfirmReservat
 
     public async Task Handle(ConfirmReservation command, CancellationToken cancellationToken)
     {
-        var reservation = this._reservationRepository.Find(command.ReservationId);
+        var reservation = await _reservationRepository.FindAsync(command.ReservationId);
 
         if (null == reservation)
         {
