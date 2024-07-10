@@ -6,7 +6,7 @@ namespace Hotelio.Modules.Booking.Application;
 
 public static class Extensions
 {
-    public static IServiceCollection AddBookingApplication(IServiceCollection services)
+    public static IServiceCollection AddBookingApplication(this IServiceCollection services, IConfiguration configuration)
     {
         return services;
     }

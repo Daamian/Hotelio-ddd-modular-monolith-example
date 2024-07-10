@@ -1,6 +1,8 @@
 using System.Runtime.CompilerServices;
 using Hotelio.CrossContext.Contract.Availability;
 using Hotelio.Modules.Availability.Api.CrossContext;
+using Hotelio.Modules.Availability.Application;
+using Hotelio.Modules.Availability.Domain;
 using Hotelio.Modules.Availability.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +22,10 @@ public static class Extensions
             cfg.RegisterServicesFromAssemblyContaining<EventPublisher>();
         });
         
+        services.AddAvailabilityApplication(configuration);
+        services.AddAvailabilityDomain(configuration);
         services.AddAvailabilityInfrastructure(configuration);
+
         return services;
     }
     

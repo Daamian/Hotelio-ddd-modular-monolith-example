@@ -1,4 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 [assembly: InternalsVisibleTo("Hotelio.Modules.Availability.Test.Unit")]
 [assembly: InternalsVisibleTo("Hotelio.Modules.Availability.Application")]
@@ -10,4 +12,8 @@ namespace Hotelio.Modules.Availability.Domain;
 
 public static class Extensions
 {
+    public static IServiceCollection AddAvailabilityDomain(this IServiceCollection services, IConfiguration configuration)
+    {
+        return services;
+    }
 }
