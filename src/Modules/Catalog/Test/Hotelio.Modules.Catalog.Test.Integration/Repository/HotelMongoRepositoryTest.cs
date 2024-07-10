@@ -129,18 +129,18 @@ public class HotelMongoRepositoryTest
                 {
                     Id = "Room1", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
                     {
-                        new Reservation() { StartDate = new DateTime(2024,1 , 3), StopDate = new DateTime(2024,1, 4)},
-                        new Reservation() { StartDate = new DateTime(2024,2 , 10), StopDate = new DateTime(2024,2, 20)},
-                        new Reservation() { StartDate = new DateTime(2024,3 , 10), StopDate = new DateTime(2024,3, 20)}
+                        new() { StartDate = new DateTime(2024,1 , 3), StopDate = new DateTime(2024,1, 4)},
+                        new() { StartDate = new DateTime(2024,2 , 10), StopDate = new DateTime(2024,2, 20)},
+                        new() { StartDate = new DateTime(2024,3 , 10), StopDate = new DateTime(2024,3, 20)}
                     }
                 },
                 new Room()
                 {
                     Id = "Room2", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
                     {
-                        new Reservation() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 5)},
-                        new Reservation() { StartDate = new DateTime(2024,2 , 25), StopDate = new DateTime(2024,2, 27)},
-                        new Reservation() { StartDate = new DateTime(2024,3 , 15), StopDate = new DateTime(2024,3, 25)}
+                        new() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 5)},
+                        new() { StartDate = new DateTime(2024,2 , 25), StopDate = new DateTime(2024,2, 27)},
+                        new() { StartDate = new DateTime(2024,3 , 15), StopDate = new DateTime(2024,3, 25)}
                     }
                 }
             }
@@ -170,18 +170,18 @@ public class HotelMongoRepositoryTest
                 {
                     Id = "Room1", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
                     {
-                        new Reservation() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 21)},
-                        new Reservation() { StartDate = new DateTime(2024,2 , 10), StopDate = new DateTime(2024,2, 20)},
-                        new Reservation() { StartDate = new DateTime(2024,3 , 10), StopDate = new DateTime(2024,3, 20)}
+                        new() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 21)},
+                        new() { StartDate = new DateTime(2024,2 , 10), StopDate = new DateTime(2024,2, 20)},
+                        new() { StartDate = new DateTime(2024,3 , 10), StopDate = new DateTime(2024,3, 20)}
                     }
                 },
                 new Room()
                 {
                     Id = "Room2", MaxGuests = 2, Type = "Deluxe", Reservations = new List<Reservation>()
                     {
-                        new Reservation() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 6)},
-                        new Reservation() { StartDate = new DateTime(2024,2 , 25), StopDate = new DateTime(2024,2, 27)},
-                        new Reservation() { StartDate = new DateTime(2024,3 , 15), StopDate = new DateTime(2024,3, 25)}
+                        new() { StartDate = new DateTime(2024,1 , 1), StopDate = new DateTime(2024,1, 6)},
+                        new() { StartDate = new DateTime(2024,2 , 25), StopDate = new DateTime(2024,2, 27)},
+                        new() { StartDate = new DateTime(2024,3 , 15), StopDate = new DateTime(2024,3, 25)}
                     }
                 }
             }

@@ -13,7 +13,7 @@ internal class HotelEventHandler: INotificationHandler<HotelCreated>, INotificat
     
     public async Task Handle(HotelCreated contractEvent, CancellationToken cancellationToken)
     {
-        await _repository.AddAsync(new Hotel()
+        await _repository.AddAsync(new Hotel
         {
             Id = contractEvent.Id,
             Name = contractEvent.Name
@@ -26,7 +26,7 @@ internal class HotelEventHandler: INotificationHandler<HotelCreated>, INotificat
 
         if (null == hotel)
         {
-            await _repository.AddAsync(new Hotel()
+            await _repository.AddAsync(new Hotel
             {
                 Id = contractEvent.Id,
                 Name = contractEvent.Name

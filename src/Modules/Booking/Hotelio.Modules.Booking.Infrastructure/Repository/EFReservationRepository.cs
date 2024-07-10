@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ namespace Hotelio.Modules.Booking.Infrastructure.Repository;
 
 internal class EFReservationRepository: IReservationRepository
 {
-    private ReservationDbContext _dbc;
+    private readonly ReservationDbContext _dbc;
     private readonly IEventBus _eventBus;
 
     public EFReservationRepository(ReservationDbContext dbc, IEventBus eventBus)
@@ -26,22 +25,22 @@ internal class EFReservationRepository: IReservationRepository
         await _dbc.SaveChangesAsync();
         var events = reservation.Events.Select(item => item).ToList();
         reservation.Events.Clear();
-        await publishEvents(events);
+        await PublishEvents(events);
     }
 
     #nullable enable
     public Reservation? Find(string id) => _dbc.Reservations.Find(id);
     
-    public async Task<Reservation>? FindAsync(string id) => await _dbc.Reservations.FindAsync(id);
+    public async Task<Reservation?> FindAsync(string id) => await _dbc.Reservations.FindAsync(id);
 
     public async Task UpdateAsync(Reservation reservation)
     {
         _dbc.Reservations.Attach(reservation);
         await _dbc.SaveChangesAsync();
-        await publishEvents(reservation.Events);
+        await PublishEvents(reservation.Events);
     }
     
-    private async Task publishEvents(List<IEvent> events)
+    private async Task PublishEvents(List<IEvent> events)
     {
         foreach (var domainEvent in events)
         {

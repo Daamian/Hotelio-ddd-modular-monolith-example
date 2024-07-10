@@ -20,7 +20,7 @@ internal class Reservation
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public List<Amenity> Amenities { get; set; }
-    public string? RoomId { get; set; } = null;
+    public string? RoomId { get; set; }
 
     public Reservation(string id, Hotel hotel, Owner owner, RoomType roomType, int numberOfGuests, string status, double priceToPay, double pricePayed, string paymentType, DateTime startDate, DateTime endDate, List<Amenity> amenities, string? roomId = null)
     {

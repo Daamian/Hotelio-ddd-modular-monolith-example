@@ -1,5 +1,6 @@
 ﻿namespace Hotelio.Modules.Booking.Domain.Model;
-enum Status
+
+internal enum Status
 {
     Created,
     Rejected,

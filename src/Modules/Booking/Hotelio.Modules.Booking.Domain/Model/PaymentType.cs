@@ -1,6 +1,6 @@
 ﻿namespace Hotelio.Modules.Booking.Domain.Model;
 
-enum PaymentType
+internal enum PaymentType
 {
    InAdvance,
    PostPaid

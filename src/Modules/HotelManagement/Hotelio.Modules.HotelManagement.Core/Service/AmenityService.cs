@@ -35,20 +35,12 @@ internal class AmenityService: IAmenityService
     {
         var amenity = await _repository.FindAsync(id);
 
-        if (amenity is null) {
-            return null;
-        }
-
-        return _mapModel(amenity);
+        return amenity is null ? null : _mapModel(amenity);
     }
 
-    private Amenity MapDto(AmenityDto dto, Amenity? amenity = null)
+    private static Amenity MapDto(AmenityDto dto, Amenity? amenity = null)
     {
-        if (amenity is null)
-        {
-            amenity = new Amenity();
-        }
-
+        amenity ??= new Amenity();
         amenity.Name = dto.Name;
         
         return amenity;

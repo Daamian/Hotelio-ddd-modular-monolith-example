@@ -1,13 +1,9 @@
 using System.Runtime.CompilerServices;
 using Hotelio.Modules.Availability.Application.Command.Handlers;
-using Hotelio.Modules.Availability.Application.Query.Handler;
-using Hotelio.Modules.Availability.Application.ReadModel;
 using Hotelio.Modules.Availability.Domain.Repository;
 using Hotelio.Modules.Availability.Infrastructure.DAL;
-using Hotelio.Modules.Availability.Infrastructure.ReadModel;
 using Hotelio.Modules.Availability.Infrastructure.Repository;
 using Hotelio.Shared.Configuration;
-using Hotelio.Shared.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -25,14 +21,12 @@ public static class Extensions
             options.UseSqlServer(sqlServerOptions.ConnectionString));
 
         services.AddScoped<IResourceRepository, EfResourceRepository>();
-        services.AddScoped<IResourceStorage>(x => new SqlServerResourceStorage(sqlServerOptions.ConnectionString));
 
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<BookHandler>();
             cfg.RegisterServicesFromAssemblyContaining<UnBookHandler>();
             cfg.RegisterServicesFromAssemblyContaining<CreateHandler>();
-            cfg.RegisterServicesFromAssemblyContaining<GetFirstAvailableResourceInDateRangeHandler>();
         });
         
         return services;

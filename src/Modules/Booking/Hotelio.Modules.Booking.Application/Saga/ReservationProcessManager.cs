@@ -10,7 +10,7 @@ using MediatR;
 
 namespace Hotelio.Modules.Booking.Application.Saga;
 
-using Hotelio.Modules.Booking.Domain.Event;
+using Domain.Event;
 
 internal class ReservationProcessManager: 
     INotificationHandler<ReservationCreated>, 
@@ -59,7 +59,7 @@ internal class ReservationProcessManager:
                 
                 await _availability.BookAsync(roomId, reservation.Id, reservation.StartDate, reservation.EndDate);
             } catch (ContractException e) {
-                await this._commandBus.DispatchAsync(new RejectReservation(reservation.Id));
+                await _commandBus.DispatchAsync(new RejectReservation(reservation.Id));
             }
         }
     }
@@ -87,7 +87,7 @@ internal class ReservationProcessManager:
                 
                 await _availability.BookAsync(roomId, reservation.Id, reservation.StartDate, reservation.EndDate);
             } catch (ContractException e) {
-                await this._commandBus.DispatchAsync(new RejectReservation(reservation.Id));
+                await _commandBus.DispatchAsync(new RejectReservation(reservation.Id));
             }
         }
     }
@@ -96,22 +96,23 @@ internal class ReservationProcessManager:
     {
         var reservationAg = await _reservationRepository.FindAsync(domainEvent.ReservationId);
 
-        if (null == reservationAg || null == reservationAg.Snap().RoomId) {
+        if (reservationAg?.Snap().RoomId == null) {
             return;
         }
         
         var reservation = reservationAg.Snap();
 
-        await this._availability.UnBookAsync(reservation.RoomId, domainEvent.ReservationId);
+        if (reservation.RoomId != null)
+            await _availability.UnBookAsync(reservation.RoomId, domainEvent.ReservationId);
     }
 
     public async Task Handle(ResourceBooked e, CancellationToken cancelationToken)
     {
-        await this._commandBus.DispatchAsync(new ConfirmReservation(e.ResourceId, e.OwnerId));
+        await _commandBus.DispatchAsync(new ConfirmReservation(e.ResourceId, e.OwnerId));
     }
 
     public async Task Handle(ResourceTypeBookRejected e, CancellationToken cancelationToken)
     {
-        await this._commandBus.DispatchAsync(new RejectReservation(e.OwnerId));
+        await _commandBus.DispatchAsync(new RejectReservation(e.OwnerId));
     }
 }

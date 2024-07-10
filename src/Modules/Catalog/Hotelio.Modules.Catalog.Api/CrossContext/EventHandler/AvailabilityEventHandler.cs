@@ -24,7 +24,7 @@ internal class AvailabilityEventHandler: INotificationHandler<ResourceBooked>
             return;
         }
         
-        room.Reservations.Add(new Reservation()
+        room.Reservations.Add(new Reservation
         {
             StartDate = contractEvent.StartDate,
             StopDate = contractEvent.EndDate

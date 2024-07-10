@@ -6,7 +6,7 @@ namespace Hotelio.Modules.Availability.Application.Command.Handlers;
 
 internal sealed class BookHandler: IRequestHandler<Book>
 {
-    private IResourceRepository _repository;
+    private readonly IResourceRepository _repository;
 
     public BookHandler(IResourceRepository repository)
     {

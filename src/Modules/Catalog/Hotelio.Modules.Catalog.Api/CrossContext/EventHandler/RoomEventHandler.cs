@@ -22,7 +22,7 @@ internal class RoomEventHandler:
             return;
         }
         
-        hotel.Rooms.Add(new Room()
+        hotel.Rooms.Add(new Room
         {
             Id = contractEvent.RoomId,
             MaxGuests = contractEvent.MaxGuests,

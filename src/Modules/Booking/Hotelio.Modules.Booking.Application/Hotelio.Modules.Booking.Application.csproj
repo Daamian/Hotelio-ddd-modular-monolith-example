@@ -24,7 +24,6 @@
   <ItemGroup>
     <Folder Include="Exception\" />
     <Folder Include="Query\" />
-    <Folder Include="Query\DTO\" />
     <Folder Include="Query\Handler\" />
   </ItemGroup>
   <ItemGroup>

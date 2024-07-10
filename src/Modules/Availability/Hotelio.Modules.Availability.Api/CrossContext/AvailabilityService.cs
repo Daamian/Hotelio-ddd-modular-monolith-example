@@ -29,7 +29,7 @@ internal class AvailabilityService: IAvailability
         
         if (resource is null)
         {
-            throw new ResourceNotFoundException($"Resource is not found ");
+            throw new ResourceNotFoundException($"Resource is not found with id {resourceId} ");
         }
 
         //TODO what if command handler throws exception ???

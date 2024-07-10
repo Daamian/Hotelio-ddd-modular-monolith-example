@@ -6,26 +6,18 @@ using MediatR;
 
 namespace Hotelio.Modules.Booking.Application.Query.Handler;
 
-internal class GetReservationHandler : IRequestHandler<GetReservation, Reservation>
+internal class GetReservationHandler : IRequestHandler<GetReservation, Reservation?>
 {
     private readonly IReadModelStorage _storage;
 
     public GetReservationHandler(IReadModelStorage storage)
     {
-        this._storage = storage;
+        _storage = storage;
     }
 
-    public async Task<Reservation> Handle(GetReservation request, CancellationToken cancellationToken)
+    public async Task<Reservation?> Handle(GetReservation request, CancellationToken cancellationToken)
     {
-        var query = request;
-        var reservation = await this._storage.FindAsync(query.ReservationId);
-
-        if (reservation is null)
-        {
-            return null;
-        }
-
-        return reservation;
+        return await _storage.FindAsync(request.ReservationId);
     }
 }
 

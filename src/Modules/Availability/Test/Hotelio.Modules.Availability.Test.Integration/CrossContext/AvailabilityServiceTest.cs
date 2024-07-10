@@ -1,14 +1,11 @@
 
 using Hotelio.CrossContext.Contract.Availability.Exception;
 using Hotelio.Modules.Availability.Api.CrossContext;
-using Hotelio.Modules.Availability.Application.Query;
 using Hotelio.Modules.Availability.Domain.Model;
 using Hotelio.Modules.Availability.Domain.Repository;
 using BookCommand = Hotelio.Modules.Availability.Application.Command.Book;
 using CreateCommand = Hotelio.Modules.Availability.Application.Command.Create;
 using Hotelio.Shared.Commands;
-using ResourceReadModel = Hotelio.Modules.Availability.Application.ReadModel.Resource;
-using Hotelio.Shared.Queries;
 
 using Moq;
 

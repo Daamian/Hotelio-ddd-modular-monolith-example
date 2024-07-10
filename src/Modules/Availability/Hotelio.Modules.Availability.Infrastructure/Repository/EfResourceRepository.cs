@@ -17,10 +17,6 @@ internal class EfResourceRepository: IResourceRepository
         _eventBus = eventBus;
     }
 
-    public Resource? Find(Guid id) => _dbContext.Resources
-        .Include(r => r.Books)
-        .FirstOrDefault(r => r.Id == id);
-
     public async Task UpdateAsync(Resource resource)
     {
         _dbContext.Resources.Attach(resource);
@@ -45,7 +41,7 @@ internal class EfResourceRepository: IResourceRepository
         var events = resource.Events.ToList();
         foreach (var domainEvent in events)
         {
-            await this._eventBus.Publish(domainEvent);
+            await _eventBus.Publish(domainEvent);
         }
         
         resource.Events.Clear();
