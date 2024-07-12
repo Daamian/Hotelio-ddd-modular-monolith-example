@@ -6,7 +6,7 @@ This project serves as a sample implementation of a hotel reservation system usi
 
 ## Business Objectives
 
-The business objective of this project is to create a sample system for hotel room reservations and hotel network management. It aims to demonstrate a practical approach to booking hotel rooms and efficiently managing a network of hotels.
+The business objective of this project is to create a sample system for hotel room reservations and hotel network management. It aims to demonstrate a practical approach to applying the above patterns and practices.
 
 ## Event Storming
 
