@@ -1,7 +1,5 @@
 namespace Hotelio.CrossContext.Contract.Availability;
 
-using Exception;
-
 public interface IAvailability
 {
     public Task CreateResource(string resourceId);

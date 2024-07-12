@@ -5,10 +5,10 @@ using Hotelio.Shared.Event;
 
 namespace Hotelio.Modules.Booking.Infrastructure.Repository;
 
-using Hotelio.Modules.Booking.Domain.Model;
+using Domain.Model;
 using Hotelio.Modules.Booking.Domain.Repository;
 using System.Threading.Tasks;
-using Hotelio.Modules.Booking.Infrastructure.Storage;
+using Storage;
 
 internal class InMemoryReservationRepository : IReservationRepository
 {
@@ -22,15 +22,15 @@ internal class InMemoryReservationRepository : IReservationRepository
     public async Task AddAsync(Reservation reservation)
     {
         InMemoryStorage.Reservations.Add(reservation);
-        this.publishEvents(reservation);
+        PublishEvents(reservation);
     }
 
-    private void publishEvents(Reservation reservation)
+    private void PublishEvents(Reservation reservation)
     {
         var events = reservation.Events.ToList();
         foreach (var domainEvent in events)
         {
-            this._eventBus.Publish(domainEvent);
+            _eventBus.Publish(domainEvent);
         }
         
         reservation.Events.Clear();
@@ -58,7 +58,7 @@ internal class InMemoryReservationRepository : IReservationRepository
         }
 
         InMemoryStorage.Reservations[index] = reservation;
-        this.publishEvents(reservation);
+        this.PublishEvents(reservation);
     }
 }
 

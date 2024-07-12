@@ -7,9 +7,9 @@ internal class RoomTypeConfig
 
     public RoomTypeConfig(int roomType, int maxGuests, int level)
     {
-        this.RoomType = roomType;
-        this.MaxGuests = maxGuests;
-        this.Level = level;
+        RoomType = roomType;
+        MaxGuests = maxGuests;
+        Level = level;
     }
 }
 

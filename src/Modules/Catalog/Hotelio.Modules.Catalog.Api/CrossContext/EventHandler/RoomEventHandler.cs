@@ -45,7 +45,7 @@ internal class RoomEventHandler:
 
         if (room is null)
         {
-            hotel.Rooms.Add(new Room()
+            hotel.Rooms.Add(new Room
             {
                 Id = contractEvent.RoomId,
                 MaxGuests = contractEvent.MaxGuests,

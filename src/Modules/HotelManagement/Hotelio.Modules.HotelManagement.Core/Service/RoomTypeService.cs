@@ -35,19 +35,12 @@ internal class RoomTypeService: IRoomTypeService
     {
         var roomType = await _repository.FindAsync(id);
 
-        if (roomType is null) {
-            return null;
-        }
-
-        return _mapModel(roomType);
+        return roomType is null ? null : _mapModel(roomType);
     }
 
-    private RoomType MapDto(RoomTypeDto dto, RoomType? roomType = null)
+    private static RoomType MapDto(RoomTypeDto dto, RoomType? roomType = null)
     {
-        if (roomType is null)
-        {
-            roomType = new RoomType();
-        }
+        roomType ??= new RoomType();
 
         roomType.Name = dto.Name;
         roomType.MaxGuests = dto.MaxGuests;

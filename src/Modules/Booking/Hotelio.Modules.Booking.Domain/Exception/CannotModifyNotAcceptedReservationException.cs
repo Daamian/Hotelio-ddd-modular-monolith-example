@@ -1,5 +1,4 @@
-﻿using System;
-using Hotelio.Shared.Exception;
+﻿using Hotelio.Shared.Exception;
 
 namespace Hotelio.Modules.Booking.Domain.Exception;
 

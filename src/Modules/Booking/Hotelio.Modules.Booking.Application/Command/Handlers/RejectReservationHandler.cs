@@ -15,7 +15,7 @@ internal sealed class RejectReservationHandler : IRequestHandler<RejectReservati
     
     public async Task Handle(RejectReservation command, CancellationToken cancellationToken)
     {
-        var reservation = this._reservationRepository.Find(command.ReservationId);
+        var reservation = await _reservationRepository.FindAsync(command.ReservationId);
 
         if (null == reservation)
         {

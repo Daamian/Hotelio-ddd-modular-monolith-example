@@ -28,7 +28,7 @@ internal sealed class ConfirmReservationHandler: IRequestHandler<ConfirmReservat
         }
         
         reservation.Confirm(command.RoomId);
-        await this._reservationRepository.UpdateAsync(reservation);
+        await _reservationRepository.UpdateAsync(reservation);
     }
 }
 

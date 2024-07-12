@@ -7,9 +7,9 @@ internal class HotelConfig
 
     public HotelConfig(string id, List<string> amenities, List<RoomTypeConfig> roomTypes)
     {
-        this.Id = id;
-        this.Amenities = amenities;
-        this.RoomTypes = roomTypes;
+        Id = id;
+        Amenities = amenities;
+        RoomTypes = roomTypes;
     }
 }
 

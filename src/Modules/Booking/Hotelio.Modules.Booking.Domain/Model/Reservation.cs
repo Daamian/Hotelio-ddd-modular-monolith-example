@@ -58,7 +58,7 @@ internal class Reservation: Aggregate
         
         if (!IsAmenitiesAvailableInHotel(amenities, hotel))
         {
-            throw new DomainException($"Invalid amenities for hotel");
+            throw new DomainException("Invalid amenities for hotel");
         }
 
         var reservation = new Reservation(id, hotel.Id,  ownerId, roomType, numberOfGuests, Status.Created, priceToPay, 0, paymentType, dateRange, amenities);
@@ -154,7 +154,7 @@ internal class Reservation: Aggregate
             throw new ChangeToLowerRoomTypeNotAllowedException($"Room type {roomType} has lowest level than current");
         }
 
-        this._roomType = roomType;
+        _roomType = roomType;
     }
 
     public void ChangeNumberOfGuests(int numberOfGuests, RoomTypeConfig roomTypeConfig)
@@ -199,7 +199,7 @@ internal class Reservation: Aggregate
             throw new ReservationAlreadyStartedException("Reservation has already started.");
         }
 
-        if (this._status != Status.Confirmed)
+        if (_status != Status.Confirmed)
         {
             throw new CannotStartNonConfirmedReservationException("Cannot start non confirmed reservation.");
         }
@@ -225,7 +225,7 @@ internal class Reservation: Aggregate
             throw new NotPaidReservationException("Cannot finish not paid reservation.");
         }
 
-        this._status = Status.Finished;
+        _status = Status.Finished;
     }
 
     public void Cancel()
@@ -279,22 +279,12 @@ internal class Reservation: Aggregate
 
     private static bool IsAmenitiesAvailableInHotel(List<Amenity> amenities, HotelConfig hotel)
     {
-        foreach (var amenity in amenities) {
-            var amenityFound = hotel.Amenities.Find(a => a == amenity.Id);
-            if (null == amenityFound) { return false; }
-        }
-
-        return true;
+        return amenities.Select(amenity => hotel.Amenities.Find(a => a == amenity.Id)).All(amenityFound => null != amenityFound);
     }
 
     private static bool IsNumberOfGuestCorrectToRoomType(int numberOfGuests, RoomTypeConfig roomTypeConfig)
     {
-        if (numberOfGuests > roomTypeConfig.MaxGuests)
-        {
-            return false;
-        }
-
-        return true;
+        return numberOfGuests <= roomTypeConfig.MaxGuests;
     }
 
     private bool IsActive()
@@ -304,17 +294,12 @@ internal class Reservation: Aggregate
 
     private bool IsAccepted()
     {
-        if (this._acceptedStatuses.Contains(_status))
-        {
-            return true;
-        }
-
-        return false;
+        return _acceptedStatuses.Contains(_status);
     }
 
     private bool IsAmenityExists(Amenity amenity)
     {
-        return this._amenities.Contains(amenity);
+        return _amenities.Contains(amenity);
     }
 
     private bool IsRoomTypHigherThanBefore(int roomType, HotelConfig hotelConfig)
@@ -324,12 +309,7 @@ internal class Reservation: Aggregate
 
         var currentRoomType = roomTypes.Find(r => r.RoomType == _roomType);
 
-        if (null == newRoomType || null == currentRoomType || newRoomType.Level < currentRoomType.Level)
-        {
-            return false;
-        }
-
-        return true;
+        return null != newRoomType && null != currentRoomType && newRoomType.Level >= currentRoomType.Level;
     } 
 
     private bool IsPaid()

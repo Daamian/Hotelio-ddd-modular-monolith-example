@@ -1,6 +1,4 @@
 using Hotelio.Modules.HotelManagement.Core.DAL;
-using Hotelio.Modules.HotelManagement.Core.DAL.Repository;
-using Hotelio.Modules.HotelManagement.Core.Service;
 using Hotelio.Shared.Tests;
 using Microsoft.EntityFrameworkCore;
 

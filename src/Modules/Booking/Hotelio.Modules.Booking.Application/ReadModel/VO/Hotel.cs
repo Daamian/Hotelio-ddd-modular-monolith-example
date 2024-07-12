@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Hotelio.Modules.Booking.Application.ReadModel.VO;
+﻿namespace Hotelio.Modules.Booking.Application.ReadModel.VO;
 
 internal record Hotel(string Id, string Name);
 

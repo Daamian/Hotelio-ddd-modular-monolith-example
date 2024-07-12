@@ -1,7 +1,4 @@
-﻿using System;
-using Hotelio.Shared.Queries;
-using Hotelio.Modules.Booking.Application.ReadModel;
-using Hotelio.Modules.Booking.Domain.Repository;
+﻿using Hotelio.Modules.Booking.Application.ReadModel;
 using MediatR;
 
 namespace Hotelio.Modules.Booking.Application.Query.Handler;

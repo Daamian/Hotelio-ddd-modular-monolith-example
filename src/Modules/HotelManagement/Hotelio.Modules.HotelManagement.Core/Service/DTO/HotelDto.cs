@@ -18,4 +18,4 @@ internal record HotelDto(int Id, string Name, List<int>? Amenities = null)
     {
         return HashCode.Combine(Id, Name, Amenities);
     }
-}; 
+} 

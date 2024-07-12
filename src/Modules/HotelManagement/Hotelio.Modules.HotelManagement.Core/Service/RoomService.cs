@@ -34,19 +34,12 @@ internal class RoomService: IRoomService
     {
         var room = await _roomRepository.FindAsync(id);
 
-        if (room is null) {
-            return null;
-        }
-
-        return _mapModel(room);
+        return room is null ? null : _mapModel(room);
     }
 
     private static Room MapDto(RoomDto roomDto, Room? room = null)
     {
-        if (room is null)
-        {
-            room = new Room();
-        }
+        room ??= new Room();
 
         room.Number = roomDto.Number;
         room.RoomTypeId = roomDto.Type;

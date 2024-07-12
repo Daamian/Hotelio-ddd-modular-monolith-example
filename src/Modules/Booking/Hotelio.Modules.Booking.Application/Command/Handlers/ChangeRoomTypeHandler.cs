@@ -1,15 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hotelio.Modules.Booking.Domain.Model;
-using Hotelio.Shared.Commands;
-
-namespace Hotelio.Modules.Booking.Application.Command.Handlers;
+﻿namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
 internal sealed class ChangeRoomTypeHandler
 {
     public async Task HandleAsync(ChangeRoomType command)
     {
-        // Logika obsługi komendy ChangeRoomType
-        await Task.CompletedTask;
+        throw new NotImplementedException();
     }
 }

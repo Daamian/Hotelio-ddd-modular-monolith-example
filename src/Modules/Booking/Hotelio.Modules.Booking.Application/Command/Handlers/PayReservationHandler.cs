@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hotelio.Modules.Booking.Domain.Model;
-using Hotelio.Modules.Booking.Domain.Repository;
-using Hotelio.Shared.Commands;
+﻿using Hotelio.Modules.Booking.Domain.Repository;
 using Hotelio.Shared.Exception;
 using MediatR;
 
@@ -10,16 +6,16 @@ namespace Hotelio.Modules.Booking.Application.Command.Handlers;
 
 internal sealed class PayReservationHandler: IRequestHandler<PayReservation>
 {
-    private IReservationRepository _reservationRepository;
+    private readonly IReservationRepository _reservationRepository;
 
-    public PayReservationHandler(IReservationRepository _reservationRepository)
+    public PayReservationHandler(IReservationRepository reservationRepository)
     {
-        this._reservationRepository = _reservationRepository;
+        _reservationRepository = reservationRepository;
     }
     
     public async Task Handle(PayReservation command, CancellationToken cancellationToken)
     {
-        var reservation = this._reservationRepository.Find(command.ReservationId);
+        var reservation = await _reservationRepository.FindAsync(command.ReservationId);
         
         if (null == reservation)
         {
@@ -27,6 +23,6 @@ internal sealed class PayReservationHandler: IRequestHandler<PayReservation>
         }
         
         reservation.Pay(command.Price);
-        await this._reservationRepository.UpdateAsync(reservation);
+        await _reservationRepository.UpdateAsync(reservation);
     }
 }

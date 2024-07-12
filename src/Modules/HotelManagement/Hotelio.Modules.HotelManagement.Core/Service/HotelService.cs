@@ -19,7 +19,7 @@ internal class HotelService: IHotelService
     
     public async Task<int> AddAsync(HotelDto dto)
     {
-        var hotel = new Hotel() { Name = dto.Name, Amenities = await _mapAmenities(dto.Amenities)};
+        var hotel = new Hotel { Name = dto.Name, Amenities = await _mapAmenities(dto.Amenities)};
         await _repository.AddAsync(hotel);
         return hotel.Id;
     }
@@ -42,11 +42,7 @@ internal class HotelService: IHotelService
     {
         var hotel = await _repository.FindAsync(id);
 
-        if (hotel is null) {
-            return null;
-        }
-
-        return new HotelDetailsDto(hotel.Id, hotel.Name, _mapAmenitiesDto(hotel.Amenities), _mapRooms(hotel.Rooms));
+        return hotel is null ? null : new HotelDetailsDto(hotel.Id, hotel.Name, _mapAmenitiesDto(hotel.Amenities), _mapRooms(hotel.Rooms));
     }
 
     private async Task<List<Amenity>> _mapAmenities(List<int>? amenitiesIds)
@@ -73,12 +69,12 @@ internal class HotelService: IHotelService
         return amenities;
     }
     
-    private List<AmenityDetailDto>? _mapAmenitiesDto(List<Amenity> amenities)
+    private static List<AmenityDetailDto>? _mapAmenitiesDto(List<Amenity> amenities)
     {
         return amenities.IsNullOrEmpty() ? null : amenities.Select(amenity => new AmenityDetailDto(amenity.Id, amenity.Name)).ToList();
     }
     
-    private List<RoomDetailsDto>? _mapRooms(List<Room> rooms)
+    private static List<RoomDetailsDto>? _mapRooms(List<Room> rooms)
     {
         return rooms.IsNullOrEmpty() ? null : rooms.Select(room => new RoomDetailsDto(
             room.Id, 

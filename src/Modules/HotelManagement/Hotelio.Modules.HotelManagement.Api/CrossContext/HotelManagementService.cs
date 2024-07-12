@@ -14,7 +14,7 @@ internal class HotelManagementService: IHotelManagement
 
     public async Task<Hotel> GetAsync(string id)
     {
-        var hotel = await _service.GetAsync(Int32.Parse(id));
+        var hotel = await _service.GetAsync(int.Parse(id));
 
         if (null == hotel)
         {

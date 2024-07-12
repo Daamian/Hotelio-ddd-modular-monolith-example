@@ -4,7 +4,6 @@ using Hotelio.Shared.Queries;
 using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Application.Query;
 using Hotelio.Modules.Booking.Application.Command;
-using MediatR;
 
 namespace Hotelio.Modules.Booking.Api.Controllers;
 
@@ -17,8 +16,8 @@ internal class ReservationController : ControllerBase
 
     public ReservationController(ICommandBus commandBus, IQueryBus queryBus)
     {
-        this._commandBus = commandBus;
-        this._queryBus = queryBus;
+        _commandBus = commandBus;
+        _queryBus = queryBus;
     }
 
     [HttpPost]
@@ -31,14 +30,14 @@ internal class ReservationController : ControllerBase
     [HttpPut("{id:guid}/pay/{key}")]
     public async Task<IActionResult> PayReservation(Guid id, string key, PayReservation command)
     {
-        await this._commandBus.DispatchAsync(command);
+        await _commandBus.DispatchAsync(command);
         return NoContent();
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<Reservation>> Get(Guid id)
     {
-        var reservation = await this._queryBus.QueryAsync(new GetReservation(id));
+        var reservation = await _queryBus.QueryAsync(new GetReservation(id));
 
         if (reservation is null) {
             return NotFound();

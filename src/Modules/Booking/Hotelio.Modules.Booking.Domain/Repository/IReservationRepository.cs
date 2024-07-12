@@ -8,7 +8,7 @@ internal interface IReservationRepository
     
     Reservation? Find(string id);
 
-    Task<Reservation?>? FindAsync(string id);
+    Task<Reservation?> FindAsync(string id);
 
     Task UpdateAsync(Reservation reservation);
 }
