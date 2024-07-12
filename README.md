@@ -1,1 +1,1 @@
-# Hotel reservation system with Clean architecture and DDD patterns
+# Hotel reservation system with clean architecture and DDD patterns
