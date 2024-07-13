@@ -50,3 +50,31 @@ The Preparation module is responsible for preparing rooms for guests. It manages
 ### Offering
 
 The Offering module is an additional module responsible for creating preliminary offers without making room reservations. It allows potential guests to receive detailed offers based on their preferences and requirements, including room configurations, pricing, and available amenities. This module helps in providing prospective guests with all the necessary information before they make a reservation decision.
+
+## Architecture and project structure
+
+```bash
+├── Bootstrapper
+├── CrossContext
+│   ├── Contract
+│   │   ├── Availability   
+│   │   ├── HotelManagement
+│   │   ├── Catalog
+├── Modules
+│   ├── Availability
+│   │   │   ├── Api
+│   │   │   ├── Application
+│   │   │   ├── Domain
+│   │   │   ├── Infrastructure
+│   ├── Booking
+│   │   │   ├── Api
+│   │   │   ├── Application
+│   │   │   ├── Domain
+│   │   │   ├── Infrastructure
+│   ├── Catalog
+│   │   │   ├── Api
+│   │   │   ├── Core
+│   ├── HotelManagement
+│   │   │   ├── Api
+│   │   │   ├── Core
+├── Shared
