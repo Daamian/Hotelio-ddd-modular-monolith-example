@@ -54,13 +54,13 @@ The Offering module is an additional module responsible for creating preliminary
 ## Architecture and project structure
 
 ```bash
-├── Bootstrapper
-├── CrossContext
+├── Bootstrapper  ## Running application
+├── CrossContext  ## Cross context communicatio and contract
 │   ├── Contract
 │   │   ├── Availability   
 │   │   ├── HotelManagement
 │   │   ├── Catalog
-├── Modules
+├── Modules  ## Modules implemenation
 │   ├── Availability
 │   │   │   ├── Api
 │   │   │   ├── Application
