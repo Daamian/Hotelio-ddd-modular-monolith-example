@@ -81,6 +81,6 @@ The Offering module is an additional module responsible for creating preliminary
 ```
 
 ## Implementation
-Implementation contains only part of the above assumptions because I wanted focus to show how implement modular monolit, divide apllication and communication between modules. I focused on modules: Availability, Booking, Catalog and HotelManagement to provide full process room reservation. Modules Availability and Booking due to its complexity have been implemented using clean architecture and DDD. Modules Catalog and HotelManagement is simplest modules that's why I decided implement it as CRUD.
+The implementation includes only part of the above assumptions because I wanted to focus on demonstrating how to implement a modular monolith, divide the application, and handle communication between modules. I concentrated on the Availability, Booking, Catalog, and Hotel Management modules to provide a complete room reservation process. Due to their complexity, the Availability and Booking modules have been implemented using Clean Architecture and Domain-Driven Design (DDD). The Catalog and Hotel Management modules are simpler, so I decided to implement them as CRUD modules.
 
 
