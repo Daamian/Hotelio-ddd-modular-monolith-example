@@ -5,12 +5,12 @@ namespace Hotelio.CrossContext.Contract;
 
 public static class Extensions
 {
-    public static IServiceCollection AddCrossContext(this IServiceCollection services)
+    public static IServiceCollection AddCrossContextContract(this IServiceCollection services)
     {
         return services;
     }
 
-    public static IApplicationBuilder UseCrossContext(this IApplicationBuilder app)
+    public static IApplicationBuilder UseCrossContextContract(this IApplicationBuilder app)
     {
         return app;
     }

@@ -1,5 +1,6 @@
 using Hotelio.Bootstrapper.AuthorizationFilter;
 using Hotelio.CrossContext.Contract;
+using Hotelio.CrossContext.Infrastructure;
 using Hotelio.Modules.HotelManagement.Api;
 using Hotelio.Modules.Availability.Api;
 using Hotelio.Modules.Booking.Api;
@@ -29,7 +30,7 @@ app.UseBookingModule();
 app.UseAvailability();
 app.UseHotelManagementModule();
 app.UseCatalogModule();
-app.UseCrossContext();
+app.UseCrossContextContract();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();

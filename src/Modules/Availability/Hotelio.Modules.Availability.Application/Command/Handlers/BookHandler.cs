@@ -21,8 +21,7 @@ internal sealed class BookHandler: IRequestHandler<Book>
         {
             throw new CommandFailedException($"Not find resource with id {command.ResourceId}");
         }
-
-        //TODO command failed exception ??
+        
         resource.Book(command.OwnerId, command.StarDate, command.EndDate); 
         await _repository.UpdateAsync(resource);
     }

@@ -9,6 +9,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Hotelio' " />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Hotelio.CrossContext.Infrastructure\Hotelio.CrossContext.Infrastructure.csproj" />
     <ProjectReference Include="..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
     <ProjectReference Include="..\..\Modules\Availability\Hotelio.Modules.Availability.Api\Hotelio.Modules.Availability.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Booking\Hotelio.Modules.Booking.Api\Hotelio.Modules.Booking.Api.csproj">

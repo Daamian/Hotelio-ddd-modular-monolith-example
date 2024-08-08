@@ -19,7 +19,7 @@ public static class Extensions
         services.AddScoped<IAvailability, AvailabilityService>();
         services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssemblyContaining<EventPublisher>();
+            cfg.RegisterServicesFromAssemblyContaining<EventMapper>();
         });
         
         services.AddAvailabilityApplication(configuration);

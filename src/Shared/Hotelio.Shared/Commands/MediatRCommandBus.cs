@@ -13,6 +13,6 @@ public class MediatRCommandBus: ICommandBus
     
     public async Task DispatchAsync<TCommand>(TCommand command) where TCommand : class, ICommand
     {
-        await this._mediator.Send(command);
+        await _mediator.Send(command);
     }
 }

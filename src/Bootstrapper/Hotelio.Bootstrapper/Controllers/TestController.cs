@@ -6,10 +6,11 @@ namespace Hotelio.Bootstrapper.Controllers;
 [Route("api/test")]
 public class ReservationController : ControllerBase
 {
+    
     [HttpGet]
-    public ActionResult<string> Get()
+    public async Task<ActionResult<string>> Get()
     {
-        return Ok("Hello test docker");
+        return Ok("OK");
     }
 }
 

@@ -78,6 +78,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{32E79D35-0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Catalog.Test.Integration", "src\Modules\Catalog\Test\Hotelio.Modules.Catalog.Test.Integration\Hotelio.Modules.Catalog.Test.Integration.csproj", "{41A4FC0B-E6E9-4BA8-9309-6876EBC893E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.CrossContext.Infrastructure", "Hotelio.CrossContext.Infrastructure\Hotelio.CrossContext.Infrastructure.csproj", "{37285569-151B-4A55-B8A4-F02CC744E2C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -176,6 +178,10 @@ Global
 		{41A4FC0B-E6E9-4BA8-9309-6876EBC893E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41A4FC0B-E6E9-4BA8-9309-6876EBC893E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41A4FC0B-E6E9-4BA8-9309-6876EBC893E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37285569-151B-4A55-B8A4-F02CC744E2C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37285569-151B-4A55-B8A4-F02CC744E2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37285569-151B-4A55-B8A4-F02CC744E2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37285569-151B-4A55-B8A4-F02CC744E2C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,6 +218,7 @@ Global
 		{082CF58A-35BD-4F3A-9ABA-40B3A5039554} = {E78DC71B-A0EC-4AF6-87EA-15DD722E19AF}
 		{32E79D35-0884-49FF-841C-A9EF0720AE74} = {E78DC71B-A0EC-4AF6-87EA-15DD722E19AF}
 		{41A4FC0B-E6E9-4BA8-9309-6876EBC893E9} = {32E79D35-0884-49FF-841C-A9EF0720AE74}
+		{37285569-151B-4A55-B8A4-F02CC744E2C0} = {BB2E43C9-657B-405A-AB12-F8608C90378E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55A9D6BB-3787-4879-8A51-13F25C1151DD}

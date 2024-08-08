@@ -24,7 +24,7 @@ public class Startup
         services.AddAvailability(_configuration);
         services.AddHotelManagementModule(_configuration);
         services.AddCatalogModule(_configuration);
-        services.AddCrossContext();
+        services.AddCrossContextContract();
         services.AddSharedFramework(_configuration);
 
         services.AddControllersWithViews(options =>
@@ -40,7 +40,7 @@ public class Startup
         app.UseAvailability();
         app.UseHotelManagementModule();
         app.UseCatalogModule();
-        app.UseCrossContext();
+        app.UseCrossContextContract();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();

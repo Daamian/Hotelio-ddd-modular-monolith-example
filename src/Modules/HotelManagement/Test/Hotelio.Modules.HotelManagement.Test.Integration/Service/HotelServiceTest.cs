@@ -1,3 +1,4 @@
+using Hotelio.CrossContext.Contract.Shared.Message;
 using Hotelio.Modules.HotelManagement.Core.DAL;
 using Hotelio.Modules.HotelManagement.Core.DAL.Repository;
 using Hotelio.Modules.HotelManagement.Core.Model;
@@ -16,7 +17,7 @@ public class HotelServiceTest
 {
     private readonly HotelService _hotelService;
     private readonly HotelDbContext _dbContext;
-    private readonly Mock<IEventBus> _eventBusMock;
+    private readonly Mock<IMessageDispatcher> _eventBusMock;
     private readonly IAmenityRepository _amenityRepository;
     private readonly IAmenityService _amenityService;
 
@@ -25,7 +26,7 @@ public class HotelServiceTest
         var optionBuilder = new DbContextOptionsBuilder<HotelDbContext>()
             .UseSqlServer(ConfigHelper.GetSqlServerConfig().ConnectionString);
         _dbContext = new HotelDbContext(optionBuilder.Options);
-        _eventBusMock = new Mock<IEventBus>();
+        _eventBusMock = new Mock<IMessageDispatcher>();
         var repository = new HotelRepository(_dbContext, _eventBusMock.Object);
         _amenityRepository = new AmenityRepository(_dbContext);
         _amenityService = new AmenityService(_amenityRepository);
