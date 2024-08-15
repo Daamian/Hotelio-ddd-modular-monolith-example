@@ -115,4 +115,7 @@ internal class ReservationProcessManager:
     {
         await _commandBus.DispatchAsync(new RejectReservation(e.OwnerId));
     }
+    
+    //Saga { "id" : "uuid", "status" : "reservationCreated" }
+    //Saga { "id" : "uuid", "status" : "resourceBooked" }
 }

@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -9,12 +10,18 @@ internal class BackgroundServiceChannel: BackgroundService
     private readonly IMessageChannel _messageChannel;
     private readonly ILogger<BackgroundServiceChannel> _logger;
     private readonly IMediator _mediator;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public BackgroundServiceChannel(IMessageChannel messageChannel, ILogger<BackgroundServiceChannel> logger, IMediator mediator)
-    {
+    public BackgroundServiceChannel(
+        IMessageChannel messageChannel, 
+        ILogger<BackgroundServiceChannel> logger, 
+        IMediator mediator,
+        IServiceScopeFactory serviceScopeFactory
+        ) {
         _messageChannel = messageChannel;
         _logger = logger;
         _mediator = mediator;
+        _serviceScopeFactory = serviceScopeFactory;
     }
     
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -26,7 +33,11 @@ internal class BackgroundServiceChannel: BackgroundService
             try
             {
                 _logger.LogInformation($"Publish message { message }");
-                await _mediator.Publish(message, stoppingToken);
+                using (var scope = _serviceScopeFactory.CreateScope())
+                {
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                    await mediator.Publish(message, stoppingToken);
+                }
             }
             catch (Exception exception)
             {
