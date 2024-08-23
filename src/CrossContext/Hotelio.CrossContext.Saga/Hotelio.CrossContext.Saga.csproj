@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
-      <ProjectReference Include="..\src\CrossContext\Hotelio.CrossContext.Saga\Hotelio.CrossContext.Saga.csproj" />
+      <ProjectReference Include="..\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
     </ItemGroup>
 
 </Project>

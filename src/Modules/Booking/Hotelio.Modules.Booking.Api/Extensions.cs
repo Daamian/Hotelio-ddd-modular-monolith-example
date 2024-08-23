@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 
 using System.Runtime.CompilerServices;
+using Hotelio.CrossContext.Contract.Booking;
+using Hotelio.Modules.Booking.Api.CrossContext;
 using Hotelio.Modules.Booking.Application;
 using Hotelio.Modules.Booking.Domain;
 using Hotelio.Modules.Booking.Infrastructure;
@@ -15,6 +17,11 @@ public static class Extensions
 {
     public static IServiceCollection AddBookingModule(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining<EventMapper>();
+        });
+        services.AddScoped<IBooking, BookingService>();
         services.AddBookingApplication(configuration);
         services.AddBookingDomain(configuration);
         services.AddBookingInfrastructure(configuration);

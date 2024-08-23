@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: InternalsVisibleTo("Hotelio.Modules.Booking.Application")]
+[assembly: InternalsVisibleTo("Hotelio.Modules.Booking.Api")]
 [assembly: InternalsVisibleTo("Hotelio.Modules.Booking.Infrastructure")]
 namespace Hotelio.Modules.Booking.Domain;
 

@@ -1,7 +1,6 @@
 ﻿using Hotelio.Modules.Booking.Application.Command.Handlers;
 using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Application.ReadModel.Projector;
-using Hotelio.Modules.Booking.Application.Saga;
 using Hotelio.Modules.Booking.Domain.Repository;
 using Hotelio.Modules.Booking.Infrastructure.DAL;
 using Hotelio.Modules.Booking.Infrastructure.ReadModel;
@@ -29,7 +28,6 @@ public static class Extensions
             cfg.RegisterServicesFromAssemblyContaining<CreateReservationHandler>();
             cfg.RegisterServicesFromAssemblyContaining<ConfirmReservationHandler>();
             cfg.RegisterServicesFromAssemblyContaining<PayReservationHandler>();
-            cfg.RegisterServicesFromAssemblyContaining<ReservationProcessManager>();
             cfg.RegisterServicesFromAssemblyContaining<ReservationReadModelProjector>();
         });
         
