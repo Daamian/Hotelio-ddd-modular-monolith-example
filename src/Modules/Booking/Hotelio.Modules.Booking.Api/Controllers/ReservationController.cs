@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hotelio.CrossContext.Contract.Booking.Event;
+using Hotelio.CrossContext.Contract.Shared.Message;
+using Microsoft.AspNetCore.Mvc;
 using Hotelio.Shared.Commands;
 using Hotelio.Shared.Queries;
 using Hotelio.Modules.Booking.Application.ReadModel;
 using Hotelio.Modules.Booking.Application.Query;
 using Hotelio.Modules.Booking.Application.Command;
+using MassTransit;
 
 namespace Hotelio.Modules.Booking.Api.Controllers;
 
@@ -23,7 +26,7 @@ internal class ReservationController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateReservation(CreateReservation command)
     {
-        await this._commandBus.DispatchAsync(command);
+        await _commandBus.DispatchAsync(command);
         return NoContent();
     }
 

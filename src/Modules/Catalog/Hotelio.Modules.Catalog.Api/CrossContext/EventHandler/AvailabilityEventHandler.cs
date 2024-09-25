@@ -1,11 +1,12 @@
 using Hotelio.CrossContext.Contract.Availability.Event;
 using Hotelio.Modules.Catalog.Core.Model;
 using Hotelio.Modules.Catalog.Core.Repository;
+using MassTransit;
 using MediatR;
 
 namespace Hotelio.Modules.Catalog.Api.CrossContext.EventHandler;
 
-internal class AvailabilityEventHandler: INotificationHandler<ResourceBooked>
+internal class AvailabilityEventHandler: IConsumer<ResourceBooked>
 {
     private readonly IHotelRepository _repository;
 
@@ -14,8 +15,14 @@ internal class AvailabilityEventHandler: INotificationHandler<ResourceBooked>
         _repository = repository;
     }
     
-    public async Task Handle(ResourceBooked contractEvent, CancellationToken cancellationToken)
+    public async Task HandleUnBook()
     {
+        //TODO implement event and remove reservation
+    }
+
+    public async Task Consume(ConsumeContext<ResourceBooked> context)
+    {
+        var contractEvent = context.Message;
         var hotel = await _repository.FindByRoomAsync(contractEvent.ResourceId);
         var room = hotel.Rooms.Find(r => r.Id == contractEvent.ResourceId);
 
@@ -31,10 +38,5 @@ internal class AvailabilityEventHandler: INotificationHandler<ResourceBooked>
         });
 
         await _repository.UpdateAsync(hotel);
-    }
-    
-    public async Task HandleUnBook()
-    {
-        //TODO implement event and remove reservation
     }
 }

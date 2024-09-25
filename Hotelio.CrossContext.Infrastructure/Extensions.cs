@@ -11,11 +11,11 @@ public static class Extensions
 {
     public static IServiceCollection AddCrossContext(this IServiceCollection services)
     {
+        services.AddScoped<IMessageDispatcher, MassTransitMessageDispatcher>();
         services.AddCrossContextContract();
         services.AddCrossContextSaga();
-        services.AddSingleton<IMessageDispatcher, MessageDispatcher>();
-        services.AddSingleton<IMessageChannel, MessageChannel>();
-        services.AddHostedService<BackgroundServiceChannel>();
+        //services.AddSingleton<IMessageChannel, MessageChannel>();
+        //services.AddHostedService<BackgroundServiceChannel>();
         
         return services;
     }

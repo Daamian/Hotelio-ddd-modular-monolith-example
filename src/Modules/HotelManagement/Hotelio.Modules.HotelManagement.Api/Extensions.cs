@@ -1,6 +1,7 @@
 using Hotelio.CrossContext.Contract.HotelManagement;
 using Hotelio.Modules.HotelManagement.Api.CrossContext;
 using Hotelio.Modules.HotelManagement.Core;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -13,9 +14,9 @@ public static class Extensions
     {
         services.AddScoped<IHotelManagement, HotelManagementService>();
         services.AddHotelManagementCore(configuration);
-        services.AddMediatR(cfg =>
+        services.AddMassTransit(x =>
         {
-            cfg.RegisterServicesFromAssemblyContaining<RoomEventHandler>();
+            x.AddConsumer<RoomEventHandler>();
         });
         
         return services;

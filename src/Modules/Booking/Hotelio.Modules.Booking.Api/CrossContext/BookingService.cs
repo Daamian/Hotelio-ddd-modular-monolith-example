@@ -11,13 +11,13 @@ internal class BookingService : IBooking
 {
     private readonly ICommandBus _commandBus;
     private readonly IReservationRepository _repository;
-    
+
     public BookingService(ICommandBus commandBus, IReservationRepository repository)
     {
         _commandBus = commandBus;
         _repository = repository;
     }
-    
+
     public async Task<Reservation?> GetAsync(string id)
     {
         var reservation = await _repository.FindAsync(id);
@@ -26,19 +26,19 @@ internal class BookingService : IBooking
         {
             return null;
         }
-        
+
 
         var snap = reservation.Snap();
         var status = snap.Status;
 
         return new Reservation(
-            snap.Id, 
-            snap.HotelId, 
-            snap.RoomType.ToString(), 
-            snap.StartDate, 
-            snap.EndDate, 
-            status == (int)PaymentType.PostPaid, 
-            status == (int)PaymentType.InAdvance, 
+            snap.Id,
+            snap.HotelId,
+            snap.RoomType.ToString(),
+            snap.StartDate,
+            snap.EndDate,
+            status == (int)PaymentType.PostPaid,
+            status == (int)PaymentType.InAdvance,
             snap.RoomId);
     }
 

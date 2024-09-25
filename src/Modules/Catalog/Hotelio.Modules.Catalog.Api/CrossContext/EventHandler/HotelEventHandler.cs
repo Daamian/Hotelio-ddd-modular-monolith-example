@@ -1,27 +1,30 @@
 using Hotelio.CrossContext.Contract.HotelManagement.Event;
 using Hotelio.Modules.Catalog.Core.Model;
 using Hotelio.Modules.Catalog.Core.Repository;
+using MassTransit;
 using MediatR;
 
 namespace Hotelio.Modules.Catalog.Api.CrossContext.EventHandler;
 
-internal class HotelEventHandler: INotificationHandler<HotelCreated>, INotificationHandler<HotelUpdated>
+internal class HotelEventHandler: IConsumer<HotelCreated>, IConsumer<HotelUpdated>
 {
     private readonly IHotelRepository _repository;
 
     public HotelEventHandler(IHotelRepository repository) => _repository = repository;
-    
-    public async Task Handle(HotelCreated contractEvent, CancellationToken cancellationToken)
+
+    public async Task Consume(ConsumeContext<HotelCreated> context)
     {
+        var contractEvent = context.Message;
         await _repository.AddAsync(new Hotel
         {
             Id = contractEvent.Id,
             Name = contractEvent.Name
         });
     }
-    
-    public async Task Handle(HotelUpdated contractEvent, CancellationToken cancellationToken)
+
+    public async Task Consume(ConsumeContext<HotelUpdated> context)
     {
+        var contractEvent = context.Message;
         var hotel = await _repository.FindAsync(contractEvent.Id);
 
         if (null == hotel)

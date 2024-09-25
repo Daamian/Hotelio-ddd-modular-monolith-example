@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using System.Runtime.CompilerServices;
 using Hotelio.CrossContext.Contract.Booking;
+using Hotelio.CrossContext.Contract.Shared.Message;
+using Hotelio.Modules.Booking.Api.Controllers;
 using Hotelio.Modules.Booking.Api.CrossContext;
 using Hotelio.Modules.Booking.Application;
 using Hotelio.Modules.Booking.Domain;

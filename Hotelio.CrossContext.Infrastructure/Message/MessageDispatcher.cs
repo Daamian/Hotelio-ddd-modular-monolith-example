@@ -11,8 +11,8 @@ internal class MessageDispatcher : IMessageDispatcher
         _messageChannel = messageChannel;
     }
     
-    public async Task DispatchAsync(IMessage message)
+    public async Task DispatchAsync(object message)
     {
-        await _messageChannel.Writer.WriteAsync(message);
+        //await _messageChannel.Writer.WriteAsync(message);
     }
 }
