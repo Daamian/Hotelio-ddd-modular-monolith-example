@@ -35,11 +35,14 @@ public class ReservationProcessTest
 
         var hotelId = await _createHotel(client, "Hilton", new List<int>() { amenityBBId, amenityHBId });
         
+        await Task.Delay(250);
+        
         var room1 = await _createRoom(client, hotelId, 100, roomTypeBasicId);
+        await Task.Delay(250);
         var room2 = await _createRoom(client, hotelId, 101, roomTypeSuperiorId);
+        await Task.Delay(250);
         var room3 = await _createRoom(client, hotelId, 102, roomTypeBasicId);
-
-        await Task.Delay(1000);
+        await Task.Delay(250);
 
         //Step 1: Create reservation
         var reservation = new
@@ -62,7 +65,7 @@ public class ReservationProcessTest
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         
         //Step 2: Get created reservation and check response
-        await Task.Delay(1000);
+        await Task.Delay(250);
         var responseGet = await client.GetAsync($"/api/reservation/{reservation.Id.ToString()}");
         var expected = new
         {
