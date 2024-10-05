@@ -47,7 +47,7 @@ public class ReservationProcessTest
             HotelId = hotelId.ToString(),
             OwnerId = "Owner-1",
             Amenities = new[] { amenityHBId.ToString() },
-            RoomType = roomTypeBasicId,
+            RoomType = roomTypeSuperiorId,
             PriceToPay = 100.0,
             PaymentType = 1,
             NumberOfGuests = 2,
@@ -68,7 +68,7 @@ public class ReservationProcessTest
             id = reservation.Id,
             hotel = new { id = hotelId.ToString(), name = "Hilton" },
             owner = new { id = "Owner-1", name = "Damian", surname = "Kusek" },
-            roomType = new { id = roomTypeBasicId, name = "Basic" },
+            roomType = new { id = roomTypeSuperiorId, name = "Superior" },
             numberOfGuests = 2,
             status = "Confirmed",
             priceToPay = 100,
@@ -77,7 +77,7 @@ public class ReservationProcessTest
             startDate = "2024-01-01T00:00:00Z", //TODO jak przechowywać datę w bazie mongo ????
             endDate = "2024-01-19T00:00:00Z",
             amenities = new[] { new { id = amenityHBId.ToString(), name = "HB" } },
-            roomId = room1.ToString()
+            roomId = room2.ToString()
         };
 
         var responseGET = await responseGet.Content.ReadAsStringAsync();

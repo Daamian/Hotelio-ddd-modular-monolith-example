@@ -66,7 +66,6 @@ public class ReservationStateMachine : MassTransitStateMachine<ReservationState>
 
     private void MarkAsComplete(ReservationState instance)
     {
-        instance.ReservationId = null;
         instance.RoomId = null;
     }
 }

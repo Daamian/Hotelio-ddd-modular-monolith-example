@@ -14,7 +14,7 @@ builder.Services
     .AddAvailability(builder.Configuration)
     .AddHotelManagementModule(builder.Configuration)
     .AddCatalogModule(builder.Configuration)
-    .AddCrossContext()
+    .AddCrossContext(builder.Configuration)
     .AddSharedFramework(builder.Configuration);
 
 
