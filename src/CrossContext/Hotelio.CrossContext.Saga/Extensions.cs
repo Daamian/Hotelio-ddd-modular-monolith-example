@@ -27,7 +27,10 @@ public static class Extensions
             x.UsingInMemory((context, cfg) =>
             {
                 cfg.ConfigureEndpoints(context);
+                cfg.ReceiveEndpoint();
+                
             });
+            
         });
         
         services.AddLogging(logging =>

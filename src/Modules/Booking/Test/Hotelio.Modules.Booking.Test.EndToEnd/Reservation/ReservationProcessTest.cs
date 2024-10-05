@@ -34,13 +34,9 @@ public class ReservationProcessTest
         var amenityHBId = await _createAmenity(client, "HB");
 
         var hotelId = await _createHotel(client, "Hilton", new List<int>() { amenityBBId, amenityHBId });
-        
         await Task.Delay(250);
-        
         var room1 = await _createRoom(client, hotelId, 100, roomTypeBasicId);
-        await Task.Delay(250);
         var room2 = await _createRoom(client, hotelId, 101, roomTypeSuperiorId);
-        await Task.Delay(250);
         var room3 = await _createRoom(client, hotelId, 102, roomTypeBasicId);
         await Task.Delay(250);
 

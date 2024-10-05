@@ -17,9 +17,18 @@ public static class Extensions
         services.AddCatalogCore(configuration);
         services.AddMassTransit(x =>
         {
-            x.AddConsumer<HotelEventHandler>();
-            x.AddConsumer<RoomEventHandler>();
-            x.AddConsumer<AvailabilityEventHandler>();
+            x.AddConsumer<HotelEventHandler>(config =>
+            {
+                config.UseConcurrencyLimit(1);
+            });
+            x.AddConsumer<RoomEventHandler>(config =>
+            {
+                config.UseConcurrencyLimit(1);
+            });
+            x.AddConsumer<AvailabilityEventHandler>(config =>
+            {
+                config.UseConcurrencyLimit(1);
+            });
         });
         
         return services;
