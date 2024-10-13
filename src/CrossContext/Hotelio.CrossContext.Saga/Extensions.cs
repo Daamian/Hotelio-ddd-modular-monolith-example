@@ -21,9 +21,6 @@ public static class Extensions
         services.AddScoped<BookResourceOnReservationCreatedActivity>();
         services.AddMassTransit(x =>
         {
-            /*x.AddSagaStateMachine<ReservationStateMachine, ReservationState>()
-                .InMemoryRepository();*/
-            
             x.AddSagaStateMachine<ReservationStateMachine, ReservationState>()
                 .EntityFrameworkRepository(r =>
                 {

@@ -15,8 +15,6 @@ public static class Extensions
         services.AddScoped<IMessageDispatcher, MassTransitMessageDispatcher>();
         services.AddCrossContextContract();
         services.AddCrossContextSaga(configuration);
-        //services.AddSingleton<IMessageChannel, MessageChannel>();
-        //services.AddHostedService<BackgroundServiceChannel>();
         
         return services;
     }
