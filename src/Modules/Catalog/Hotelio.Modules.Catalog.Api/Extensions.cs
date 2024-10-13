@@ -2,6 +2,7 @@ using Hotelio.CrossContext.Contract.Catalog;
 using Hotelio.Modules.Catalog.Api.CrossContext.EventHandler;
 using Hotelio.Modules.Catalog.Api.CrossContext.Service;
 using Hotelio.Modules.Catalog.Core;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,11 +15,20 @@ public static class Extensions
     {
         services.AddScoped<ICatalogSearcher, CatalogSearcher>();
         services.AddCatalogCore(configuration);
-        services.AddMediatR(cfg =>
+        services.AddMassTransit(x =>
         {
-            cfg.RegisterServicesFromAssemblyContaining<HotelEventHandler>();
-            cfg.RegisterServicesFromAssemblyContaining<RoomEventHandler>();
-            cfg.RegisterServicesFromAssemblyContaining<AvailabilityEventHandler>();
+            x.AddConsumer<HotelEventHandler>(config =>
+            {
+                config.UseConcurrencyLimit(1);
+            });
+            x.AddConsumer<RoomEventHandler>(config =>
+            {
+                config.UseConcurrencyLimit(1);
+            });
+            x.AddConsumer<AvailabilityEventHandler>(config =>
+            {
+                config.UseConcurrencyLimit(1);
+            });
         });
         
         return services;

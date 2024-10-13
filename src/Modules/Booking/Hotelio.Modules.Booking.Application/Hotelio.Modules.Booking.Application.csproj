@@ -25,6 +25,7 @@
     <Folder Include="Exception\" />
     <Folder Include="Query\" />
     <Folder Include="Query\Handler\" />
+    <Folder Include="Saga\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />

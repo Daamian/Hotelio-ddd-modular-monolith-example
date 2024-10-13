@@ -10,9 +10,6 @@
     <None Remove="Controllers\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Hotelio.Shared\Hotelio.Shared.csproj" />
     <ProjectReference Include="..\Hotelio.Modules.Booking.Infrastructure\Hotelio.Modules.Booking.Infrastructure.csproj" />
   </ItemGroup>
