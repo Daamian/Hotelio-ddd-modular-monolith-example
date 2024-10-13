@@ -78,7 +78,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{32E79D35-0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.Modules.Catalog.Test.Integration", "src\Modules\Catalog\Test\Hotelio.Modules.Catalog.Test.Integration\Hotelio.Modules.Catalog.Test.Integration.csproj", "{41A4FC0B-E6E9-4BA8-9309-6876EBC893E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.CrossContext.Infrastructure", "Hotelio.CrossContext.Infrastructure\Hotelio.CrossContext.Infrastructure.csproj", "{37285569-151B-4A55-B8A4-F02CC744E2C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.CrossContext.Infrastructure", "src\CrossContext\Hotelio.CrossContext.Infrastructure\Hotelio.CrossContext.Infrastructure.csproj", "{37285569-151B-4A55-B8A4-F02CC744E2C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelio.CrossContext.Saga", "src\CrossContext\Hotelio.CrossContext.Saga\Hotelio.CrossContext.Saga.csproj", "{BE4C0FC0-796B-46CB-A696-3B1B6C4D338B}"
 EndProject
