@@ -26,20 +26,18 @@ internal class BookingService : IBooking
         {
             return null;
         }
-
-
-        var snap = reservation.Snap();
-        var status = snap.Status;
+        
+        var paymentType = reservation.PaymentType;
 
         return new Reservation(
-            snap.Id,
-            snap.HotelId,
-            snap.RoomType.ToString(),
-            snap.StartDate,
-            snap.EndDate,
-            status == (int)PaymentType.PostPaid,
-            status == (int)PaymentType.InAdvance,
-            snap.RoomId);
+            reservation.Id,
+            reservation.HotelId,
+            reservation.RoomType.ToString(),
+            reservation.DateRange.StartDate,
+            reservation.DateRange.EndDate,
+            paymentType == PaymentType.PostPaid,
+            paymentType == PaymentType.InAdvance,
+            reservation.RoomId);
     }
 
     public async Task RejectReservation(string id)

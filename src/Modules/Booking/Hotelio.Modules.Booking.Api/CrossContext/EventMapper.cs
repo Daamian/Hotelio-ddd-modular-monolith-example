@@ -30,10 +30,8 @@ internal class EventMapper : INotificationHandler<ReservationCreated>, INotifica
             return;
         }
 
-        var snap = reservation.Snap();
-
         await _messageDispatcher.DispatchAsync(new ReservationCreatedContext(domainEvent.Id,
-            (int)PaymentType.PostPaid == snap.PaymentType));
+            PaymentType.PostPaid == reservation.PaymentType));
     }
 
     public async Task Handle(ReservationCanceled domainEvent, CancellationToken cancellationToken)
@@ -50,9 +48,7 @@ internal class EventMapper : INotificationHandler<ReservationCreated>, INotifica
             return;
         }
 
-        var snap = reservation.Snap();
-
         await _messageDispatcher.DispatchAsync(new ReservationPayedContext(domainEvent.Id,
-            (int)PaymentType.InAdvance == snap.PaymentType));
+            (int)PaymentType.InAdvance == reservation.PaymentType));
     }
 }

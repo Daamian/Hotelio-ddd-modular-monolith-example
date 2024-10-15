@@ -13,12 +13,11 @@ public class ResourceTest
 
         // Act
         Resource resource = Resource.Create(resourceId, Guid.NewGuid().ToString());
-        var snapshot = resource.Snapshot();
 
         // Assert
         Assert.NotNull(resource);
-        Assert.Equal(resourceId, snapshot["Id"]);
-        Assert.True((bool) snapshot["IsActive"]);
+        Assert.Equal(resourceId, resource.Id);
+        Assert.True(resource.IsActive);
         Assert.Empty(resource.Books);
     }
 
@@ -35,7 +34,6 @@ public class ResourceTest
         resource.Book(ownerId, startDate, endDate);
 
         // Assert
-        var snapshot = resource.Snapshot();
         Assert.Single(resource.Books);
     }
 
@@ -71,7 +69,6 @@ public class ResourceTest
         resource.UnBook(bookId);
 
         // Assert
-        var snapshot = resource.Snapshot();
         Assert.Empty(resource.Books);
     }
 

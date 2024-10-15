@@ -13,55 +13,59 @@ internal class ReservationEntityConfiguration: IEntityTypeConfiguration<Reservat
 {
     public void Configure(EntityTypeBuilder<Reservation> builder)
     {
-        builder.HasKey("_id");
+        builder.HasKey(r => r.Id);
+        builder.Property(r => r.Id).HasColumnName("_id");
         builder.Ignore(r => r.Events);
+        builder.Ignore(r => r.Amenities);
+        //builder.HasKey("_id");
+        //builder.Ignore(r => r.Events);
         builder
-            .Property<string>("_hotelId")
+            .Property<string>("HotelId")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("hotel_id")
             .IsRequired(true);
         builder
-            .Property<string>("_ownerId")
+            .Property<string>("OwnerId")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("owner_id")
             .IsRequired(true);
         builder
-            .Property<int>("_roomType")
+            .Property<int>("RoomType")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("room_type")
             .IsRequired(true);
         builder
-            .Property<string?>("_roomId")
+            .Property<string?>("RoomId")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("room_id")
             .IsRequired(false);
         builder
-            .Property<int>("_numberOfGuests")
+            .Property<int>("NumberOfGuests")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("number_of_guests")
             .IsRequired(true);
         builder
-            .Property<Status>("_status")
+            .Property<Status>("Status")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("status")
             .IsRequired(true);
         builder
-            .Property<double>("_priceToPay")
+            .Property<double>("PriceToPay")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("price_to_pay")
             .IsRequired(true);
         builder
-            .Property<double>("_pricePayed")
+            .Property<double>("PricePayed")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("price_payed")
             .IsRequired(true);
         builder
-            .Property<PaymentType>("_paymentType")
+            .Property<PaymentType>("PaymentType")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("payment_type")
             .IsRequired(true);
         
-        builder.OwnsOne<DateRange>("_dateRange", y =>
+        builder.OwnsOne<DateRange>("DateRange", y =>
         {
             y.Property(p => p.StartDate).HasColumnName("start_date");
             y.Property(p => p.EndDate).HasColumnName("end_date");

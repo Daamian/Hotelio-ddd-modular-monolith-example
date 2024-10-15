@@ -72,14 +72,4 @@ internal class Resource: Aggregate
 
         return booksInDateRange.Any();
     }
-    
-    public IDictionary<string, object> Snapshot()
-    {
-        return new Dictionary<string, object>
-        {
-            { "Id", Id },
-            { "IsActive", IsActive },
-            { "Books", _books }
-        };
-    }
 }
