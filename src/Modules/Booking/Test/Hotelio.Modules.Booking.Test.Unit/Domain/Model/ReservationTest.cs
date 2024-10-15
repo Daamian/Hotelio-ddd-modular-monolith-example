@@ -25,27 +25,21 @@ public class ReservationTest
         var amenities = new List<Amenity>();
         var hotelConfig = new HotelConfig("hotel-1", new List<string>(), new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
-        //Expected
-        var expected = new Dictionary<string, object>
-        {
-            { "Id", id },
-            { "HotelId", "hotel-1" },
-            { "OwnerId", "Owner-1"},
-            { "RoomType", roomType },
-            { "NumberOfGuests", numberOfGuests },
-            { "Status", status },
-            { "PriceToPay", priceToPay },
-            { "PricePayed", pricePayed },
-            { "PaymentType", paymentType },
-            { "DateRange", dateRange },
-            { "Amenities", amenities },
-        };
-
         //When
         var reservation = Reservation.Create(id, hotelConfig, owner, roomType, numberOfGuests, priceToPay, paymentType, dateRange, amenities);
 
         //Then
-        Assert.Equal(expected, reservation.Snapshot());
+        Assert.Equal(id, reservation.Id);
+        Assert.Equal("hotel-1", reservation.HotelId);
+        Assert.Equal("Owner-1", reservation.OwnerId);
+        Assert.Equal(roomType, reservation.RoomType);
+        Assert.Equal(numberOfGuests, reservation.NumberOfGuests);
+        Assert.Equal(status, reservation.Status);
+        Assert.Equal(priceToPay, reservation.PriceToPay);
+        Assert.Equal(pricePayed, pricePayed);
+        Assert.Equal(paymentType, reservation.PaymentType);
+        Assert.Equal(dateRange, reservation.DateRange);
+        Assert.Equal(amenities, reservation.Amenities);
     }
 
     [Fact]
@@ -114,15 +108,11 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
 
-        //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["Status"] = Status.Confirmed;
-
         //When
         reservation.Confirm("roomId");
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(Status.Confirmed, reservation.Status);
     }
 
     [Fact]
@@ -178,15 +168,11 @@ public class ReservationTest
         var reservation = this.CreteReservation();
         double price = 100.0;
 
-        //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["PricePayed"] = 100.0;
-
         //When
         reservation.Pay(price);
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(price, reservation.PricePayed);
     }
 
     [Fact]
@@ -236,16 +222,15 @@ public class ReservationTest
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1"}, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1) });
 
         //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["Amenities"] = new List<Amenity> { amenity };
-        snapshotExpected["Status"] = Status.Confirmed;
+        var amenities = new List<Amenity> { amenity };
 
         //When
         reservation.Confirm("roomId");
         reservation.AddAmenity(amenity, hotelConfig);
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(amenities, reservation.Amenities);
+        Assert.Equal(Status.Confirmed, reservation.Status);
     }
 
     [Fact]
@@ -324,17 +309,13 @@ public class ReservationTest
         var reservation = this.CreteReservation();
         var hotelConfig = new HotelConfig("hotel-1", new List<string> { "amenity-test-1" }, new List<RoomTypeConfig> { new RoomTypeConfig(1, 2, 1), new RoomTypeConfig(2, 2, 2) });
 
-        //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["RoomType"] = 2;
-        snapshotExpected["Status"] = Status.Confirmed;
-
         //When
         reservation.Confirm("roomId");
         reservation.ChangeRoomType(2, hotelConfig);
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(2, reservation.RoomType);
+        Assert.Equal(Status.Confirmed, reservation.Status);
     }
 
     [Fact]
@@ -406,17 +387,13 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
 
-        //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["NumberOfGuests"] = 3;
-        snapshotExpected["Status"] = Status.Confirmed;
-
         //When
         reservation.Confirm("roomId");
         reservation.ChangeNumberOfGuests(3, new RoomTypeConfig(1, 3, 1));
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(3, reservation.NumberOfGuests);
+        Assert.Equal(Status.Confirmed, reservation.Status);
     }
 
     [Fact]
@@ -486,17 +463,13 @@ public class ReservationTest
         DateTime futureDate = DateTime.Now.AddDays(8);
         var dateRange = new DateRange(currentDate, futureDate);
 
-        //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["DateRange"] = dateRange;
-        snapshotExpected["Status"] = Status.Confirmed;
-
         //When
         reservation.Confirm("roomId");
         reservation.Extend(dateRange);
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(dateRange, reservation.DateRange);
+        Assert.Equal(Status.Confirmed, reservation.Status);
     }
 
     [Fact]
@@ -564,16 +537,12 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
 
-        //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["Status"] = Status.Started;
-
         //When
         reservation.Confirm("roomId");
         reservation.Start();
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(Status.Started, reservation.Status);
     }
 
     [Fact]
@@ -604,11 +573,6 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
 
-        //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["PricePayed"] = 100.0;
-        snapshotExpected["Status"] = Status.Finished;
-
         //When
         reservation.Confirm("roomId");
         reservation.Pay(100.0);
@@ -616,7 +580,8 @@ public class ReservationTest
         reservation.Finish();
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(100.0, reservation.PricePayed);
+        Assert.Equal(Status.Finished, reservation.Status);
     }
 
     [Fact]
@@ -647,15 +612,11 @@ public class ReservationTest
         //Given
         var reservation = this.CreteReservation();
 
-        //Expected
-        var snapshotExpected = reservation.Snapshot();
-        snapshotExpected["Status"] = Status.Canceled;
-
         //When
         reservation.Cancel();
 
         //Then
-        Assert.Equal(snapshotExpected, reservation.Snapshot());
+        Assert.Equal(Status.Canceled, reservation.Status);
     }
 
     [Fact]

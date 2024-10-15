@@ -42,12 +42,11 @@ internal class ReservationReadModelProjector: INotificationHandler<ReservationCr
         {
             return;
         }
+        
+        var hotel = await _hotelManagement.GetAsync(reservation.HotelId);
 
-        var snapshot = reservation.Snap();
-        var hotel = await _hotelManagement.GetAsync(snapshot.HotelId);
-
-        var roomType = hotel.RoomTypes.Find(r => r.Id == snapshot.RoomType);
-        var amenities = snapshot.Amenities.Select(a => hotel.Amenities.Find(ha => ha.Id == a.Id)).ToList();
+        var roomType = hotel.RoomTypes.Find(r => r.Id == reservation.RoomType);
+        var amenities = reservation.Amenities.Select(a => hotel.Amenities.Find(ha => ha.Id == a.Id)).ToList();
         
         if (roomType is null)
         {
@@ -56,18 +55,18 @@ internal class ReservationReadModelProjector: INotificationHandler<ReservationCr
         
         var model = new Reservation(
             reservationId,
-            new Hotel(snapshot.HotelId, hotel.Name),
-            new Owner(snapshot.OwnerId, "Damian", "Kusek"), //TODO get name from customer context
+            new Hotel(reservation.HotelId, hotel.Name),
+            new Owner(reservation.OwnerId, "Damian", "Kusek"), //TODO get name from customer context
             new RoomType(roomType.Id, roomType.Name),
-            snapshot.NumberOfGuests,
-            ((Status) snapshot.Status).ToString(),
-            snapshot.PriceToPay,
-            snapshot.PricePayed,
-            ((PaymentType) snapshot.PaymentType).ToString(),
-            snapshot.StartDate.ToLocalTime(), //TODO timestamp ???
-            snapshot.EndDate.ToLocalTime(),
+            reservation.NumberOfGuests,
+            ((Status) reservation.Status).ToString(),
+            reservation.PriceToPay,
+            reservation.PricePayed,
+            ((PaymentType) reservation.PaymentType).ToString(),
+            reservation.DateRange.StartDate.ToLocalTime(), //TODO timestamp ???
+            reservation.DateRange.EndDate.ToLocalTime(),
             amenities.Select(a => new AmenityReadModel(a.Id, a.Name)).ToList(),
-            snapshot.RoomId
+            reservation.RoomId
         );
 
         await _readModelStorage.SaveAsync(model);
