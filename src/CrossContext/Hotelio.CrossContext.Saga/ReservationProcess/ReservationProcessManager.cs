@@ -30,23 +30,14 @@ public class ReservationProcessManager
         {
             return;
         }
+        
+        var roomId = await _catalog.FindFirstRoomAvailableAsync(
+            reservation.HotelId,
+            reservation.RoomType,
+            reservation.StartDate,
+            reservation.EndDate);
 
-        try
-        {
-            var roomId = await _catalog.FindFirstRoomAvailableAsync(
-                reservation.HotelId,
-                reservation.RoomType,
-                reservation.StartDate,
-                reservation.EndDate
-            );
-
-            await _availability.BookAsync(roomId, reservation.Id, reservation.StartDate, reservation.EndDate);
-        }
-        catch (ContractException e)
-        {
-            //TODO: handle event ReservationRejected is saga and complete saga
-            await _booking.RejectReservation(reservation.Id);
-        }
+        await _availability.BookAsync(roomId, reservation.Id, reservation.StartDate, reservation.EndDate);
     }
 
     public async Task ConfirmReservation(string resourceId, string reservationId)

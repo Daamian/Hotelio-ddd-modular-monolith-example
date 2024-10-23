@@ -1,5 +1,6 @@
 using Hotelio.CrossContext.Contract.Availability.Event;
 using Hotelio.CrossContext.Contract.Booking.Event;
+using Hotelio.CrossContext.Contract.Catalog.Exception;
 using Hotelio.CrossContext.Saga.ReservationProcess.Activity;
 using MassTransit;
 
@@ -11,6 +12,7 @@ public class ReservationStateMachine : MassTransitStateMachine<ReservationState>
     public State AwaitingConfirmation { get; private set; }
     public State Completed { get; private set; }
     public State Canceled { get; private set; }
+    public State Rejected { get; private set; }
 
     public Event<ReservationCreated> ReservationCreated { get; private set; }
     public Event<ReservationPayed> ReservationPayed { get; private set; }
@@ -33,11 +35,11 @@ public class ReservationStateMachine : MassTransitStateMachine<ReservationState>
                 .IfElse(context => context.Message.IsPostPaid, 
                     x => 
                         x.Activity(selector => selector.OfType<BookResourceOnReservationCreatedActivity>())
-                        .TransitionTo(AwaitingConfirmation),
+                            .TransitionTo(AwaitingConfirmation),
                     x => x.TransitionTo(AwaitingPayment)
-                ));
-
-
+                )
+            );
+        
         During(AwaitingPayment,
             When(ReservationPayed)
                 .If(context => context.Message.IsPayInAdvance,
