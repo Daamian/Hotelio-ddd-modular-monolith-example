@@ -1,8 +1,4 @@
-using Hotelio.CrossContext.Contract.Availability;
-using Hotelio.CrossContext.Contract.Booking;
 using Hotelio.CrossContext.Contract.Booking.Event;
-using Hotelio.CrossContext.Contract.Catalog;
-using Hotelio.CrossContext.Contract.Shared.Exception;
 using MassTransit;
 
 namespace Hotelio.CrossContext.Saga.ReservationProcess.Activity;

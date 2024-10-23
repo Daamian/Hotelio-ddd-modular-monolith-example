@@ -24,7 +24,7 @@ internal sealed class RejectReservationHandler : IRequestHandler<RejectReservati
         
         reservation.Reject();
         
-        await Task.CompletedTask;
+        await _reservationRepository.UpdateAsync(reservation);
     }
 
 }

@@ -42,6 +42,12 @@ internal class HotelMongoRepository: IHotelRepository
     public async Task<Room?> FindFirstRoomAvailableAsync(string hotelId, string type, DateTime startDate, DateTime endDate)
     {
         var hotel = await _collection.Find(h => h.Id == hotelId).SingleOrDefaultAsync();
+
+        if (hotel is null)
+        {
+            return null;
+        }
+        
         return hotel.Rooms.FirstOrDefault(r => r.Type == type && 
                                                !r.Reservations.Exists(re => 
                                                    (re.StartDate < endDate && re.StopDate > startDate) ||

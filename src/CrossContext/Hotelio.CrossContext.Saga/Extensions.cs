@@ -18,7 +18,6 @@ public static class Extensions
 {
     public static IServiceCollection AddCrossContextSaga(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<BookResourceOnReservationCreatedActivity>();
         services.AddMassTransit(x =>
         {
             x.AddSagaStateMachine<ReservationStateMachine, ReservationState>()
@@ -54,14 +53,6 @@ public static class Extensions
         });
 
         services.AddDbContext<ReservationSagaDbContext>();
-        
-        services.AddLogging(logging =>
-        {
-            logging.AddSerilog(); // Dodaj Serilog jako logger
-        });
-        
-        
-        
         services.AddScoped<ReservationProcessManager>();
         return services;
     }
