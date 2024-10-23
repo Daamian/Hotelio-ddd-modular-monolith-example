@@ -3,4 +3,4 @@ using Hotelio.Shared.Event;
 
 namespace Hotelio.CrossContext.Contract.Availability.Event;
 
-public record ResourceTypeBookRejected(string OwnerId, string GroupId, string Type) : IMessage;
+public record ResourceBookRejected(string ResourceId, string OwnerId, DateTime StartDate, DateTime EndDate, string Reason) : IMessage;

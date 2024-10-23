@@ -1,6 +1,7 @@
 using Hotelio.CrossContext.Contract.Availability;
 using Hotelio.CrossContext.Contract.Booking;
 using Hotelio.CrossContext.Contract.Catalog;
+using Hotelio.CrossContext.Contract.Catalog.Exception;
 using Hotelio.CrossContext.Contract.Shared.Exception;
 
 namespace Hotelio.CrossContext.Saga.ReservationProcess;
@@ -42,9 +43,8 @@ public class ReservationProcessManager
 
             await _availability.BookAsync(roomId, reservation.Id, reservation.StartDate, reservation.EndDate);
         }
-        catch (ContractException e)
+        catch (NotFoundAvailableRoomException e)
         {
-            //TODO: handle event ReservationRejected is saga and complete saga
             await _booking.RejectReservation(reservation.Id);
         }
     }

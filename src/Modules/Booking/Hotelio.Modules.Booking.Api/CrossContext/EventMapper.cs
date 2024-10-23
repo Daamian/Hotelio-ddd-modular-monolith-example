@@ -5,12 +5,13 @@ using Hotelio.Modules.Booking.Domain.Repository;
 using ReservationCreatedContext = Hotelio.CrossContext.Contract.Booking.Event.ReservationCreated;
 using ReservationCanceledContext = Hotelio.CrossContext.Contract.Booking.Event.ReservationCanceled;
 using ReservationPayedContext = Hotelio.CrossContext.Contract.Booking.Event.ReservationPayed;
+using ReservationRejectedContext = Hotelio.CrossContext.Contract.Booking.Event.ReservationRejected;
 using MediatR;
 
 namespace Hotelio.Modules.Booking.Api.CrossContext;
 
 internal class EventMapper : INotificationHandler<ReservationCreated>, INotificationHandler<ReservationCanceled>,
-    INotificationHandler<ReservationPayed>
+    INotificationHandler<ReservationPayed>, INotificationHandler<ReservationRejected>
 {
     private readonly IMessageDispatcher _messageDispatcher;
     private readonly IReservationRepository _repository;
@@ -50,5 +51,10 @@ internal class EventMapper : INotificationHandler<ReservationCreated>, INotifica
 
         await _messageDispatcher.DispatchAsync(new ReservationPayedContext(domainEvent.Id,
             (int)PaymentType.InAdvance == reservation.PaymentType));
+    }
+
+    public async Task Handle(ReservationRejected domainEvent, CancellationToken cancellationToken)
+    {
+        await _messageDispatcher.DispatchAsync(new ReservationRejectedContext(domainEvent.ReservationId));
     }
 }
