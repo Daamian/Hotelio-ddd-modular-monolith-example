@@ -1,5 +1,6 @@
 
 using Hotelio.CrossContext.Contract.Availability.Exception;
+using Hotelio.CrossContext.Contract.Shared.Message;
 using Hotelio.Modules.Availability.Api.CrossContext;
 using Hotelio.Modules.Availability.Domain.Model;
 using Hotelio.Modules.Availability.Domain.Repository;
@@ -16,13 +17,15 @@ public class AvailabilityServiceTest
 {
     private readonly Mock<IResourceRepository> _repositoryMock = new();
     private readonly Mock<ICommandBus> _commandBusMock = new();
+    private readonly Mock<IMessageDispatcher> _messageDispatcherMock = new();
     private readonly AvailabilityService _availabilityService;
     
     public AvailabilityServiceTest()
     {
         _repositoryMock = new Mock<IResourceRepository>();
         _commandBusMock = new Mock<ICommandBus>();
-        _availabilityService = new AvailabilityService(_commandBusMock.Object, _repositoryMock.Object);
+        _messageDispatcherMock = new Mock<IMessageDispatcher>();
+        _availabilityService = new AvailabilityService(_commandBusMock.Object, _repositoryMock.Object, _messageDispatcherMock.Object);
     }
     
     [Fact]
