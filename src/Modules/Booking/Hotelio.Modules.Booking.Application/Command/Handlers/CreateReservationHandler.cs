@@ -1,5 +1,6 @@
 ﻿
 using Hotelio.CrossContext.Contract.HotelManagement;
+using Hotelio.CrossContext.Contract.Pricing;
 using Hotelio.Modules.Booking.Domain.Model;
 using Hotelio.Modules.Booking.Domain.Repository;
 using Hotelio.Modules.Booking.Domain.Model.DTO;
@@ -11,11 +12,13 @@ internal sealed class CreateReservationHandler : IRequestHandler<CreateReservati
 {
     private readonly IReservationRepository _reservationRepository;
     private readonly IHotelManagement _hotelManagement;
+    private readonly IPricingService _pricingService;
 
-    public CreateReservationHandler(IReservationRepository reservationRepository, IHotelManagement hotelManagement)
+    public CreateReservationHandler(IReservationRepository reservationRepository, IHotelManagement hotelManagement, IPricingService pricingService)
     {
         _reservationRepository = reservationRepository;
         _hotelManagement = hotelManagement;
+        _pricingService = pricingService;
     }
 
     public async Task Handle(CreateReservation command, CancellationToken cancellationToken)
@@ -32,7 +35,7 @@ internal sealed class CreateReservationHandler : IRequestHandler<CreateReservati
             command.OwnerId,
             command.RoomType,
             command.NumberOfGuests,
-            command.PriceToPay,
+            await _pricingService.CalculatePrice(hotel.Id, command.RoomType.ToString(), command.Amenities, command.NumberOfGuests, command.StartDate, command.EndDate),
             (PaymentType) command.PaymentType,
             new DateRange(command.StartDate, command.EndDate),
             command.Amenities.Select(id => new Amenity(id)).ToList()
