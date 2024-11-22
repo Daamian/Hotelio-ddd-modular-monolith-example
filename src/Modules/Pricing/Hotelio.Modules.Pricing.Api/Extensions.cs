@@ -8,18 +8,16 @@ namespace Hotelio.Modules.Pricing.Api;
 
 public static class Extensions
 {
-    public static IServiceCollection AddBookingModule(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPricingModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddPricingApplication(configuration);
         services.AddPricingDomain(configuration);
-     
         
         return services;
     }
 
-    public static IApplicationBuilder UseBookingModule(this IApplicationBuilder app)
+    public static IApplicationBuilder UsePricingModule(this IApplicationBuilder app)
     {
-        
         return app;
     }
 }
