@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: InternalsVisibleTo("Hotelio.Modules.Pricing.Application")]
+[assembly: InternalsVisibleTo("Hotelio.Modules.Pricing.Test.Unit")]
 namespace Hotelio.Modules.Pricing.Domain;
 
 public static class Extensions

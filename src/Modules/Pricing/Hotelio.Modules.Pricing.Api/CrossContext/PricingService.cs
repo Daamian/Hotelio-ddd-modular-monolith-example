@@ -12,7 +12,6 @@ internal class PricingService: IPricingService
 
     public async Task<double> CalculatePrice(string hotelId, string roomType, List<string> amenities, int guests, DateTime startDate, DateTime endDate)
     {
-        //return await _queryBus.QueryAsync(new Calculate(hotelId, roomType, amenities, startDate, endDate));
-        throw new NotImplementedException();
+        return await _queryBus.QueryAsync(new Calculate(hotelId, roomType, amenities, startDate, endDate));
     }
 }
