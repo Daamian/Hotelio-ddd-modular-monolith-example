@@ -7,6 +7,8 @@ internal class PeriodPrice
     public Guid Id { get; private set; }
     public Period Period { get; private set; }
     public Price Price { get; private set; }
+    
+    protected PeriodPrice() {}
 
     private PeriodPrice(Guid id, Period period, Price price)
     {

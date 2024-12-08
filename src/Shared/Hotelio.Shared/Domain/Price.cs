@@ -24,6 +24,11 @@ public record Price
         
         return new Price(netAmount, currency, taxRate);
     }
+    
+    public static Price CreateDefault(double netAmount)
+    {
+        return new Price(netAmount, Currency.PLN, 23);
+    }
 
     public double GetGrossAmount()
     {

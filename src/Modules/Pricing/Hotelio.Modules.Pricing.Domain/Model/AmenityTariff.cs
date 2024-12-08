@@ -7,6 +7,8 @@ internal class AmenityTariff
     public Guid Id { get; private set; }
     public string AmenityId { get; private set; }
     public Price Price { get; private set; }
+    
+    protected AmenityTariff() {}
 
     private AmenityTariff(Guid id, string amenityId, Price price)
     {

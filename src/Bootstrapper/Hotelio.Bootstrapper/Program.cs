@@ -5,6 +5,7 @@ using Hotelio.Modules.HotelManagement.Api;
 using Hotelio.Modules.Availability.Api;
 using Hotelio.Modules.Booking.Api;
 using Hotelio.Modules.Catalog.Api;
+using Hotelio.Modules.Pricing.Api;
 using Hotelio.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services
     .AddAvailability(builder.Configuration)
     .AddHotelManagementModule(builder.Configuration)
     .AddCatalogModule(builder.Configuration)
+    .AddPricingModule(builder.Configuration)
     .AddCrossContext(builder.Configuration)
     .AddSharedFramework(builder.Configuration);
 
@@ -30,6 +32,7 @@ app.UseBookingModule();
 app.UseAvailability();
 app.UseHotelManagementModule();
 app.UseCatalogModule();
+app.UsePricingModule();
 app.UseCrossContextContract();
 app.UseEndpoints(endpoints =>
 {

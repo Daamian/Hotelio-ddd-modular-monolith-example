@@ -14,6 +14,8 @@ internal class HotelTariff : Aggregate
     
     private readonly List<AmenityTariff> _amenityTariffs = new List<AmenityTariff>();
     public IReadOnlyList<AmenityTariff> AmenityTariffs => _amenityTariffs.AsReadOnly();
+    
+    protected HotelTariff() {}
 
     private HotelTariff(Guid id, string hotelId, Price basePrice)
     {
@@ -46,7 +48,7 @@ internal class HotelTariff : Aggregate
         var roomTariff = _roomTariffs.FirstOrDefault(rt => rt.RoomTypeId == roomType);
         var roomPrice = roomTariff == null
             ? BasePrice
-            : roomTariff.GetPriceForPeriod(startDate, endDate) ?? roomTariff.BasePrice; // Jeśli brak ceny w RoomTariff, użyj BasePrice z RoomTariff
+            : roomTariff.GetPriceForPeriod(startDate, endDate) ?? roomTariff.BasePrice;
         
         var amenityCost = amenities
             .Select(amenityId =>

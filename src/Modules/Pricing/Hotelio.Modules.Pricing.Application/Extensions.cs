@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Hotelio.Modules.Pricing.Application.Command.Handler;
 using Hotelio.Modules.Pricing.Application.Query.Handler;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,10 @@ public static class Extensions
     {
         services.AddMediatR(cfg => {
             cfg.RegisterServicesFromAssemblyContaining<CalculateHandler>();
+            cfg.RegisterServicesFromAssemblyContaining<AddAmenityTariffHandler>();
+            cfg.RegisterServicesFromAssemblyContaining<AddRoomTariffHandler>();
+            cfg.RegisterServicesFromAssemblyContaining<AddRoomPeriodPriceHandler>();
+            cfg.RegisterServicesFromAssemblyContaining<CreateHotelTariffHandler>();
         });
         
         return services;
