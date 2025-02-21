@@ -1,6 +1,5 @@
 using Hotelio.Bootstrapper;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Newtonsoft.Json;
 
 namespace Hotelio.Modules.Pricing.Test.Api;
@@ -62,6 +61,7 @@ public class HotelTariffApiTests
 
         // Act
         var response = await client.PostAsJsonAsync($"/api/hotel-tariffs/{hotelTariffId}/rooms", roomCommand);
+        var content = response.Content;
 
         // Assert
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -80,8 +80,9 @@ public class HotelTariffApiTests
             basePriceNetAmount = 100.0
         };
         var createResponse = await client.PostAsJsonAsync("/api/hotel-tariffs", createCommand);
-        var content = await createResponse.Content.ReadFromJsonAsync<dynamic>();
-        var hotelTariffId = content.hotelTariffId;
+        var responseContent = await createResponse.Content.ReadAsStringAsync();
+        dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+        var hotelTariffId = jsonResponse.hotelTariffId;
 
         var amenityCommand = new
         {
@@ -109,8 +110,9 @@ public class HotelTariffApiTests
             basePriceNetAmount = 100.0
         };
         var createResponse = await client.PostAsJsonAsync("/api/hotel-tariffs", createCommand);
-        var content = await createResponse.Content.ReadFromJsonAsync<dynamic>();
-        var hotelTariffId = content.hotelTariffId;
+        var responseContent = await createResponse.Content.ReadAsStringAsync();
+        dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+        var hotelTariffId = jsonResponse.hotelTariffId;
 
         var roomCommand = new
         {
@@ -123,14 +125,17 @@ public class HotelTariffApiTests
         {
             priceNetAmount = 120.0,
             startDate = "2024-12-01T00:00:00",
-            endDate = "2024-12-10T00:00:00"
+            endDate = "2024-12-10T00:00:00",
+            roomTypeId = "DeluxeRoom"
         };
 
         // Act
         var response = await client.PostAsJsonAsync(
-            $"/api/hotel-tariffs/{hotelTariffId}/rooms/DeluxeRoom/period-prices",
+            $"/api/hotel-tariffs/{hotelTariffId}/rooms/period-prices",
             periodCommand
         );
+        
+        var responseContent2 = await response.Content.ReadAsStringAsync();
 
         // Assert
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);

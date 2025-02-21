@@ -10,6 +10,7 @@ internal class AmenityTariffConfiguration : IEntityTypeConfiguration<AmenityTari
     {
         builder.HasKey(at => at.Id);
         builder.Property(at => at.AmenityId).IsRequired();
+        builder.Property(a => a.Id).ValueGeneratedNever();
         builder.OwnsOne(at => at.Price, price =>
         {
             price.Property(p => p.NetAmount)
@@ -18,7 +19,7 @@ internal class AmenityTariffConfiguration : IEntityTypeConfiguration<AmenityTari
 
             price.Property(p => p.Currency)
                 .HasColumnName("PriceCurrency")
-                .HasConversion<string>() // Konwersja na string w bazie danych
+                .HasConversion<string>()
                 .IsRequired();
 
             price.Property(p => p.TaxRate)

@@ -4,6 +4,7 @@ namespace Hotelio.Modules.Pricing.Domain.Repository;
 
 internal interface IHotelTariffRepository
 {
-    Task<HotelTariff?> FindAsync(string hotelId);
+    Task<HotelTariff?> FindAsync(Guid id);
     Task SaveAsync(HotelTariff hotelTariff);
+    Task UpdateAsync(HotelTariff hotelTariff);
 }

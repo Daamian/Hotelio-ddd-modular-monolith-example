@@ -1,6 +1,6 @@
-using System.Data.Common;
 using Hotelio.Shared.Domain;
 using Hotelio.Shared.Exception;
+
 
 namespace Hotelio.Modules.Pricing.Domain.Model;
 
@@ -9,10 +9,9 @@ internal class HotelTariff : Aggregate
     public Guid Id { get; private set; }
     public string HotelId { get; private set; }
     public Price BasePrice { get; private set; }
-    private readonly List<RoomTariff> _roomTariffs = new List<RoomTariff>();
+    private List<RoomTariff> _roomTariffs = new();
     public IReadOnlyList<RoomTariff> RoomTariffs => _roomTariffs.AsReadOnly();
-    
-    private readonly List<AmenityTariff> _amenityTariffs = new List<AmenityTariff>();
+    private readonly List<AmenityTariff> _amenityTariffs = new();
     public IReadOnlyList<AmenityTariff> AmenityTariffs => _amenityTariffs.AsReadOnly();
     
     protected HotelTariff() {}

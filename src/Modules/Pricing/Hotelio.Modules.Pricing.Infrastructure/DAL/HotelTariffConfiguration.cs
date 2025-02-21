@@ -27,13 +27,5 @@ internal class HotelTariffConfiguration : IEntityTypeConfiguration<HotelTariff>
                 .HasColumnName("BasePriceTaxRate")
                 .IsRequired();
         });
-
-        builder.HasMany(ht => ht.RoomTariffs)
-            .WithOne()
-            .HasForeignKey("HotelTariffId");
-
-        builder.HasMany(ht => ht.AmenityTariffs)
-            .WithOne()
-            .HasForeignKey("HotelTariffId");
     }
 }

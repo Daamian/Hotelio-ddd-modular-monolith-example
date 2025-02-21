@@ -12,7 +12,8 @@ internal class CalculateHandler : IRequestHandler<Calculate, double>
     
     public async Task<double> Handle(Calculate request, CancellationToken cancellationToken)
     {
-        var hotelTariff = await _hotelTariffRepository.FindAsync(request.HotelId);
+        //TODO implement query to get by HotelId
+        var hotelTariff = await _hotelTariffRepository.FindAsync(new Guid(request.HotelId));
 
         if (hotelTariff is null)
         {

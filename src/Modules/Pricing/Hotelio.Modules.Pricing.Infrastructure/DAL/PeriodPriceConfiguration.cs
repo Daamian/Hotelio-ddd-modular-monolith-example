@@ -9,6 +9,7 @@ internal class PeriodPriceConfiguration : IEntityTypeConfiguration<PeriodPrice>
     public void Configure(EntityTypeBuilder<PeriodPrice> builder)
     {
         builder.HasKey(pp => pp.Id);
+        builder.Property(pp => pp.Id).ValueGeneratedNever();
 
         builder.OwnsOne(pp => pp.Period, period =>
         {

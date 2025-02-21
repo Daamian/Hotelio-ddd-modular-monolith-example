@@ -17,12 +17,12 @@ internal class AddAmenityTariffHandler : IRequestHandler<AddAmenityTariff>
 
     public async Task Handle(AddAmenityTariff request, CancellationToken cancellationToken)
     {
-        var hotelTariff = await _repository.FindAsync(request.HotelTariffId.ToString())
+        var hotelTariff = await _repository.FindAsync(request.HotelTariffId)
                           ?? throw new HotelTariffNotFoundException("Hotel tariff not found.");
 
         var amenityTariff = AmenityTariff.Create(request.AmenityId, Price.CreateDefault(request.PriceNetAmount));
         hotelTariff.AddAmenityTariff(amenityTariff);
 
-        await _repository.SaveAsync(hotelTariff);
+        await _repository.UpdateAsync(hotelTariff);
     }
 }

@@ -38,10 +38,10 @@ internal class HotelTariffController : ControllerBase
         return NoContent();
     }
     
-    [HttpPost("{hotelTariffId}/rooms/{roomTypeId}/period-prices")]
-    public async Task<IActionResult> AddPeriodPrice(Guid hotelTariffId, string roomTypeId, [FromBody] AddRoomPeriodPrice command)
+    [HttpPost("{hotelTariffId}/rooms/period-prices")]
+    public async Task<IActionResult> AddPeriodPrice(Guid hotelTariffId, [FromBody] AddRoomPeriodPrice command)
     {
-        var request = command with { HotelTariffId = hotelTariffId, RoomTypeId = roomTypeId };
+        var request = command with { HotelTariffId = hotelTariffId };
         await _mediator.Send(request);
         return NoContent();
     }

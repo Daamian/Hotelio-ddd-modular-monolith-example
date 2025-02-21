@@ -17,12 +17,12 @@ internal class AddRoomTariffHandler : IRequestHandler<AddRoomTariff>
 
     public async Task Handle(AddRoomTariff request, CancellationToken cancellationToken)
     {
-        var hotelTariff = await _repository.FindAsync(request.HotelTariffId.ToString())
+        var hotelTariff = await _repository.FindAsync(request.HotelTariffId)
                           ?? throw new HotelTariffNotFoundException("Hotel tariff not found.");
 
         var roomTariff = RoomTariff.Create(request.RoomTypeId, Price.CreateDefault(request.BasePriceNetAmount));
         hotelTariff.AddRoomTariff(roomTariff);
 
-        await _repository.SaveAsync(hotelTariff);
+        await _repository.UpdateAsync(hotelTariff);
     }
 }

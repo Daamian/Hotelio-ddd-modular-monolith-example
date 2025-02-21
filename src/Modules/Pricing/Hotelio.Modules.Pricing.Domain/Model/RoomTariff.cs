@@ -8,12 +8,12 @@ internal class RoomTariff
     public Guid Id { get; private set; }
     public string RoomTypeId { get; private set; }
     public Price BasePrice { get; private set; }
-    private readonly List<PeriodPrice> _periodPrices = new List<PeriodPrice>();
+    private readonly List<PeriodPrice> _periodPrices = new ();
     public IReadOnlyList<PeriodPrice> PeriodPrices => _periodPrices.AsReadOnly();
     
     protected RoomTariff() {}
 
-    private RoomTariff(Guid id, string roomTypeId, Price basePrice)
+    public RoomTariff(Guid id, string roomTypeId, Price basePrice)
     {
         Id = id;
         RoomTypeId = roomTypeId;

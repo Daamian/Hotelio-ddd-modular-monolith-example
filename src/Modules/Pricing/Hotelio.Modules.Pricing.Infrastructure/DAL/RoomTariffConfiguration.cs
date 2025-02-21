@@ -10,6 +10,7 @@ internal class RoomTariffConfiguration : IEntityTypeConfiguration<RoomTariff>
     {
         builder.HasKey(rt => rt.Id);
         builder.Property(rt => rt.RoomTypeId).IsRequired();
+        builder.Property(r => r.Id).ValueGeneratedNever();
         builder.OwnsOne(rt => rt.BasePrice, bp =>
         {
             bp.Property(p => p.NetAmount)
@@ -25,9 +26,5 @@ internal class RoomTariffConfiguration : IEntityTypeConfiguration<RoomTariff>
                 .HasColumnName("BasePriceTaxRate")
                 .IsRequired();
         });
-
-        builder.HasMany(rt => rt.PeriodPrices)
-            .WithOne()
-            .HasForeignKey("RoomTariffId");
     }
 }

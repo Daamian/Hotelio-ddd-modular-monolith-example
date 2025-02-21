@@ -17,7 +17,7 @@ internal class AddRoomPeriodPriceHandler : IRequestHandler<AddRoomPeriodPrice>
 
     public async Task Handle(AddRoomPeriodPrice request, CancellationToken cancellationToken)
     {
-        var hotelTariff = await _repository.FindAsync(request.HotelTariffId.ToString())
+        var hotelTariff = await _repository.FindAsync(request.HotelTariffId)
                           ?? throw new HotelTariffNotFoundException("Hotel tariff not found.");
         
         var roomTariff = hotelTariff.RoomTariffs.FirstOrDefault(rt => rt.RoomTypeId == request.RoomTypeId)
@@ -27,6 +27,6 @@ internal class AddRoomPeriodPriceHandler : IRequestHandler<AddRoomPeriodPrice>
             Price.CreateDefault(request.PriceNetAmount),
             new Period(request.StartDate, request.EndDate));
         
-        await _repository.SaveAsync(hotelTariff);
+        await _repository.UpdateAsync(hotelTariff);
     }
 }

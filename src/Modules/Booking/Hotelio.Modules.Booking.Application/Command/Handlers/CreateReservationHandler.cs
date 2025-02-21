@@ -35,7 +35,13 @@ internal sealed class CreateReservationHandler : IRequestHandler<CreateReservati
             command.OwnerId,
             command.RoomType,
             command.NumberOfGuests,
-            await _pricingService.CalculatePrice(hotel.Id, command.RoomType.ToString(), command.Amenities, command.NumberOfGuests, command.StartDate, command.EndDate),
+            await _pricingService.CalculatePrice(
+                hotel.Id, 
+                command.RoomType.ToString(), 
+                command.Amenities, 
+                command.NumberOfGuests, 
+                command.StartDate, 
+                command.EndDate),
             (PaymentType) command.PaymentType,
             new DateRange(command.StartDate, command.EndDate),
             command.Amenities.Select(id => new Amenity(id)).ToList()
