@@ -10,8 +10,6 @@ using Xunit;
 
 public class HotelTariffApiTests
 {
-
-
     [Fact]
     public async Task CreateHotelTariff_ShouldReturnCreatedAndId()
     {

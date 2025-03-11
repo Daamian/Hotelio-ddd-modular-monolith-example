@@ -7,4 +7,5 @@ internal interface IHotelTariffRepository
     Task<HotelTariff?> FindAsync(Guid id);
     Task SaveAsync(HotelTariff hotelTariff);
     Task UpdateAsync(HotelTariff hotelTariff);
+    Task<HotelTariff> FindByHotelIdAsync(string hotelId);
 }

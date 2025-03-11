@@ -26,7 +26,6 @@ public class ReservationProcessTest
         await using var application = new WebApplicationFactory<Startup>();
         using var client = application.CreateClient();
         
-        //TODO create amenities
         var roomTypeBasicId = await _createRoomType(client, "Basic", 2, 1);
         var roomTypeSuperiorId = await _createRoomType(client, "Superior", 2, 2);
 
@@ -39,6 +38,8 @@ public class ReservationProcessTest
         var room2 = await _createRoom(client, hotelId, 101, roomTypeSuperiorId);
         var room3 = await _createRoom(client, hotelId, 102, roomTypeBasicId);
         await Task.Delay(250);
+        await _createHotelTariff(client, hotelId, roomTypeSuperiorId.ToString(), amenityHBId.ToString());
+        await Task.Delay(500);
 
         //Step 1: Create reservation
         var reservation = new
@@ -48,7 +49,6 @@ public class ReservationProcessTest
             OwnerId = "Owner-1",
             Amenities = new[] { amenityHBId.ToString() },
             RoomType = roomTypeSuperiorId,
-            PriceToPay = 100.0,
             PaymentType = 1,
             NumberOfGuests = 2,
             StartDate = "2024-01-01",
@@ -71,7 +71,7 @@ public class ReservationProcessTest
             roomType = new { id = roomTypeSuperiorId, name = "Superior" },
             numberOfGuests = 2,
             status = "Confirmed",
-            priceToPay = 100,
+            priceToPay = 350,
             pricePayed = 0,
             paymentType = "PostPaid",
             startDate = "2024-01-01T00:00:00Z", //TODO jak przechowywać datę w bazie mongo ????
@@ -156,5 +156,53 @@ public class ReservationProcessTest
         int id = jsonResponse.id;
 
         return id;
+    }
+    
+    private async Task _createHotelTariff(HttpClient client, int hotelId, string roomTypeId, string amenityId)
+    {
+        var payload = new
+        {
+            hotelId = hotelId.ToString(),
+        };
+        
+        var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+        var response = await client.PostAsync("/api/hotel-tariffs", content);
+        
+        var responseContent = await response.Content.ReadAsStringAsync();
+        dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+        string hotelTariffId = jsonResponse.hotelTariffId;
+        
+        await _createRoomTariff(client, hotelTariffId, roomTypeId);
+        await _createAmenityTariff(client, hotelTariffId, amenityId);
+    }
+
+    private async Task _createRoomTariff(HttpClient client, string hotelTariffId, string roomTypeId)
+    {
+        var payload = new
+        {
+            roomTypeId = roomTypeId,
+            basePriceNetAmount = 250.0
+        };
+        
+        var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+        var response = await client.PostAsync($"/api/hotel-tariffs/{hotelTariffId}/rooms", content);
+        
+        var responseContent = await response.Content.ReadAsStringAsync();
+        dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+    }
+    
+    private async Task _createAmenityTariff(HttpClient client, string hotelTariffId, string amenityId)
+    {
+        var payload = new
+        {
+            amenityId = amenityId,
+            priceNetAmount = 100.0
+        };
+        
+        var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+        var response = await client.PostAsync($"/api/hotel-tariffs/{hotelTariffId}/amenities", content);
+        
+        var responseContent = await response.Content.ReadAsStringAsync();
+        dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
     }
 }

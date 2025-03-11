@@ -34,4 +34,13 @@ internal class HotelTariffRepository : IHotelTariffRepository
         _context.HotelTariffs.Attach(hotelTariff);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<HotelTariff?> FindByHotelIdAsync(string hotelId)
+    {
+        return await _context.HotelTariffs
+            .Include(ht => ht.RoomTariffs)
+            .ThenInclude(rt => rt.PeriodPrices)
+            .Include(ht => ht.AmenityTariffs)
+            .FirstOrDefaultAsync(ht => ht.HotelId == hotelId);
+    }
 }

@@ -8,12 +8,11 @@ internal class CalculateHandler : IRequestHandler<Calculate, double>
 {
     private readonly IHotelTariffRepository _hotelTariffRepository;
     
-    public CalculateHandler(IHotelTariffRepository hotelTariffRepository) => this._hotelTariffRepository = hotelTariffRepository;
+    public CalculateHandler(IHotelTariffRepository hotelTariffRepository) => _hotelTariffRepository = hotelTariffRepository;
     
     public async Task<double> Handle(Calculate request, CancellationToken cancellationToken)
     {
-        //TODO implement query to get by HotelId
-        var hotelTariff = await _hotelTariffRepository.FindAsync(new Guid(request.HotelId));
+        var hotelTariff = await _hotelTariffRepository.FindByHotelIdAsync(request.HotelId);
 
         if (hotelTariff is null)
         {
