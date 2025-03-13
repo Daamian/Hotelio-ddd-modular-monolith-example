@@ -17,6 +17,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Modules\Catalog\Hotelio.Modules.Catalog.Api\Hotelio.Modules.Catalog.Api.csproj" />
     <ProjectReference Include="..\..\Modules\HotelManagement\Hotelio.Modules.HotelManagement.Api\Hotelio.Modules.HotelManagement.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Pricing\Hotelio.Modules.Pricing.Api\Hotelio.Modules.Pricing.Api.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controllers\" />

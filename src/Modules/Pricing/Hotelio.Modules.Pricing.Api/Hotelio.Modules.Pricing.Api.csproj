@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\CrossContext\Hotelio.CrossContext.Contract\Hotelio.CrossContext.Contract.csproj" />
+      <ProjectReference Include="..\Hotelio.Modules.Pricing.Application\Hotelio.Modules.Pricing.Application.csproj" />
+      <ProjectReference Include="..\Hotelio.Modules.Pricing.Infrastructure\Hotelio.Modules.Pricing.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>
