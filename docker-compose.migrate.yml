@@ -1,0 +1,9 @@
+services:
+  migrate:
+    build:
+      context: .
+      dockerfile: src/Bootstrapper/Hotelio.Bootstrapper/Dockerfile.migrate
+    depends_on:
+      - dbsql
+    #environment:
+      #ConnectionStrings__Default: "Server=dbsql;Database=HotelioDb;User=sa;Password=Your_password123;"

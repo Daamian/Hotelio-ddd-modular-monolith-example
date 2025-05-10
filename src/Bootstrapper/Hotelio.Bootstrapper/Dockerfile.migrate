@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0
+WORKDIR /app
+
+COPY . .
+
+# Zainstaluj narzędzie EF Core CLI
+RUN dotnet tool install -g dotnet-ef --version 7.0.14
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Przywróć zależności
+RUN dotnet restore "src/Bootstrapper/Hotelio.Bootstrapper/Hotelio.Bootstrapper.csproj"
+
+# Skrypt migracji
+COPY migrate.sh /app/migrate.sh
+RUN chmod +x /app/migrate.sh
+
+ENTRYPOINT ["/app/migrate.sh"]
