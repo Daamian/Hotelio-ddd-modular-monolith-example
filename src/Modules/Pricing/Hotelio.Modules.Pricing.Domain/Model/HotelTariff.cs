@@ -42,7 +42,7 @@ internal class HotelTariff : Aggregate
         _amenityTariffs.Add(amenityTariff);
     }
 
-    public double Calculate(string roomType, List<string> amenities, DateTime startDate, DateTime endDate)
+    public decimal Calculate(string roomType, List<string> amenities, DateTime startDate, DateTime endDate)
     {
         var roomTariff = _roomTariffs.FirstOrDefault(rt => rt.RoomTypeId == roomType);
         var roomPrice = roomTariff == null
@@ -51,7 +51,7 @@ internal class HotelTariff : Aggregate
         
         var amenityCost = amenities
             .Select(amenityId =>
-                _amenityTariffs.FirstOrDefault(at => at.AmenityId == amenityId)?.Price.NetAmount ?? 0)
+                _amenityTariffs.FirstOrDefault(at => at.AmenityId == amenityId)?.Price.NetAmount ?? 0m)
             .Sum();
         
         return roomPrice.NetAmount + amenityCost;

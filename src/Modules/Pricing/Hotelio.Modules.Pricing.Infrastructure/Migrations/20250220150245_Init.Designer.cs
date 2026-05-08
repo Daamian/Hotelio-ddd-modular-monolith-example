@@ -112,8 +112,8 @@ namespace Hotelio.Modules.Pricing.Infrastructure.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("PriceCurrency");
 
-                            b1.Property<double>("NetAmount")
-                                .HasColumnType("float")
+                            b1.Property<decimal>("NetAmount")
+                                .HasColumnType("decimal(18,2)")
                                 .HasColumnName("PriceNetAmount");
 
                             b1.Property<int>("TaxRate")
@@ -144,8 +144,8 @@ namespace Hotelio.Modules.Pricing.Infrastructure.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("BasePriceCurrency");
 
-                            b1.Property<double>("NetAmount")
-                                .HasColumnType("float")
+                            b1.Property<decimal>("NetAmount")
+                                .HasColumnType("decimal(18,2)")
                                 .HasColumnName("BasePriceNetAmount");
 
                             b1.Property<int>("TaxRate")
@@ -201,8 +201,8 @@ namespace Hotelio.Modules.Pricing.Infrastructure.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("PriceCurrency");
 
-                            b1.Property<double>("NetAmount")
-                                .HasColumnType("float")
+                            b1.Property<decimal>("NetAmount")
+                                .HasColumnType("decimal(18,2)")
                                 .HasColumnName("PriceNetAmount");
 
                             b1.Property<int>("TaxRate")
@@ -240,8 +240,8 @@ namespace Hotelio.Modules.Pricing.Infrastructure.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("BasePriceCurrency");
 
-                            b1.Property<double>("NetAmount")
-                                .HasColumnType("float")
+                            b1.Property<decimal>("NetAmount")
+                                .HasColumnType("decimal(18,2)")
                                 .HasColumnName("BasePriceNetAmount");
 
                             b1.Property<int>("TaxRate")

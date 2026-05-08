@@ -2,5 +2,5 @@
 
 namespace Hotelio.Modules.Booking.Application.Command;
 
-internal record PayReservation(string ReservationId, double Price) : ICommand;
+internal record PayReservation(string ReservationId, decimal Price) : ICommand;
 

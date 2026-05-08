@@ -15,8 +15,8 @@ internal class Reservation: Aggregate
     public string? RoomId { get; private set; } = null;
     public int NumberOfGuests { get; private set; }
     public Status Status { get; private set; }
-    public double PriceToPay { get; private set; }
-    public double PricePayed { get; private set; }
+    public decimal PriceToPay { get; private set; }
+    public decimal PricePayed { get; private set; }
     public PaymentType PaymentType { get; private set; }
     public DateRange DateRange { get; private set; }
     private List<Amenity> _amenities;
@@ -27,7 +27,7 @@ internal class Reservation: Aggregate
     
     protected Reservation() {}
 
-    private Reservation(string id, string hotelId, string ownerId, int roomType, int numberOfGuests, Status status, double priceToPay, double pricePayed, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
+    private Reservation(string id, string hotelId, string ownerId, int roomType, int numberOfGuests, Status status, decimal priceToPay, decimal pricePayed, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
         Id = id;
         HotelId = hotelId;
@@ -42,7 +42,7 @@ internal class Reservation: Aggregate
         _amenities = amenities;
     }
 
-    public static Reservation Create(string id, HotelConfig hotel, string ownerId, int roomType, int numberOfGuests, double priceToPay, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
+    public static Reservation Create(string id, HotelConfig hotel, string ownerId, int roomType, int numberOfGuests, decimal priceToPay, PaymentType paymentType, DateRange dateRange, List<Amenity> amenities)
     {
         var roomTypeConfig = hotel.RoomTypes.Find(r => r.RoomType == roomType);
 
@@ -73,7 +73,7 @@ internal class Reservation: Aggregate
         return Id;
     }
 
-    public void Pay(double price)
+    public void Pay(decimal price)
     {
         if (price > (PriceToPay - PricePayed))
         {

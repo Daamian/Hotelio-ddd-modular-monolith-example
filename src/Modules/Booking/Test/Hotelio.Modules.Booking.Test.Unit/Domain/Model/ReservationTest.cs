@@ -16,8 +16,8 @@ public class ReservationTest
         var owner = "Owner-1";
         var numberOfGuests = 2;
         var status = Status.Created;
-        var priceToPay = 100.0;
-        var pricePayed = 0.0;
+        var priceToPay = 100.0m;
+        var pricePayed = 0.0m;
         var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
@@ -50,7 +50,7 @@ public class ReservationTest
         var roomType = 1;
         var owner = "Owner-1";
         var numberOfGuests = 2;
-        var priceToPay = 100.0;
+        var priceToPay = 100.0m;
         var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
@@ -70,7 +70,7 @@ public class ReservationTest
         var roomType = 1;
         var owner = "Owner-1";
         var numberOfGuests = 3;
-        var priceToPay = 100.0;
+        var priceToPay = 100.0m;
         var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
@@ -90,7 +90,7 @@ public class ReservationTest
         var roomType = 1;
         var owner = "Owner-1";
         var numberOfGuests = 3;
-        var priceToPay = 100.0;
+        var priceToPay = 100.0m;
         var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
@@ -123,7 +123,7 @@ public class ReservationTest
         var roomType = 1;
         var owner = "Owner-1";
         var numberOfGuests = 1;
-        var priceToPay = 100.0;
+        var priceToPay = 100.0m;
         var paymentType = PaymentType.InAdvance;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
@@ -145,7 +145,7 @@ public class ReservationTest
         var roomType = 1;
         var owner = "Owner-1";
         var numberOfGuests = 1;
-        var priceToPay = 100.0;
+        var priceToPay = 100.0m;
         var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);
@@ -166,7 +166,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        double price = 100.0;
+        decimal price = 100.0m;
 
         //When
         reservation.Pay(price);
@@ -193,13 +193,13 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        double price = 100.0;
+        decimal price = 100.0m;
 
         //When
         reservation.Pay(price);
 
         //Expected
-        Assert.Throws<DomainException>(() => reservation.Pay(100.0));
+        Assert.Throws<DomainException>(() => reservation.Pay(100.0m));
     }
 
     [Fact]
@@ -207,7 +207,7 @@ public class ReservationTest
     {
         //Given
         var reservation = this.CreteReservation();
-        double price = 150.0;
+        decimal price = 150.0m;
 
         //Expected
         Assert.Throws<DomainException>(() => reservation.Pay(price));
@@ -575,12 +575,12 @@ public class ReservationTest
 
         //When
         reservation.Confirm("roomId");
-        reservation.Pay(100.0);
+        reservation.Pay(100.0m);
         reservation.Start();
         reservation.Finish();
 
         //Then
-        Assert.Equal(100.0, reservation.PricePayed);
+        Assert.Equal(100.0m, reservation.PricePayed);
         Assert.Equal(Status.Finished, reservation.Status);
     }
 
@@ -651,7 +651,7 @@ public class ReservationTest
         var roomType = 1;
         var owner = "Owner-1";
         var numberOfGuests = 2;
-        var priceToPay = 100.0;
+        var priceToPay = 100.0m;
         var paymentType = PaymentType.PostPaid;
         DateTime currentDate = DateTime.Now;
         DateTime futureDate = currentDate.AddDays(7);

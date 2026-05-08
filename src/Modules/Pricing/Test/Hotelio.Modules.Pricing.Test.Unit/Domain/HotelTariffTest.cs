@@ -86,7 +86,7 @@ public class HotelTariffTest
         var price = hotelTariff.Calculate("NonExistentRoom", new List<string>(), DateTime.Now, DateTime.Now.AddDays(1));
 
         // Assert
-        Assert.Equal(200, price);
+        Assert.Equal(200m, price);
     }
 
     [Fact]
@@ -101,7 +101,7 @@ public class HotelTariffTest
         var price = hotelTariff.Calculate("Deluxe", new List<string>(), DateTime.Now, DateTime.Now.AddDays(1));
 
         // Assert
-        Assert.Equal(150, price);
+        Assert.Equal(150m, price);
     }
 
     [Fact]
@@ -117,7 +117,7 @@ public class HotelTariffTest
         var price = hotelTariff.Calculate("Deluxe", new List<string>(), DateTime.Now, DateTime.Now.AddDays(1));
 
         // Assert
-        Assert.Equal(180, price);
+        Assert.Equal(180m, price);
     }
 
     [Fact]
@@ -132,6 +132,6 @@ public class HotelTariffTest
         var price = hotelTariff.Calculate("NonExistentRoom", new List<string> { "Breakfast" }, DateTime.Now, DateTime.Now.AddDays(1));
 
         // Assert
-        Assert.Equal(250, price); // BasePrice (200) + Amenity (50)
+        Assert.Equal(250m, price); // BasePrice (200) + Amenity (50)
     }
 }

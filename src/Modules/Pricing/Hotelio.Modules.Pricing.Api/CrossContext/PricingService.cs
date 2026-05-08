@@ -10,7 +10,7 @@ internal class PricingService: IPricingService
     
     public PricingService(IQueryBus queryBus) => _queryBus = queryBus;
 
-    public async Task<double> CalculatePrice(string hotelId, string roomType, List<string> amenities, int guests, DateTime startDate, DateTime endDate)
+    public async Task<decimal> CalculatePrice(string hotelId, string roomType, List<string> amenities, int guests, DateTime startDate, DateTime endDate)
     {
         return await _queryBus.QueryAsync(new Calculate(hotelId, roomType, amenities, startDate, endDate));
     }

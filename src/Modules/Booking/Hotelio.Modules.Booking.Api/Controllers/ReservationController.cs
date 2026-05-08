@@ -31,7 +31,7 @@ internal class ReservationController : ControllerBase
     }
 
     [HttpPut("{id:guid}/pay")]
-    public async Task<IActionResult> PayReservation(Guid id, [FromBody] double price)
+    public async Task<IActionResult> PayReservation(Guid id, [FromBody] decimal price)
     {
         await _commandBus.DispatchAsync(new PayReservation(id.ToString(), price));
         return NoContent();

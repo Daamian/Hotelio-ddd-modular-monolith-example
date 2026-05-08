@@ -50,12 +50,12 @@ internal class ReservationEntityConfiguration: IEntityTypeConfiguration<Reservat
             .HasColumnName("status")
             .IsRequired(true);
         builder
-            .Property<double>("PriceToPay")
+            .Property<decimal>("PriceToPay")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("price_to_pay")
             .IsRequired(true);
         builder
-            .Property<double>("PricePayed")
+            .Property<decimal>("PricePayed")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("price_payed")
             .IsRequired(true);

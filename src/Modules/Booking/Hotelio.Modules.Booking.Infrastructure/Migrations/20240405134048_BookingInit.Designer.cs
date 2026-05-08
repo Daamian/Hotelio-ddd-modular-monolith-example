@@ -54,12 +54,12 @@ namespace Hotelio.Modules.Booking.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("payment_type");
 
-                    b.Property<double>("_pricePayed")
-                        .HasColumnType("float")
+                    b.Property<decimal>("_pricePayed")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("price_payed");
 
-                    b.Property<double>("_priceToPay")
-                        .HasColumnType("float")
+                    b.Property<decimal>("_priceToPay")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("price_to_pay");
 
                     b.Property<string>("_roomId")

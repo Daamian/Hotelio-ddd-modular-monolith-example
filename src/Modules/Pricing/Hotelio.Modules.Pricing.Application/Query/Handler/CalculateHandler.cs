@@ -4,13 +4,13 @@ using MediatR;
 
 namespace Hotelio.Modules.Pricing.Application.Query.Handler;
 
-internal class CalculateHandler : IRequestHandler<Calculate, double>
+internal class CalculateHandler : IRequestHandler<Calculate, decimal>
 {
     private readonly IHotelTariffRepository _hotelTariffRepository;
     
     public CalculateHandler(IHotelTariffRepository hotelTariffRepository) => _hotelTariffRepository = hotelTariffRepository;
     
-    public async Task<double> Handle(Calculate request, CancellationToken cancellationToken)
+    public async Task<decimal> Handle(Calculate request, CancellationToken cancellationToken)
     {
         var hotelTariff = await _hotelTariffRepository.FindByHotelIdAsync(request.HotelId);
 

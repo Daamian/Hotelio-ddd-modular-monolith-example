@@ -21,7 +21,7 @@ namespace Hotelio.Modules.Pricing.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HotelId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BasePriceNetAmount = table.Column<double>(type: "float", nullable: false),
+                    BasePriceNetAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BasePriceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BasePriceTaxRate = table.Column<int>(type: "int", nullable: false)
                 },
@@ -37,7 +37,7 @@ namespace Hotelio.Modules.Pricing.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AmenityId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PriceNetAmount = table.Column<double>(type: "float", nullable: false),
+                    PriceNetAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PriceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PriceTaxRate = table.Column<int>(type: "int", nullable: false),
                     HotelTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -60,7 +60,7 @@ namespace Hotelio.Modules.Pricing.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomTypeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BasePriceNetAmount = table.Column<double>(type: "float", nullable: false),
+                    BasePriceNetAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BasePriceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BasePriceTaxRate = table.Column<int>(type: "int", nullable: false),
                     HotelTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -84,7 +84,7 @@ namespace Hotelio.Modules.Pricing.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PriceNetAmount = table.Column<double>(type: "float", nullable: false),
+                    PriceNetAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PriceCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PriceTaxRate = table.Column<int>(type: "int", nullable: false),
                     RoomTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
