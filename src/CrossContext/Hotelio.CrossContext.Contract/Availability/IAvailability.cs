@@ -7,7 +7,7 @@ public interface IAvailability
     public Task BookAsync(
         string resourceId,
         string ownerId, 
-        DateTime starDate, 
+        DateTime startDate,
         DateTime endDate);
 
     public Task UnBookAsync(string resourceId, string ownerId);

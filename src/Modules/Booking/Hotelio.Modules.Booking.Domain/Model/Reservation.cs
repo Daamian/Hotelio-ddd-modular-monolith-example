@@ -184,7 +184,7 @@ internal class Reservation: Aggregate
             throw new CannotModifyNotAcceptedReservationException("Cannot extend not accepted reservation");
         }
 
-        if (!dateRange.IsGratherThan(DateRange))
+        if (!dateRange.IsGreaterThan(DateRange))
         {
             throw new InvalidDateRangeToExtendReservationException("Cannot change reservation to less than current");
         }

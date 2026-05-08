@@ -7,7 +7,7 @@ using Hotelio.Modules.Pricing.Domain.Model;
 
 public class HotelTariffTest
 {
-[Fact]
+    [Fact]
     public void TestCreateHotelTariff()
     {
         // Arrange

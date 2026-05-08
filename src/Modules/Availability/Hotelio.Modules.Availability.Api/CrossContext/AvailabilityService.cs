@@ -28,23 +28,23 @@ internal class AvailabilityService: IAvailability
         await _commandBus.DispatchAsync(new Create(Guid.NewGuid(), resourceId));
     }
 
-    public async Task BookAsync(string resourceId, string ownerId, DateTime starDate, DateTime endDate)
+    public async Task BookAsync(string resourceId, string ownerId, DateTime startDate, DateTime endDate)
     {
         var resource = await _repository.FindByExternalIdAsync(resourceId);
-        
+
         if (resource is null)
         {
-            await _messageDispatcher.DispatchAsync(new ResourceBookRejected(resourceId, ownerId, starDate, endDate, $"Resource is not found with id {resourceId} "));
+            await _messageDispatcher.DispatchAsync(new ResourceBookRejected(resourceId, ownerId, startDate, endDate, $"Resource is not found with id {resourceId} "));
             return;
         }
 
         try
         {
-            await _commandBus.DispatchAsync(new BookCommand(resource.Id, ownerId, starDate, endDate));
+            await _commandBus.DispatchAsync(new BookCommand(resource.Id, ownerId, startDate, endDate));
         }
         catch (Exception e) when (e is DomainException or CommandFailedException)
         {
-            await _messageDispatcher.DispatchAsync(new ResourceBookRejected(resourceId, ownerId, starDate, endDate, e.Message));
+            await _messageDispatcher.DispatchAsync(new ResourceBookRejected(resourceId, ownerId, startDate, endDate, e.Message));
         }
     }
 

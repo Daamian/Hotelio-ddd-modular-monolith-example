@@ -23,5 +23,6 @@ internal class UnBookHandler: IRequestHandler<UnBook>
         }
         
         resource.UnBook(new Guid(command.BookId));
+        await _repository.UpdateAsync(resource);
     }
 }

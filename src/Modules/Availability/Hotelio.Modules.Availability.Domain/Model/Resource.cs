@@ -67,9 +67,6 @@ internal class Resource: Aggregate
 
     private bool IsBooked(DateTime startDate, DateTime endDate)
     {
-        var booksInDateRange = _books.Where(book =>
-            book.StartDate >= startDate && book.EndDate <= endDate);
-
-        return booksInDateRange.Any();
+        return _books.Any(book => book.StartDate < endDate && book.EndDate > startDate);
     }
 }

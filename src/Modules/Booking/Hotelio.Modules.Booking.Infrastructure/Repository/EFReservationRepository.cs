@@ -37,7 +37,9 @@ internal class EFReservationRepository: IReservationRepository
     {
         _dbc.Reservations.Attach(reservation);
         await _dbc.SaveChangesAsync();
-        await PublishEvents(reservation.Events);
+        var events = reservation.Events.Select(item => item).ToList();
+        reservation.Events.Clear();
+        await PublishEvents(events);
     }
     
     private async Task PublishEvents(List<IEvent> events)

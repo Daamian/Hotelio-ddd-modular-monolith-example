@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace Hotelio.Modules.Booking.Infrastructure;
 
@@ -21,6 +23,15 @@ public static class Extensions
         services.AddDbContext<ReservationDbContext>(options =>
             options.UseSqlServer(ConfigHelper.GetSqlServerConfig(configuration).ConnectionString));
         
+        services.Configure<ReservationStoreDatabaseSettings>(
+            configuration.GetSection("ReservationStoreDatabase"));
+
+        services.AddSingleton<IMongoClient>(sp =>
+        {
+            var settings = sp.GetRequiredService<IOptions<ReservationStoreDatabaseSettings>>().Value;
+            return new MongoClient(settings.ConnectionString);
+        });
+
         services.AddScoped<IReservationRepository, EFReservationRepository>();
         services.AddScoped<IReadModelStorage, MongoReadModelStorage>();
         
@@ -30,10 +41,7 @@ public static class Extensions
             cfg.RegisterServicesFromAssemblyContaining<PayReservationHandler>();
             cfg.RegisterServicesFromAssemblyContaining<ReservationReadModelProjector>();
         });
-        
-        services.Configure<ReservationStoreDatabaseSettings>(
-            configuration.GetSection("ReservationStoreDatabase"));
-        
+
         return services;
     }
     

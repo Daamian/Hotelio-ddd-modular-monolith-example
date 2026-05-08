@@ -2,7 +2,7 @@
 
 internal record DateRange(DateTime StartDate, DateTime EndDate)
 {
-    public bool IsGratherThan(DateRange dateRange)
+    public bool IsGreaterThan(DateRange dateRange)
     {
         return StartDate <= dateRange.StartDate && EndDate >= dateRange.EndDate;
     }

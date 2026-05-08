@@ -11,10 +11,8 @@ internal class MongoReadModelStorage: IReadModelStorage
 {
     private readonly IMongoCollection<Reservation> _collection;
     
-    public MongoReadModelStorage(IOptions<ReservationStoreDatabaseSettings> reservationStoreDatabaseSettings)
+    public MongoReadModelStorage(IMongoClient mongoClient, IOptions<ReservationStoreDatabaseSettings> reservationStoreDatabaseSettings)
     {
-        var mongoClient = new MongoClient(
-            reservationStoreDatabaseSettings.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(
             reservationStoreDatabaseSettings.Value.DatabaseName);
         _collection = mongoDatabase.GetCollection<Reservation>(

@@ -9,10 +9,8 @@ internal class HotelMongoRepository: IHotelRepository
 {
     private readonly IMongoCollection<Hotel> _collection;
     
-    public HotelMongoRepository(IOptions<HotelStoreDBSettings> hotelStoreDatabaseSettings)
+    public HotelMongoRepository(IMongoClient mongoClient, IOptions<HotelStoreDBSettings> hotelStoreDatabaseSettings)
     {
-        var mongoClient = new MongoClient(
-            hotelStoreDatabaseSettings.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(
             hotelStoreDatabaseSettings.Value.DatabaseName);
         _collection = mongoDatabase.GetCollection<Hotel>(

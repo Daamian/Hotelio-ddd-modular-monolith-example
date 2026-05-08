@@ -30,10 +30,10 @@ internal class ReservationController : ControllerBase
         return NoContent();
     }
 
-    [HttpPut("{id:guid}/pay/{key}")]
-    public async Task<IActionResult> PayReservation(Guid id, string key, PayReservation command)
+    [HttpPut("{id:guid}/pay")]
+    public async Task<IActionResult> PayReservation(Guid id, [FromBody] double price)
     {
-        await _commandBus.DispatchAsync(command);
+        await _commandBus.DispatchAsync(new PayReservation(id.ToString(), price));
         return NoContent();
     }
 

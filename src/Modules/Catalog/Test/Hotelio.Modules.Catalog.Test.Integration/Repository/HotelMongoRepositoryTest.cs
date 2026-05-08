@@ -24,9 +24,8 @@ public class HotelMongoRepositoryTest
         };
 
         var options = Options.Create(settings);
-        _hotelRepository = new HotelMongoRepository(options);
-
         var client = new MongoClient(settings.ConnectionString);
+        _hotelRepository = new HotelMongoRepository(client, options);
         _database = client.GetDatabase(settings.DatabaseName);
     }
     

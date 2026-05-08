@@ -32,6 +32,6 @@ public record Price
 
     public double GetGrossAmount()
     {
-        return NetAmount + NetAmount * (TaxRate/100);
+        return NetAmount * (1 + TaxRate / 100.0);
     }
 }

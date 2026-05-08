@@ -22,7 +22,7 @@ internal sealed class BookHandler: IRequestHandler<Book>
             throw new CommandFailedException($"Not find resource with id {command.ResourceId}");
         }
         
-        resource.Book(command.OwnerId, command.StarDate, command.EndDate); 
+        resource.Book(command.OwnerId, command.StartDate, command.EndDate);
         await _repository.UpdateAsync(resource);
     }
 }
